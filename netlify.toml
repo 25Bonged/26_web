@@ -1,5 +1,3 @@
 [build]
-  publish = "."
-
-# No build command needed as this is a plain HTML/CSS site
-command = ""
+  command = "mkdir -p dist && cp -r assets *.html dist/"
+  publish = "dist"
