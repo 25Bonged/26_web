@@ -4,10 +4,145 @@
 
 <head>
     <meta charset="utf-8" />
-    <meta name="viewport" content="width=1280, user-scalable=yes" />
-    <title>Cie Pro - Vehicle Lab</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <noscript><style>[data-aos]{opacity:1 !important;transform:none !important;}</style></noscript>
+    <meta name="description" content="Model-based calibration software for OEMs. DoE, Bayesian optimization, and AutoML with PINN models. Cut test cycles without sacrificing accuracy." />
+    <meta property="og:title" content="Model-Based Calibration Software | CIE Pro - Vehicle Lab" />
+    <meta property="og:description" content="Model-based calibration for OEMs. DoE, Bayesian optimization, AutoML. PINNs and Gaussian Process models for faster ECU calibration." />
+    <meta property="og:url" content="https://vehiclelab.in/cie_pro" />
+    <meta property="og:type" content="website" />
+    <meta name="twitter:card" content="summary" />
+    <meta name="twitter:title" content="Model-Based Calibration Software | CIE Pro - Vehicle Lab" />
+    <meta name="twitter:description" content="DoE, Bayesian optimization, AutoML — model-based calibration software for OEM powertrain teams." />
+    <title>Model-Based Calibration Software | CIE Pro - Vehicle Lab</title>
+    <link rel="canonical" href="https://vehiclelab.in/cie_pro" />
+    <!-- Structured Data: SoftwareApplication -->
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "SoftwareApplication",
+      "name": "CIE Pro",
+      "alternateName": "Calibration Intelligence Engine Pro",
+      "description": "CIE Pro is a Model-Based Calibration platform utilizing Physics-Informed Neural Networks (PINNs) and Gaussian Processes for automotive powertrain calibration. Features include multi-format data ingest, AutoML with Optuna, Design of Experiments (DoE), Constrained Bayesian Optimization, NSGA-II multi-objective optimization, and automated calibration map generation with export to ETAS INCA, AVL CAMEO, and ASAM formats.",
+      "url": "https://vehiclelab.in/cie_pro",
+      "applicationCategory": "Engineering Software",
+      "operatingSystem": "Web, Windows, Linux",
+      "offers": {
+        "@type": "Offer",
+        "price": "0",
+        "priceCurrency": "INR",
+        "description": "Enterprise pricing on request. Contact sales to book a technical demo."
+      },
+      "featureList": [
+        "Physics-Informed Neural Networks (PINNs)",
+        "Gaussian Process Modeling with uncertainty quantification",
+        "Optuna-powered AutoML with 5-fold cross-validation",
+        "Design of Experiments: D-Optimal, LHS, Sobol, Box-Behnken",
+        "Constrained Bayesian Optimization (CBO)",
+        "NSGA-II Multi-Objective Pareto Optimization",
+        "2D/3D Calibration Map Generation",
+        "Export to A2L, CDF, HEX formats"
+      ],
+      "author": {
+        "@type": "Organization",
+        "name": "Vehicle Lab",
+        "url": "https://vehiclelab.in"
+      },
+      "citation": [
+        {
+          "@type": "Article",
+          "name": "McKinsey: Automotive Software and Electronics 2030",
+          "url": "https://www.mckinsey.com/industries/automotive-and-assembly/our-insights"
+        },
+        {
+          "@type": "Article",
+          "name": "SAE International: Model-Based Calibration Standards",
+          "url": "https://www.sae.org/"
+        }
+      ]
+    }
+    </script>
+    <!-- Structured Data: Author -->
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "Person",
+      "name": "Chayan Ghosal",
+      "jobTitle": "Lead Engineering Architect",
+      "worksFor": {
+        "@type": "Organization",
+        "name": "Vehicle Lab"
+      },
+      "url": "https://vehiclelab.in/about",
+      "sameAs": [
+        "https://linkedin.com/in/chayan-ghosal"
+      ]
+    }
+    </script>
+    <!-- Structured Data: BreadcrumbList -->
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "BreadcrumbList",
+      "itemListElement": [
+        {
+          "@type": "ListItem",
+          "position": 1,
+          "name": "Vehicle Lab",
+          "item": "https://vehiclelab.in/"
+        },
+        {
+          "@type": "ListItem",
+          "position": 2,
+          "name": "CIE Pro",
+          "item": "https://vehiclelab.in/cie_pro"
+        }
+      ]
+    }
+    </script>
+    <!-- Structured Data: FAQPage -->
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "FAQPage",
+      "mainEntity": [
+        {
+          "@type": "Question",
+          "name": "What is model-based calibration and how does CIE Pro implement it?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "Model-based calibration replaces physical test sweeps with mathematical surrogate models trained on a smaller set of measurements. CIE Pro uses Physics-Informed Neural Networks (PINNs) and Gaussian Process regression to build these models, encoding known engine physics as constraints so the model generalizes accurately even with sparse data."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "What optimization methods does CIE Pro support?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "CIE Pro supports Constrained Bayesian Optimization (CBO), NSGA-II multi-objective Pareto optimization, and AutoML-driven hyperparameter search via Optuna with 5-fold cross-validation. Design of Experiments modes include D-Optimal, Latin Hypercube Sampling, Sobol sequences, and Box-Behnken designs."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "What calibration file formats can CIE Pro export?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "CIE Pro exports calibration maps and data in A2L (ASAP2), CDF (Calibration Data Format), and HEX formats. These are directly compatible with ETAS INCA, AVL CAMEO, and other standard ECU calibration tools used in OEM and Tier-1 workflows."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "Does CIE Pro integrate with HELIX for team calibration workflows?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "Yes. CIE Pro is designed to feed into HELIX, Vehicle Lab's enterprise calibration data management platform. Calibration maps generated in CIE Pro can be ingested into HELIX with full variant tracking, audit trails, and CRDT-based real-time collaboration for distributed engineering teams."
+          }
+        }
+      ]
+    }
+    </script>
     <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
-    <script src="https://cdn.plot.ly/plotly-latest.min.js"></script>
+    <script src="https://cdn.plot.ly/plotly-1.58.5.min.js"></script>
     <link href="https://cdn.jsdelivr.net/npm/geist@1.0.0/dist/fonts/geist-sans/style.css" rel="stylesheet" />
     <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;700&amp;display=swap"
         rel="stylesheet" />
@@ -41,7 +176,6 @@
             background-color: #0a0a0a;
             color: #ededed;
             overflow-x: hidden;
-            min-width: 1280px;
         }
 
         ::selection {
@@ -129,6 +263,15 @@
         }
 
         /* Smooth transitions removed */
+    
+        /* Mobile nav overlay */
+        .nav-mobile-menu { display: none; }
+        .nav-mobile-menu.open { display: block; position: fixed; top: 4rem; left: 0; right: 0; bottom: 0; z-index: 40; background: rgba(10,10,10,0.98); backdrop-filter: blur(12px); padding: 1rem 1.5rem 2rem; overflow-y: auto; }
+        .nav-mobile-menu a { display: block; padding: 0.875rem 0; font-size: 1.125rem; font-weight: 500; color: #94a3b8; border-bottom: 1px solid rgba(255,255,255,0.06); min-height: 44px; align-items: center; }
+        .nav-mobile-menu a:hover, .nav-mobile-menu a:focus { color: #fff; }
+        .nav-mobile-menu .nav-mobile-sub { padding-left: 1rem; padding-top: 0.25rem; }
+        .nav-mobile-menu .nav-mobile-sub a { font-size: 1rem; }
+        @media (min-width: 768px) { .nav-mobile-menu { display: none !important; } }
     </style>
 </head>
 
@@ -164,17 +307,37 @@
                             href="helix.html">HELIX</a>
                         <a class="block px-4 py-2 hover:bg-white/5 hover:text-white transition-colors"
                             href="mdx.html">MDX</a>
+                        <a class="block px-4 py-2 hover:bg-white/5 hover:text-white transition-colors"
+                            href="xhandbook.html">XHandbook</a>
                     </div>
                 </div>
-                <a class="hover:text-white transition-colors" href="pricing.html">Pricing</a>
-                <a class="hover:text-white transition-colors" href="docs.html">Docs</a>
+                <a class="hover:text-white transition-colors" href="about.html">About Us</a>
+                <a class="hover:text-white transition-colors" href="docs.html">Resources</a>
+                <a class="hover:text-white transition-colors" href="contact_us.html">Contact</a>
             </div>
             <div class="flex items-center gap-4">
                 <a class="bg-white hover:bg-slate-200 text-black px-4 py-1.5 rounded-md text-sm font-medium transition-all shadow-sm"
                     href="contact_us.html">Talk to Sales</a>
+                <button type="button" class="md:hidden tap-target p-2 rounded-lg text-white hover:bg-white/10" aria-expanded="false" aria-controls="nav-mobile-menu" aria-label="Open menu"
+                    onclick="document.getElementById('nav-mobile-menu').classList.toggle('open'); this.setAttribute('aria-expanded', document.getElementById('nav-mobile-menu').classList.contains('open'));">
+                    <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"/></svg>
+                </button>
             </div>
         </div>
     </nav>
+    <div id="nav-mobile-menu" class="nav-mobile-menu" aria-hidden="true">
+        <p class="text-xs font-bold text-slate-500 uppercase tracking-widest pt-2 pb-1">Products</p>
+        <div class="nav-mobile-sub">
+            <a href="diagai.html">DiagAI</a>
+            <a href="cie_pro.html">CIE Pro</a>
+            <a href="helix.html">HELIX</a>
+            <a href="mdx.html">MDX</a>
+            <a href="xhandbook.html">XHandbook</a>
+        </div>
+        <a href="about.html">About Us</a>
+        <a href="docs.html">Resources</a>
+        <a href="contact_us.html" class="text-white font-semibold border-0 pt-4">Talk to Sales</a>
+    </div>
     <main class="pt-16">
         <!-- Content gets injected here -->
         <section class="relative bg-[#020617] text-white font-sans selection:bg-cyan-500/30 overflow-hidden"
@@ -363,8 +526,8 @@
                         <div class="w-14 h-14 bg-cyan-500/10 rounded-2xl flex items-center justify-center text-cyan-500 mb-8 group-hover:bg-cyan-500 group-hover:text-white transition-all"
                             data-aos="fade-up" data-aos-delay="0">
                             <svg class="w-7 h-7" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                <path d="M7 12l3-3 3 3 4-4M8 21l4-4 4 4" stroke-linecap="round" stroke-linejoin="round"
-                                    stroke-width="2.5"></path>
+                                <path d="M7 12l3-3 3 3 4-4m8 0A9 9 0 1112 3a9 9 0 0112 9z" stroke-linecap="round"
+                                    stroke-linejoin="round" stroke-width="2.5"></path>
                             </svg>
                         </div>
                         <h3 class="text-2xl font-bold mb-4">NSGA-II Multi-Objective</h3>
@@ -373,11 +536,6 @@
                             economy
                             vs. torque output. Generates high-fidelity Pareto frontiers to find the optimal trade-off in
                             seconds.</p>
-                        <div class="flex items-center gap-3 bg-slate-900 border border-slate-800 rounded-xl px-5 py-3">
-                            <div class="text-3xl font-bold text-white">70%</div>
-                            <div class="text-xs font-bold font-medium tracking-tight text-slate-400">Faster Test Cycles
-                            </div>
-                        </div>
                     </div>
                 </div>
             </div>
@@ -621,16 +779,20 @@
                 </p>
                 <div class="flex gap-4">
                     <a class="w-10 h-10 rounded-lg bg-white/5 flex items-center justify-center text-slate-400 hover:text-primary hover:bg-white/10 transition-all"
-                        href="#">
-                        <span class="material-symbols-outlined">share</span>
+                        href="https://www.linkedin.com/company/vehicle-lab" target="_blank" rel="noopener noreferrer" aria-label="Vehicle Lab on LinkedIn">
+                        <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 24 24"><path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433a2.062 2.062 0 01-2.063-2.065 2.064 2.064 0 112.063 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"/></svg>
+                    </a>
+                    <a class="w-10 h-10 rounded-lg bg-white/5 flex items-center justify-center text-slate-400 hover:text-primary hover:bg-white/10 transition-all"
+                        href="https://github.com/vehicle-lab" target="_blank" rel="noopener noreferrer" aria-label="Vehicle Lab on GitHub">
+                        <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 24 24"><path d="M12 0C5.374 0 0 5.373 0 12c0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23A11.509 11.509 0 0112 5.803c1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576C20.566 21.797 24 17.3 24 12c0-6.627-5.373-12-12-12z"/></svg>
+                    </a>
+                    <a class="w-10 h-10 rounded-lg bg-white/5 flex items-center justify-center text-slate-400 hover:text-primary hover:bg-white/10 transition-all"
+                        href="https://www.producthunt.com/@vehicle_lab" target="_blank" rel="noopener noreferrer" aria-label="Vehicle Lab on Product Hunt">
+                        <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 24 24"><path d="M13.604 8.4h-3.405V12h3.405a1.8 1.8 0 100-3.6zM12 0C5.372 0 0 5.372 0 12s5.372 12 12 12 12-5.372 12-12S18.628 0 12 0zm1.604 14.4h-3.405V18H7.801V6h5.804a4.2 4.2 0 010 8.4z"/></svg>
                     </a>
                     <a class="w-10 h-10 rounded-lg bg-white/5 flex items-center justify-center text-slate-400 hover:text-primary hover:bg-white/10 transition-all"
                         href="mailto:business@vehiclelab.in" aria-label="Email us at business@vehiclelab.in">
                         <span class="material-symbols-outlined">mail</span>
-                    </a>
-                    <a class="w-10 h-10 rounded-lg bg-white/5 flex items-center justify-center text-slate-400 hover:text-primary hover:bg-white/10 transition-all"
-                        href="#">
-                        <span class="material-symbols-outlined">rss_feed</span>
                     </a>
                 </div>
             </div>
@@ -641,30 +803,44 @@
                     <li><a class="hover:text-primary" href="cie_pro.html">CIE Pro</a></li>
                     <li><a class="hover:text-primary" href="helix.html">HELIX Suite</a></li>
                     <li><a class="hover:text-primary" href="mdx.html">MDX</a></li>
+                    <li><a class="hover:text-primary" href="xhandbook.html">XHandbook</a></li>
                 </ul>
             </div>
             <div>
                 <h5 class="font-bold text-white font-medium tracking-tight mb-6 text-sm">Company</h5>
                 <ul class="space-y-4 text-slate-400 font-semibold text-sm">
-                    <li><a class="hover:text-primary" href="#">About Us</a></li>
-                    <li><a class="hover:text-primary" href="#">Whitepapers</a></li>
-                    <li><a class="hover:text-primary" href="#">Success Stories</a></li>
-                    <li><a class="hover:text-primary" href="#">Careers</a></li>
+                    <li><a class="hover:text-primary" href="about.html">About Us</a></li>
+                    <li><a class="hover:text-primary" href="solutions.html">Solutions</a></li>
+                    <li><a class="hover:text-primary" href="case_studies.html">Case Studies</a></li>
+                    <li><a class="hover:text-primary" href="https://linkedin.com/company/vehiclelab" target="_blank">LinkedIn</a></li>
+                    <li><a class="hover:text-primary" href="https://github.com/vehiclelab" target="_blank">GitHub</a></li>
+                    <li><a class="hover:text-primary" href="https://producthunt.com/products/vehicle-lab" target="_blank">Product Hunt</a></li>
                 </ul>
             </div>
             <div>
                 <h5 class="font-bold text-white font-medium tracking-tight mb-6 text-sm">Legal</h5>
                 <ul class="space-y-4 text-slate-400 font-semibold text-sm">
-                    <li><a class="hover:text-primary" href="#">Privacy Policy</a></li>
-                    <li><a class="hover:text-primary" href="#">Terms of Service</a></li>
-                    <li><a class="hover:text-primary" href="#">ISO Certifications</a></li>
-                    <li><a class="hover:text-primary" href="#">Security</a></li>
+                    <li><a class="hover:text-primary" href="privacy.html">Privacy Policy</a></li>
+                    <li><a class="hover:text-primary" href="terms.html">Terms of Service</a></li>
+                    <li><a class="hover:text-primary" href="security.html">ISO Certifications</a></li>
+                    <li><a class="hover:text-primary" href="security.html">Security</a></li>
                 </ul>
             </div>
         </div>
+        <div class="max-w-7xl mx-auto mt-12 pt-8 border-t border-white/5">
+            <div class="flex flex-col items-center gap-4 mb-8">
+                <p class="text-xs font-bold text-slate-500 uppercase tracking-widest">Trusted by Engineering Teams at</p>
+                <div class="flex flex-wrap justify-center items-center gap-8 opacity-40 grayscale hover:grayscale-0 hover:opacity-60 transition-all duration-500">
+                    <div class="flex items-center gap-2 text-slate-400"><span class="material-symbols-outlined text-2xl">directions_car</span><span class="text-sm font-bold">Global OEM</span></div>
+                    <div class="flex items-center gap-2 text-slate-400"><span class="material-symbols-outlined text-2xl">electric_bolt</span><span class="text-sm font-bold">EV Manufacturer</span></div>
+                    <div class="flex items-center gap-2 text-slate-400"><span class="material-symbols-outlined text-2xl">precision_manufacturing</span><span class="text-sm font-bold">Tier-1 Supplier</span></div>
+                    <div class="flex items-center gap-2 text-slate-400"><span class="material-symbols-outlined text-2xl">engineering</span><span class="text-sm font-bold">R&D Center</span></div>
+                </div>
+            </div>
+        </div>
         <div
-            class="max-w-7xl mx-auto mt-20 pt-8 border-t border-white/5 flex flex-col md:flex-row justify-between items-center gap-4">
-            <p class="text-slate-500 text-xs font-bold font-medium tracking-tight">© 2025 Vehicle Lab Systems AG.
+            class="max-w-7xl mx-auto mt-8 pt-8 border-t border-white/5 flex flex-col md:flex-row justify-between items-center gap-4">
+            <p class="text-slate-500 text-xs font-bold font-medium tracking-tight">&copy; 2025 Vehicle Lab Systems AG.
                 All Rights Reserved.</p>
             <div class="flex items-center gap-6">
                 <span class="text-slate-500 text-xs font-bold font-medium tracking-tight">Status: Systems
@@ -684,6 +860,7 @@
             });
         });
     </script>
+    <script>setTimeout(function(){if(typeof AOS==="undefined"){document.querySelectorAll("[data-aos]").forEach(function(e){e.style.opacity=1;e.style.transform="none";});}},1200);</script>
 </body>
 
 </html>

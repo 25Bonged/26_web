@@ -4,13 +4,133 @@
 
 <head>
     <meta charset="utf-8" />
-    <meta name="viewport" content="width=1280, user-scalable=yes" />
-    <title>MDX — Professional MDF Vehicle Data Lab</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta property="og:title" content="MDF4 Analyzer &amp; Vehicle Data Lab | MDX - Vehicle Lab" />
+    <meta property="og:description" content="Sub-second MDF4 loading, oscilloscope, GPS route mapping, AI diagnostics. Offline-first. Faster than legacy desktop tools." />
+    <meta property="og:url" content="https://vehiclelab.in/mdx" />
+    <meta property="og:type" content="website" />
+    <meta name="twitter:card" content="summary" />
+    <meta name="twitter:title" content="MDF4 Analyzer &amp; Vehicle Data Lab | MDX - Vehicle Lab" />
+    <meta name="twitter:description" content="Sub-second MDF4 loading, oscilloscope, GPS mapping, AI diagnostics. Offline-first MDF4 analyzer for OEMs." />
+    <title>MDF4 Analyzer & Vehicle Data Lab | MDX - Vehicle Lab</title>
+    <meta name="description" content="Professional MDF4 analyzer for automotive OEMs. Sub-second GB file loading, oscilloscope, GPS mapping, AI diagnostics, offline-first.">
+    <link rel="canonical" href="https://vehiclelab.in/mdx" />
+    <!-- Structured Data: SoftwareApplication -->
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "SoftwareApplication",
+      "name": "MDX",
+      "alternateName": "MDX Professional MDF Data Lab",
+      "description": "MDX is a professional MDF/MF4 vehicle data analysis platform. Full-stack analytics with high-resolution oscilloscope, dual cursors, resizable panels, and AI diagnostics. Supports ASAM MDF v3 and v4 standards. Memory-mapped file reading for sub-second loading of GB-sized files. Offline-first architecture with zero data egress.",
+      "url": "https://vehiclelab.in/mdx",
+      "applicationCategory": "Engineering Software",
+      "operatingSystem": "Web, Windows, macOS, Linux",
+      "offers": {
+        "@type": "Offer",
+        "price": "0",
+        "priceCurrency": "INR",
+        "description": "Enterprise licensing on request. Contact sales to book a technical demo."
+      },
+      "featureList": [
+        "ASAM MDF v3 and v4, CSV and Excel Support",
+        "Memory-Mapped Loading for Multi-Gigabyte Files",
+        "Automatic Signal Extraction and Indexing on Import",
+        "High-Resolution Oscilloscope with Dual Cursors",
+        "LTTB Downsampling for Large Datasets",
+        "Variable Explorer with Cross-DBC Signal Matching",
+        "Engine Misfire, Gear-Hunting, Fuel and WLTP Analysis",
+        "Empirical Maps via Kriging, RBF and Spline Interpolation",
+        "DiagAI Natural-Language Assistant with Multi-Agent Diagnostics",
+        "Private, On-Premise AI Deployment with Per-OEM Isolation",
+        "GPS Route Mapping with Offline Map Tiles",
+        "Python SDK and REST API for Automation",
+        "Native Vehicle Lab Desktop Suite (Tauri) with Bundled Backend",
+        "Offline-First with Total Data Privacy"
+      ],
+      "author": {
+        "@type": "Organization",
+        "name": "Vehicle Lab",
+        "url": "https://vehiclelab.in"
+      },
+      "citation": [
+        {
+          "@type": "CreativeWork",
+          "name": "ASAM MDF: Measurement Data Format Standard",
+          "url": "https://www.asam.net/standards/detail/mdf/"
+        },
+        {
+          "@type": "CreativeWork",
+          "name": "ASAM MDF v4.2.0 Documentation",
+          "url": "https://www.asam.net/standards/detail/mdf/wiki/"
+        }
+      ]
+    }
+    </script>
+    <!-- Structured Data: BreadcrumbList -->
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "BreadcrumbList",
+      "itemListElement": [
+        {
+          "@type": "ListItem",
+          "position": 1,
+          "name": "Vehicle Lab",
+          "item": "https://vehiclelab.in/"
+        },
+        {
+          "@type": "ListItem",
+          "position": 2,
+          "name": "MDX",
+          "item": "https://vehiclelab.in/mdx"
+        }
+      ]
+    }
+    </script>
+    <!-- Structured Data: FAQPage -->
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "FAQPage",
+      "mainEntity": [
+        {
+          "@type": "Question",
+          "name": "What measurement file formats does MDX support?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "MDX natively supports ASAM MDF v3 and v4 (.mdf, .mf4), CSV, and Excel. MDF files are read via memory-mapped I/O so multi-gigabyte files open without loading the full dataset into memory. Signal extraction and indexing happen automatically on import."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "Can MDX work fully offline without an internet connection?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "Yes. MDX is offline-first. The desktop application (packaged via Tauri) bundles its own backend and ships with offline map tiles for GPS route visualization. No data leaves the local machine unless you explicitly configure an external AI endpoint."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "Does MDX provide an API for automation and batch processing?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "Yes. MDX exposes a documented REST API (running locally at 127.0.0.1:5001) and ships a Python SDK (mdx_client) for scripting signal queries, batch analysis jobs, anomaly detection, and map tile operations. The SDK mirrors the REST API one-to-one."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "What analytics does MDX provide beyond basic signal viewing?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "MDX includes engine misfire detection, gear-hunting analysis, fuel and BSFC calculations, WLTP cycle analysis, and empirical calibration map generation using Kriging, RBF, and spline interpolation. Maps render as interactive 2D heatmaps or 3D surfaces. LTTB downsampling keeps rendering fast even for high-frequency signals."
+          }
+        }
+      ]
+    }
+    </script>
     <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&amp;display=swap"
-        rel="stylesheet" />
-    <link
-        href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap"
         rel="stylesheet" />
     <link
         href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap"
@@ -39,7 +159,6 @@
         }
     </script>
     <style>
-        body { min-width: 1280px; }
         .glass-card {
             background: rgba(16, 22, 34, 0.6);
             backdrop-filter: blur(12px);
@@ -55,6 +174,15 @@
             background-image: radial-gradient(rgba(0, 229, 255, 0.1) 1px, transparent 1px);
             background-size: 30px 30px;
         }
+    
+        /* Mobile nav overlay */
+        .nav-mobile-menu { display: none; }
+        .nav-mobile-menu.open { display: block; position: fixed; top: 4rem; left: 0; right: 0; bottom: 0; z-index: 40; background: rgba(10,10,10,0.98); backdrop-filter: blur(12px); padding: 1rem 1.5rem 2rem; overflow-y: auto; }
+        .nav-mobile-menu a { display: block; padding: 0.875rem 0; font-size: 1.125rem; font-weight: 500; color: #94a3b8; border-bottom: 1px solid rgba(255,255,255,0.06); min-height: 44px; align-items: center; }
+        .nav-mobile-menu a:hover, .nav-mobile-menu a:focus { color: #fff; }
+        .nav-mobile-menu .nav-mobile-sub { padding-left: 1rem; padding-top: 0.25rem; }
+        .nav-mobile-menu .nav-mobile-sub a { font-size: 1rem; }
+        @media (min-width: 768px) { .nav-mobile-menu { display: none !important; } }
     </style>
 </head>
 
@@ -100,17 +228,37 @@
                                 href="helix.html">HELIX</a>
                             <a class="block px-4 py-2 hover:bg-white/5 hover:text-white transition-colors"
                                 href="mdx.html">MDX</a>
+                            <a class="block px-4 py-2 hover:bg-white/5 hover:text-white transition-colors"
+                                href="xhandbook.html">XHandbook</a>
                         </div>
                     </div>
-                    <a class="hover:text-white transition-colors" href="pricing.html">Pricing</a>
-                    <a class="hover:text-white transition-colors" href="docs.html">Docs</a>
+                    <a class="hover:text-white transition-colors" href="about.html">About Us</a>
+                    <a class="hover:text-white transition-colors" href="docs.html">Resources</a>
+                    <a class="hover:text-white transition-colors" href="contact_us.html">Contact</a>
                 </div>
                 <div class="flex items-center gap-4">
                     <a class="bg-white hover:bg-slate-200 text-black px-4 py-1.5 rounded-md text-sm font-medium transition-all shadow-sm"
                         href="contact_us.html">Talk to Sales</a>
+                <button type="button" class="md:hidden tap-target p-2 rounded-lg text-white hover:bg-white/10" aria-expanded="false" aria-controls="nav-mobile-menu" aria-label="Open menu"
+                    onclick="document.getElementById('nav-mobile-menu').classList.toggle('open'); this.setAttribute('aria-expanded', document.getElementById('nav-mobile-menu').classList.contains('open'));">
+                    <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"/></svg>
+                </button>
                 </div>
             </div>
         </nav>
+    <div id="nav-mobile-menu" class="nav-mobile-menu" aria-hidden="true">
+        <p class="text-xs font-bold text-slate-500 uppercase tracking-widest pt-2 pb-1">Products</p>
+        <div class="nav-mobile-sub">
+            <a href="diagai.html">DiagAI</a>
+            <a href="cie_pro.html">CIE Pro</a>
+            <a href="helix.html">HELIX</a>
+            <a href="mdx.html">MDX</a>
+            <a href="xhandbook.html">XHandbook</a>
+        </div>
+        <a href="about.html">About Us</a>
+        <a href="docs.html">Resources</a>
+        <a href="contact_us.html" class="text-white font-semibold border-0 pt-4">Talk to Sales</a>
+    </div>
         <main class="flex-1 relative z-10">
             <!-- Hero Section -->
             <section class="max-w-7xl mx-auto px-6 pt-20 pb-32 grid lg:grid-cols-2 gap-16 items-center">
@@ -134,16 +282,16 @@
                         legacy desktop tools. Offline-first. Same workflow you know, evolved.
                     </p>
                     <div class="flex flex-wrap gap-4">
-                        <button
+                        <a href="contact_us.html"
                             class="h-14 px-8 bg-primary text-background-dark font-bold rounded-xl hover:scale-105 transition-transform flex items-center gap-2">
                             <span class="material-symbols-outlined">download</span>
                             Download for Windows
-                        </button>
-                        <button
+                        </a>
+                        <a href="https://github.com/vehicle-lab" target="_blank" rel="noopener noreferrer"
                             class="h-14 px-8 bg-white/5 border border-white/10 text-white font-bold rounded-xl hover:bg-white/10 transition-colors flex items-center gap-2">
                             <span class="material-symbols-outlined">code</span>
                             View on GitHub
-                        </button>
+                        </a>
                     </div>
                 </div>
                 <div class="relative">
@@ -224,8 +372,9 @@
                                 <span class="material-symbols-outlined text-primary">devices</span>
                             </div>
                             <h3 class="text-xl font-bold text-white">Any Deployment</h3>
-                            <p class="text-slate-400 text-sm leading-relaxed">Scale from a Flask/Next.js web instance to
-                                a standalone Windows .exe for lab use.</p>
+                            <p class="text-slate-400 text-sm leading-relaxed">Run the Next.js web app against your local
+                                API, or install the native Vehicle Lab desktop suite — a single self-contained build
+                                with the analysis backend bundled in.</p>
                         </div>
                     </div>
                 </div>
@@ -242,20 +391,15 @@
                     <div
                         class="glass-card p-8 rounded-2xl flex flex-col gap-6 neon-border-glow transition-all duration-300">
                         <div
-                            class="aspect-video bg-background-dark/50 rounded-xl border border-white/5 overflow-hidden group">
-                            <img alt="Data Handling"
-                                class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500 opacity-40"
-                                data-alt="Server racks and data processing visual abstract"
-                                src="https://lh3.googleusercontent.com/aida-public/AB6AXuAHM0-5ezXYXUe04mXdHoB7ZJP-J_9f9C1oF5hXnVQVU2QPVy6IVoG5GwVdRXNQaTEWtmdQamdmV23qfM_k6m68Y4NWxRxyVfAD_WPyGgrU-v15Kw5H3jHZJ1mycqZg0ti5rbyT_kje0ZKsnQ28qPNTWBCOxwEW12HjuLAt-XJplF1J-gZ19yX914A4JrZaxW9fVnHblbIwJ_4HH8yvKvgSREpn7UJCnD4atGBcB1Gi0gUfmLQJlr2fhLPPXt3dn-Tvf_10q7fAgRs" />
-                            <div class="absolute inset-0 flex items-center justify-center">
-                                <span class="material-symbols-outlined text-primary text-6xl">data_object</span>
-                            </div>
+                            class="aspect-video bg-gradient-to-br from-primary/15 via-background-dark/40 to-background-dark rounded-xl border border-white/5 overflow-hidden relative flex items-center justify-center">
+                            <span class="material-symbols-outlined text-primary text-6xl">data_object</span>
                         </div>
                         <div>
                             <h3 class="text-2xl font-bold text-white mb-3">Data &amp; File Handling</h3>
-                            <p class="text-slate-400 leading-relaxed">Full support for ASAM MDF v3 and v4 standards.
-                                Optimized for massive 200MB+ file uploads using advanced memory-mapped reading
-                                techniques to keep memory usage low.</p>
+                            <p class="text-slate-400 leading-relaxed">Native support for ASAM MDF v3 and v4, plus CSV and
+                                Excel. Large, multi-gigabyte files load through memory-mapped reading to keep RAM low,
+                                and every signal is automatically extracted and indexed on import — ready to query
+                                instantly.</p>
                         </div>
                     </div>
                     <!-- Card 2 -->
@@ -273,9 +417,10 @@
                         </div>
                         <div>
                             <h3 class="text-2xl font-bold text-white mb-3">Variable Explorer</h3>
-                            <p class="text-slate-400 leading-relaxed">Instant global search and filtering through
-                                thousands of signals. Drag-and-drop workflow directly to instruments for immediate
-                                visualization without configuration overhead.</p>
+                            <p class="text-slate-400 leading-relaxed">Instant global search and filtering across every
+                                signal in your file, with intelligent matching that resolves naming differences across
+                                DBC databases and OEMs. Drag and drop straight to instruments — no configuration
+                                overhead.</p>
                         </div>
                     </div>
                     <!-- Card 3 -->
@@ -293,30 +438,138 @@
                         </div>
                         <div>
                             <h3 class="text-2xl font-bold text-white mb-3">Professional Instruments</h3>
-                            <p class="text-slate-400 leading-relaxed">High-resolution oscilloscope with dual cursors
-                                (A/B), resizable panels, and time-aligned multi-signal tables for precise event
-                                correlation and value tracking.</p>
+                            <p class="text-slate-400 leading-relaxed">Interactive, high-resolution oscilloscope with dual
+                                A/B cursors, resizable panels, and time-aligned multi-signal tables. LTTB downsampling
+                                keeps even dense traces smooth for precise event correlation and value tracking.</p>
                         </div>
                     </div>
                     <!-- Card 4 -->
                     <div
                         class="glass-card p-8 rounded-2xl flex flex-col gap-6 neon-border-glow transition-all duration-300">
                         <div
-                            class="aspect-video bg-background-dark/50 rounded-xl border border-white/5 overflow-hidden group">
-                            <img alt="Analytics"
-                                class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500 opacity-40"
-                                data-alt="Abstract 3D data grid visualization"
-                                src="https://lh3.googleusercontent.com/aida-public/AB6AXuC52u_V3OCGIGC__t6tpNV17_z1ffWecDwlUox-VBoXY9l-yhhgAqe7dZxDw0eHoqWSuT0Qt4l7M2zQDSTZXpnnai6SbnTeh-7HK5CdYwqADngchF30FpdgsJdNpsB4magwuMdeH7n7Mt14tR0HRuTzNOcCpjwl1fVt-wvrnC4GQMv3KtFsPRDJcW4G_-KuHWkRv8u1C9MPsfZKb_4zbHckjSv1vqyHAdjieYrtRWPG6uI3di9KmFtkqPb8zwH3H0be3VQp6ZOHnvk" />
+                            class="aspect-video bg-gradient-to-br from-primary/15 via-background-dark/40 to-background-dark rounded-xl border border-white/5 overflow-hidden relative flex items-center justify-center">
                             <div class="absolute inset-0 flex items-center justify-center">
                                 <span class="material-symbols-outlined text-primary text-6xl">psychology</span>
                             </div>
                         </div>
                         <div>
                             <h3 class="text-2xl font-bold text-white mb-3">Advanced Analytics</h3>
-                            <p class="text-slate-400 leading-relaxed">Integrated algorithms for engine misfire
-                                detection, gear hunting patterns, and automated Empirical Map generation including BSFC
-                                and thermal efficiency curves.</p>
+                            <p class="text-slate-400 leading-relaxed">A full diagnostics suite — engine misfire
+                                detection, gear-hunting analysis, fuel and BSFC metrics, and WLTP cycle analysis.
+                                Generate empirical maps with Kriging, RBF, or spline interpolation, rendered as 2D
+                                heatmaps and 3D surfaces.</p>
                         </div>
+                    </div>
+                </div>
+            </section>
+            <!-- DiagAI Section -->
+            <section class="py-32 bg-white/5 border-y border-white/5 relative overflow-hidden">
+                <div class="max-w-7xl mx-auto px-6 grid lg:grid-cols-2 gap-16 items-center">
+                    <div class="flex flex-col gap-6">
+                        <div
+                            class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-primary/10 border border-primary/20 text-primary text-xs font-bold uppercase tracking-widest w-fit">
+                            <span class="material-symbols-outlined text-sm">smart_toy</span>
+                            Built-in AI
+                        </div>
+                        <h2 class="text-4xl font-black text-white leading-tight">Ask your data anything with <span
+                                class="text-transparent bg-clip-text bg-gradient-to-r from-primary to-cyan-400">DiagAI</span>
+                        </h2>
+                        <p class="text-slate-400 leading-relaxed">DiagAI is the analysis assistant built into MDX. Ask
+                            questions in plain English and get engineering-grade answers — signal detection, statistics,
+                            correlation, and anomaly checks — without manually wiring up a single plot.</p>
+                        <ul class="space-y-4">
+                            <li class="flex items-start gap-3">
+                                <span class="material-symbols-outlined text-primary mt-0.5">forum</span>
+                                <span class="text-slate-300"><span class="font-bold text-white">Natural-language
+                                        queries</span> — "average RPM during acceleration", conditional filters, and
+                                    multi-signal comparisons, answered instantly.</span>
+                            </li>
+                            <li class="flex items-start gap-3">
+                                <span class="material-symbols-outlined text-primary mt-0.5">groups</span>
+                                <span class="text-slate-300"><span class="font-bold text-white">Multi-agent
+                                        diagnostics</span> — specialized agents for misfire, gear hunting, fuel,
+                                    drivability, and WLTP coordinate on a single request.</span>
+                            </li>
+                            <li class="flex items-start gap-3">
+                                <span class="material-symbols-outlined text-primary mt-0.5">shield_lock</span>
+                                <span class="text-slate-300"><span class="font-bold text-white">Private by design</span>
+                                    — run against your own local model so data never leaves your infrastructure, with
+                                    isolated, per-OEM knowledge bases.</span>
+                            </li>
+                            <li class="flex items-start gap-3">
+                                <span class="material-symbols-outlined text-primary mt-0.5">alt_route</span>
+                                <span class="text-slate-300"><span class="font-bold text-white">Smart model
+                                        routing</span> — routes each query to the right model for the best balance of
+                                    speed and depth, with automatic failover.</span>
+                            </li>
+                        </ul>
+                    </div>
+                    <div class="glass-card rounded-2xl p-6 flex flex-col gap-4">
+                        <div class="flex items-center gap-2 pb-3 border-b border-white/5">
+                            <span class="material-symbols-outlined text-primary">smart_toy</span>
+                            <span class="text-sm font-bold text-white">DiagAI</span>
+                            <span class="ml-auto text-[10px] text-green-400 font-mono flex items-center gap-1"><span
+                                    class="w-1.5 h-1.5 bg-green-400 rounded-full"></span>local model</span>
+                        </div>
+                        <div class="flex justify-end">
+                            <div class="bg-primary/15 border border-primary/20 rounded-2xl rounded-tr-sm px-4 py-2 text-sm text-white max-w-[80%]">
+                                Show me data where rpm &lt; 2000 &amp; torque &gt; 150
+                            </div>
+                        </div>
+                        <div class="flex justify-start">
+                            <div class="bg-white/5 border border-white/10 rounded-2xl rounded-tl-sm px-4 py-3 text-sm text-slate-300 max-w-[90%] space-y-2">
+                                <p>Found 4,812 matching samples across 2 signals. Mean torque <span
+                                        class="text-primary font-mono">168 Nm</span>, peak at <span
+                                        class="text-primary font-mono">1,840 rpm</span>.</p>
+                                <div class="h-16 rounded-lg bg-gradient-to-t from-primary/30 to-transparent border border-primary/10"></div>
+                                <p class="text-xs text-slate-500">Detected one anomaly window near t=312s — open
+                                    misfire analysis?</p>
+                            </div>
+                        </div>
+                        <div class="flex items-center gap-2 pt-2 border-t border-white/5">
+                            <div class="flex-1 h-9 rounded-lg bg-background-dark/60 border border-white/10 flex items-center px-3 text-xs text-slate-500">
+                                Ask about your file…</div>
+                            <div class="size-9 rounded-lg bg-primary flex items-center justify-center text-background-dark">
+                                <span class="material-symbols-outlined text-base">send</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+            <!-- Platform & Integration -->
+            <section class="py-32 max-w-7xl mx-auto px-6">
+                <div class="text-center mb-20">
+                    <h2 class="text-4xl font-black text-white mb-4">Built to Fit Your Pipeline</h2>
+                    <p class="text-slate-400 max-w-2xl mx-auto">MDX ships as a native desktop suite and exposes
+                        everything it does to your own scripts and tools.</p>
+                </div>
+                <div class="grid md:grid-cols-3 gap-8">
+                    <div class="glass-card p-8 rounded-2xl flex flex-col gap-4 neon-border-glow transition-all duration-300">
+                        <div class="size-12 rounded-xl bg-primary/10 flex items-center justify-center border border-primary/20">
+                            <span class="material-symbols-outlined text-primary">desktop_windows</span>
+                        </div>
+                        <h3 class="text-xl font-bold text-white">Native Desktop Suite</h3>
+                        <p class="text-slate-400 text-sm leading-relaxed">Installs as a self-contained Vehicle Lab
+                            desktop app — a single native build (Tauri/Rust) with the analysis backend bundled in. No
+                            server to host, no runtime to manage, fully offline.</p>
+                    </div>
+                    <div class="glass-card p-8 rounded-2xl flex flex-col gap-4 neon-border-glow transition-all duration-300">
+                        <div class="size-12 rounded-xl bg-primary/10 flex items-center justify-center border border-primary/20">
+                            <span class="material-symbols-outlined text-primary">map</span>
+                        </div>
+                        <h3 class="text-xl font-bold text-white">GPS &amp; Route Mapping</h3>
+                        <p class="text-slate-400 text-sm leading-relaxed">Plot drive routes on offline map tiles and
+                            correlate any signal against location — no internet connection required, so field and test
+                            data never leaves the lab.</p>
+                    </div>
+                    <div class="glass-card p-8 rounded-2xl flex flex-col gap-4 neon-border-glow transition-all duration-300">
+                        <div class="size-12 rounded-xl bg-primary/10 flex items-center justify-center border border-primary/20">
+                            <span class="material-symbols-outlined text-primary">terminal</span>
+                        </div>
+                        <h3 class="text-xl font-bold text-white">Python SDK &amp; REST API</h3>
+                        <p class="text-slate-400 text-sm leading-relaxed">Automate everything from your own scripts. A
+                            documented REST API and Python SDK expose files, channel metadata, signal data, batch
+                            analysis, and anomaly detection.</p>
                     </div>
                 </div>
             </section>
@@ -362,6 +615,12 @@
                                     <td class="px-8 py-5 border-l border-white/5 bg-primary/5">Python / JS / REST Native
                                     </td>
                                 </tr>
+                                <tr class="border-t border-white/5">
+                                    <td class="px-8 py-5 font-medium text-white">AI Diagnostics</td>
+                                    <td class="px-8 py-5 border-l border-white/5">Manual analysis only</td>
+                                    <td class="px-8 py-5 border-l border-white/5 bg-primary/5">Built-in DiagAI assistant,
+                                        private-deployable</td>
+                                </tr>
                             </tbody>
                         </table>
                     </div>
@@ -383,14 +642,14 @@
                             modern data laboratory environment.
                         </p>
                         <div class="flex flex-wrap justify-center gap-4 pt-4">
-                            <button
-                                class="h-16 px-12 bg-primary text-background-dark font-black text-lg rounded-xl shadow-[0_0_30px_rgba(0,229,255,0.4)] hover:scale-105 transition-transform">
+                            <a href="contact_us.html"
+                                class="h-16 px-12 inline-flex items-center justify-center bg-primary text-background-dark font-black text-lg rounded-xl shadow-[0_0_30px_rgba(0,229,255,0.4)] hover:scale-105 transition-transform">
                                 Download Latest Release
-                            </button>
-                            <button
-                                class="h-16 px-12 bg-white/5 border border-white/10 text-white font-bold text-lg rounded-xl hover:bg-white/10 transition-colors">
+                            </a>
+                            <a href="docs.html"
+                                class="h-16 px-12 inline-flex items-center justify-center bg-white/5 border border-white/10 text-white font-bold text-lg rounded-xl hover:bg-white/10 transition-colors">
                                 Documentation
-                            </button>
+                            </a>
                         </div>
                     </div>
                 </div>
@@ -408,60 +667,80 @@
                         Advanced automotive software solutions for next-generation vehicle architectures. Engineered for
                         precision, built for scale.
                     </p>
-                    <div class="flex gap-4">
-                        <a class="w-10 h-10 rounded-lg bg-white/5 flex items-center justify-center text-slate-400 hover:text-primary hover:bg-white/10 transition-all"
-                            href="#">
-                            <span class="material-symbols-outlined">share</span>
-                        </a>
-                        <a class="w-10 h-10 rounded-lg bg-white/5 flex items-center justify-center text-slate-400 hover:text-primary hover:bg-white/10 transition-all"
-                            href="mailto:business@vehiclelab.in" aria-label="Email us at business@vehiclelab.in">
-                            <span class="material-symbols-outlined">mail</span>
-                        </a>
-                        <a class="w-10 h-10 rounded-lg bg-white/5 flex items-center justify-center text-slate-400 hover:text-primary hover:bg-white/10 transition-all"
-                            href="#">
-                            <span class="material-symbols-outlined">rss_feed</span>
-                        </a>
-                    </div>
+                <div class="flex gap-4">
+                    <a class="w-10 h-10 rounded-lg bg-white/5 flex items-center justify-center text-slate-400 hover:text-primary hover:bg-white/10 transition-all"
+                        href="https://www.linkedin.com/company/vehicle-lab" target="_blank" rel="noopener noreferrer" aria-label="Vehicle Lab on LinkedIn">
+                        <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 24 24"><path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433a2.062 2.062 0 01-2.063-2.065 2.064 2.064 0 112.063 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"/></svg>
+                    </a>
+                    <a class="w-10 h-10 rounded-lg bg-white/5 flex items-center justify-center text-slate-400 hover:text-primary hover:bg-white/10 transition-all"
+                        href="https://github.com/vehicle-lab" target="_blank" rel="noopener noreferrer" aria-label="Vehicle Lab on GitHub">
+                        <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 24 24"><path d="M12 0C5.374 0 0 5.373 0 12c0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23A11.509 11.509 0 0112 5.803c1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576C20.566 21.797 24 17.3 24 12c0-6.627-5.373-12-12-12z"/></svg>
+                    </a>
+                    <a class="w-10 h-10 rounded-lg bg-white/5 flex items-center justify-center text-slate-400 hover:text-primary hover:bg-white/10 transition-all"
+                        href="https://www.producthunt.com/@vehicle_lab" target="_blank" rel="noopener noreferrer" aria-label="Vehicle Lab on Product Hunt">
+                        <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 24 24"><path d="M13.604 8.4h-3.405V12h3.405a1.8 1.8 0 100-3.6zM12 0C5.372 0 0 5.372 0 12s5.372 12 12 12 12-5.372 12-12S18.628 0 12 0zm1.604 14.4h-3.405V18H7.801V6h5.804a4.2 4.2 0 010 8.4z"/></svg>
+                    </a>
+                    <a class="w-10 h-10 rounded-lg bg-white/5 flex items-center justify-center text-slate-400 hover:text-primary hover:bg-white/10 transition-all"
+                        href="mailto:business@vehiclelab.in" aria-label="Email us at business@vehiclelab.in">
+                        <span class="material-symbols-outlined">mail</span>
+                    </a>
                 </div>
-                <div>
-                    <h5 class="font-bold text-white font-medium tracking-tight mb-6 text-sm">Product</h5>
-                    <ul class="space-y-4 text-slate-400 font-semibold text-sm">
-                        <li><a class="hover:text-primary" href="diagai.html">DiagAI</a></li>
-                        <li><a class="hover:text-primary" href="cie_pro.html">CIE Pro</a></li>
-                        <li><a class="hover:text-primary" href="helix.html">HELIX Suite</a></li>
-                        <li><a class="hover:text-primary" href="mdx.html">MDX</a></li>
-                    </ul>
-                </div>
+            </div>
+            <div>
+                <h5 class="font-bold text-white font-medium tracking-tight mb-6 text-sm">Product</h5>
+                <ul class="space-y-4 text-slate-400 font-semibold text-sm">
+                    <li><a class="hover:text-primary" href="diagai.html">DiagAI</a></li>
+                    <li><a class="hover:text-primary" href="cie_pro.html">CIE Pro</a></li>
+                    <li><a class="hover:text-primary" href="helix.html">HELIX Suite</a></li>
+                    <li><a class="hover:text-primary" href="mdx.html">MDX</a></li>
+                    <li><a class="hover:text-primary" href="xhandbook.html">XHandbook</a></li>
+                </ul>
+            </div>
+            <div>
                 <div>
                     <h5 class="font-bold text-white font-medium tracking-tight mb-6 text-sm">Company</h5>
                     <ul class="space-y-4 text-slate-400 font-semibold text-sm">
-                        <li><a class="hover:text-primary" href="#">About Us</a></li>
-                        <li><a class="hover:text-primary" href="#">Whitepapers</a></li>
-                        <li><a class="hover:text-primary" href="#">Success Stories</a></li>
-                        <li><a class="hover:text-primary" href="#">Careers</a></li>
-                    </ul>
-                </div>
-                <div>
-                    <h5 class="font-bold text-white font-medium tracking-tight mb-6 text-sm">Legal</h5>
-                    <ul class="space-y-4 text-slate-400 font-semibold text-sm">
-                        <li><a class="hover:text-primary" href="#">Privacy Policy</a></li>
-                        <li><a class="hover:text-primary" href="#">Terms of Service</a></li>
-                        <li><a class="hover:text-primary" href="#">ISO Certifications</a></li>
-                        <li><a class="hover:text-primary" href="#">Security</a></li>
+                        <li><a class="hover:text-primary" href="about.html">About Us</a></li>
+                        <li><a class="hover:text-primary" href="solutions.html">Solutions</a></li>
+                        <li><a class="hover:text-primary" href="case_studies.html">Case Studies</a></li>
+                        <li><a class="hover:text-primary" href="https://linkedin.com/company/vehiclelab" target="_blank">LinkedIn</a></li>
+                        <li><a class="hover:text-primary" href="https://github.com/vehiclelab" target="_blank">GitHub</a></li>
+                        <li><a class="hover:text-primary" href="https://producthunt.com/products/vehicle-lab" target="_blank">Product Hunt</a></li>
                     </ul>
                 </div>
             </div>
-            <div
-                class="max-w-7xl mx-auto mt-20 pt-8 border-t border-white/5 flex flex-col md:flex-row justify-between items-center gap-4">
-                <p class="text-slate-500 text-xs font-bold font-medium tracking-tight">© 2025 Vehicle Lab Systems AG.
-                    All Rights Reserved.</p>
-                <div class="flex items-center gap-6">
-                    <span class="text-slate-500 text-xs font-bold font-medium tracking-tight">Status: Systems
-                        Operational</span>
-                    <div class="w-2 h-2 bg-green-500 rounded-full animate-pulse"></div>
+            <div>
+                <h5 class="font-bold text-white font-medium tracking-tight mb-6 text-sm">Legal</h5>
+                <ul class="space-y-4 text-slate-400 font-semibold text-sm">
+                    <li><a class="hover:text-primary" href="privacy.html">Privacy Policy</a></li>
+                    <li><a class="hover:text-primary" href="terms.html">Terms of Service</a></li>
+                    <li><a class="hover:text-primary" href="security.html">ISO Certifications</a></li>
+                    <li><a class="hover:text-primary" href="security.html">Security</a></li>
+                </ul>
+            </div>
+        </div>
+        <div class="max-w-7xl mx-auto mt-12 pt-8 border-t border-white/5">
+            <div class="flex flex-col items-center gap-4 mb-8">
+                <p class="text-xs font-bold text-slate-500 uppercase tracking-widest">Trusted by Engineering Teams at</p>
+                <div class="flex flex-wrap justify-center items-center gap-8 opacity-40 grayscale hover:grayscale-0 hover:opacity-60 transition-all duration-500">
+                    <div class="flex items-center gap-2 text-slate-400"><span class="material-symbols-outlined text-2xl">directions_car</span><span class="text-sm font-bold">Global OEM</span></div>
+                    <div class="flex items-center gap-2 text-slate-400"><span class="material-symbols-outlined text-2xl">electric_bolt</span><span class="text-sm font-bold">EV Manufacturer</span></div>
+                    <div class="flex items-center gap-2 text-slate-400"><span class="material-symbols-outlined text-2xl">precision_manufacturing</span><span class="text-sm font-bold">Tier-1 Supplier</span></div>
+                    <div class="flex items-center gap-2 text-slate-400"><span class="material-symbols-outlined text-2xl">engineering</span><span class="text-sm font-bold">R&D Center</span></div>
                 </div>
             </div>
-        </footer>
+        </div>
+        <div
+            class="max-w-7xl mx-auto mt-8 pt-8 border-t border-white/5 flex flex-col md:flex-row justify-between items-center gap-4">
+            <p class="text-slate-500 text-xs font-bold font-medium tracking-tight">&copy; 2025 Vehicle Lab Systems AG.
+                All Rights Reserved.</p>
+            <div class="flex items-center gap-6">
+                <span class="text-slate-500 text-xs font-bold font-medium tracking-tight">Status: Systems
+                    Operational</span>
+                <div class="w-2 h-2 bg-green-500 rounded-full animate-pulse"></div>
+            </div>
+        </div>
+    </footer>
     </div>
 </body>
 
