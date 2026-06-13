@@ -4,10 +4,11 @@
 
 <head>
     <meta charset="utf-8" />
-    <meta name="viewport" content="width=1280, user-scalable=yes" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <noscript><style>[data-aos]{opacity:1 !important;transform:none !important;}</style></noscript>
     <title>Solutions - Vehicle Lab</title>
     <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
-    <script src="https://cdn.plot.ly/plotly-latest.min.js"></script>
+    <script src="https://cdn.plot.ly/plotly-1.58.5.min.js"></script>
     <link href="https://cdn.jsdelivr.net/npm/geist@1.0.0/dist/fonts/geist-sans/style.css" rel="stylesheet" />
     <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;700&amp;display=swap"
         rel="stylesheet" />
@@ -41,7 +42,6 @@
             background-color: #0a0a0a;
             color: #ededed;
             overflow-x: hidden;
-            min-width: 1280px;
         }
 
         ::selection {
@@ -162,6 +162,10 @@
                             href="cie_pro.html">CIE Pro</a>
                         <a class="block px-4 py-2 hover:bg-white/5 hover:text-white transition-colors"
                             href="helix.html">HELIX</a>
+                        <a class="block px-4 py-2 hover:bg-white/5 hover:text-white transition-colors"
+                            href="mdx.html">MDX</a>
+                        <a class="block px-4 py-2 hover:bg-white/5 hover:text-white transition-colors"
+                            href="xhandbook.html">XHandbook</a>
                     </div>
                 </div>
                 <a class="hover:text-white transition-colors" href="pricing.html">Pricing</a>
@@ -199,6 +203,7 @@
             });
         });
     </script>
+    <script>setTimeout(function(){if(typeof AOS==="undefined"){document.querySelectorAll("[data-aos]").forEach(function(e){e.style.opacity=1;e.style.transform="none";});}},1200);</script>
 </body>
 
 </html>

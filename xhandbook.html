@@ -1,0 +1,756 @@
+<!DOCTYPE html>
+
+<html class="dark" lang="en">
+
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta property="og:title" content="EHANDBOOK Navigator Alternative | XHandbook - Vehicle Lab" />
+    <meta property="og:description" content="Open EHANDBOOK containers locally, navigate KAOM models, resolve A2L labels to ECU calibration data. No license server. Deep A2L integration." />
+    <meta property="og:url" content="https://vehiclelab.in/xhandbook" />
+    <meta property="og:type" content="website" />
+    <meta name="twitter:card" content="summary" />
+    <meta name="twitter:title" content="EHANDBOOK Navigator Alternative | XHandbook - Vehicle Lab" />
+    <meta name="twitter:description" content="Open .ehb containers locally, navigate KAOM models, resolve A2L labels to ECU data. No license server required." />
+    <title>EHANDBOOK Navigator Alternative | XHandbook - Vehicle Lab</title>
+    <meta name="description" content="Local EHANDBOOK-Navigator alternative. Open .ehb containers, navigate KAOM models, resolve A2L labels to ECU calibration data. No license server required.">
+    <link rel="canonical" href="https://vehiclelab.in/xhandbook" />
+    <!-- Structured Data: SoftwareApplication -->
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "SoftwareApplication",
+      "name": "XHandbook Navigator",
+      "alternateName": "XHandbook Navigator ECU Documentation Explorer",
+      "description": "XHandbook Navigator is a local-first desktop application for exploring ECU software documentation and calibration models. It opens EHANDBOOK containers (.ehb, .ehbcrypt, .ehbp), navigates DITA documentation and interactive KAOM function models, performs global search across topics and labels, and resolves documentation labels to A2L calibration objects — ECU address, record layout, conversion method, units, and live HEX values. No always-on backend and no license server required.",
+      "url": "https://vehiclelab.in/xhandbook",
+      "applicationCategory": "Engineering Software",
+      "operatingSystem": "Windows, macOS, Linux",
+      "offers": {
+        "@type": "Offer",
+        "price": "0",
+        "priceCurrency": "INR",
+        "description": "Free download available. Enterprise licensing on request."
+      },
+      "featureList": [
+        "EHANDBOOK container support (.ehb, .ehbcrypt, .ehbp)",
+        "Document Explorer and Document Viewer",
+        "Interactive Model Explorer with KAOM function graphs",
+        "Global search across topics, labels and calibration objects",
+        "Label popups with metadata and 2D/3D calibration visualization",
+        "Deep A2L integration with reverse label lookup",
+        "Bookmarks, model views, comments and attachments",
+        "Export to PDF and extract subsets to new containers",
+        "Local-first architecture with no license server dependency",
+        "Build-EHB tool: convert A2L and PDF to EHANDBOOK container"
+      ],
+      "author": {
+        "@type": "Organization",
+        "name": "Vehicle Lab",
+        "url": "https://vehiclelab.in"
+      },
+      "citation": [
+        {
+          "@type": "CreativeWork",
+          "name": "ASAM MCD-2 MC (ASAP2 / A2L) Standard",
+          "url": "https://www.asam.net/standards/detail/mcd-2-mc/"
+        },
+        {
+          "@type": "CreativeWork",
+          "name": "DITA: Darwin Information Typing Architecture",
+          "url": "https://www.oasis-open.org/committees/dita/"
+        }
+      ]
+    }
+    </script>
+    <!-- Structured Data: BreadcrumbList -->
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "BreadcrumbList",
+      "itemListElement": [
+        {
+          "@type": "ListItem",
+          "position": 1,
+          "name": "Vehicle Lab",
+          "item": "https://vehiclelab.in/"
+        },
+        {
+          "@type": "ListItem",
+          "position": 2,
+          "name": "XHandbook Navigator",
+          "item": "https://vehiclelab.in/xhandbook"
+        }
+      ]
+    }
+    </script>
+    <!-- Structured Data: FAQPage -->
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "FAQPage",
+      "mainEntity": [
+        {
+          "@type": "Question",
+          "name": "Is XHandbook Navigator a replacement for ETAS EHANDBOOK-NAVIGATOR?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "XHandbook Navigator reads the same EHANDBOOK container formats (.ehb, .ehbcrypt, .ehbp) and provides equivalent Document Explorer, Model Explorer, global search, and label popup capabilities. The key differences are that XHandbook runs entirely local-first with no license server required, and adds deep A2L integration — resolving documentation labels directly to ECU calibration objects (address, record layout, conversion method, units, live HEX) — which is not available in ETAS EHANDBOOK-NAVIGATOR."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "What EHANDBOOK container formats does XHandbook support?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "XHandbook Navigator supports .ehb (standard containers), .ehbcrypt (encrypted containers), and .ehbp (partial containers). These are ZIP-based archives containing DITA documentation, KAOM function models, a metadata.db SQLite database, and a Lucene search index. XHandbook has been validated against real Bosch and ETAS golden containers including HVR100 and FlexECU demo sets."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "Does XHandbook Navigator require a license server?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "No. XHandbook is fully license-server-free. It runs as a local Tauri desktop application on Windows, macOS, and Linux with no network dependency for core operation. This eliminates the floating license overhead that ETAS EHANDBOOK-NAVIGATOR requires."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "What is A2L integration in XHandbook and how does it work?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "XHandbook's A2L integration resolves any documentation label (CHARACTERISTIC, MEASUREMENT, AXIS_PTS) to its full ECU definition — memory address, record layout, conversion method, units, and live HEX value — directly from within the document or model view. You can also import an A2L file and convert it into a standalone EHANDBOOK container using the bundled build-ehb tool."
+          }
+        }
+      ]
+    }
+    </script>
+    <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&amp;display=swap"
+        rel="stylesheet" />
+    <link
+        href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap"
+        rel="stylesheet" />
+    <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;700&amp;display=swap"
+        rel="stylesheet" />
+    <script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    colors: {
+                        "primary": "#F59E0B",
+                        "background-light": "#f6f6f8",
+                        "background-dark": "#0B0E14",
+                    },
+                    fontFamily: {
+                        "display": ["Inter", "sans-serif"],
+                        "mono": ["JetBrains Mono", "monospace"]
+                    },
+                    borderRadius: {
+                        "DEFAULT": "0.25rem",
+                        "lg": "0.5rem",
+                        "xl": "0.75rem",
+                        "full": "9999px"
+                    },
+                },
+            },
+        }
+    </script>
+    <style>
+        .glass-card {
+            background: rgba(16, 22, 34, 0.6);
+            backdrop-filter: blur(12px);
+            border: 1px solid rgba(245, 158, 11, 0.14);
+        }
+
+        .neon-border-glow:hover {
+            border-color: #F59E0B;
+            box-shadow: 0 0 15px rgba(245, 158, 11, 0.3);
+        }
+
+        .grid-overlay {
+            background-image: radial-gradient(rgba(245, 158, 11, 0.12) 1px, transparent 1px);
+            background-size: 30px 30px;
+        }
+
+        .tree-line { border-left: 1px solid rgba(245, 158, 11, 0.2); }
+    
+        /* Mobile nav overlay */
+        .nav-mobile-menu { display: none; }
+        .nav-mobile-menu.open { display: block; position: fixed; top: 4rem; left: 0; right: 0; bottom: 0; z-index: 40; background: rgba(10,10,10,0.98); backdrop-filter: blur(12px); padding: 1rem 1.5rem 2rem; overflow-y: auto; }
+        .nav-mobile-menu a { display: block; padding: 0.875rem 0; font-size: 1.125rem; font-weight: 500; color: #94a3b8; border-bottom: 1px solid rgba(255,255,255,0.06); min-height: 44px; align-items: center; }
+        .nav-mobile-menu a:hover, .nav-mobile-menu a:focus { color: #fff; }
+        .nav-mobile-menu .nav-mobile-sub { padding-left: 1rem; padding-top: 0.25rem; }
+        .nav-mobile-menu .nav-mobile-sub a { font-size: 1rem; }
+        @media (min-width: 768px) { .nav-mobile-menu { display: none !important; } }
+    </style>
+</head>
+
+<body
+    class="bg-background-light dark:bg-background-dark font-display text-slate-900 dark:text-slate-100 selection:bg-primary/30">
+    <div class="relative min-h-screen flex flex-col overflow-x-hidden">
+        <!-- Background Decorative Elements -->
+        <div class="absolute inset-0 grid-overlay opacity-20 pointer-events-none"></div>
+        <div
+            class="absolute top-0 left-1/2 -translate-x-1/2 w-full h-[600px] bg-gradient-to-b from-primary/10 to-transparent pointer-events-none blur-[120px]">
+        </div>
+        <!-- Navigation -->
+        <nav
+            class="fixed w-full z-50 bg-[#0a0a0a]/80 backdrop-blur-md border-b border-white/5 transition-all duration-300">
+            <div class="max-w-7xl mx-auto px-6 h-16 flex items-center justify-between">
+                <a class="flex items-center gap-3 group" href="index.html">
+                    <div
+                        class="w-6 h-6 rounded flex items-center justify-center bg-white text-black transition-transform group-hover:scale-105">
+                        <svg class="w-4 h-4" fill="currentColor" viewBox="0 0 24 24">
+                            <path d="M12 2L2 7l10 5 10-5-10-5zM2 17l10 5 10-5M2 12l10 5 10-5"></path>
+                        </svg>
+                    </div>
+                    <span
+                        class="font-medium text-lg tracking-tight text-white group-hover:text-slate-300 transition-colors">Vehicle
+                        Lab</span>
+                </a>
+                <div class="hidden md:flex items-center gap-6 text-sm font-medium text-slate-400">
+                    <!-- Products Dropdown -->
+                    <div class="relative group cursor-pointer inline-block py-6">
+                        <span class="hover:text-white transition-colors flex items-center gap-1">Products <svg
+                                class="w-3 h-3 opacity-50" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path d="M19 9l-7 7-7-7" stroke-linecap="round" stroke-linejoin="round"
+                                    stroke-width="2">
+                                </path>
+                            </svg></span>
+                        <div
+                            class="absolute top-[100%] left-0 w-48 bg-[#111] border border-white/10 rounded-xl shadow-2xl opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-200 py-2">
+                            <a class="block px-4 py-2 hover:bg-white/5 hover:text-white transition-colors"
+                                href="diagai.html">DiagAI</a>
+                            <a class="block px-4 py-2 hover:bg-white/5 hover:text-white transition-colors"
+                                href="cie_pro.html">CIE Pro</a>
+                            <a class="block px-4 py-2 hover:bg-white/5 hover:text-white transition-colors"
+                                href="helix.html">HELIX</a>
+                            <a class="block px-4 py-2 hover:bg-white/5 hover:text-white transition-colors"
+                                href="mdx.html">MDX</a>
+                            <a class="block px-4 py-2 hover:bg-white/5 hover:text-white transition-colors"
+                                href="xhandbook.html">XHandbook</a>
+                        </div>
+                    </div>
+                    <a class="hover:text-white transition-colors" href="about.html">About Us</a>
+                    <a class="hover:text-white transition-colors" href="docs.html">Resources</a>
+                    <a class="hover:text-white transition-colors" href="contact_us.html">Contact</a>
+                </div>
+                <div class="flex items-center gap-4">
+                    <a class="bg-white hover:bg-slate-200 text-black px-4 py-1.5 rounded-md text-sm font-medium transition-all shadow-sm"
+                        href="contact_us.html">Talk to Sales</a>
+                <button type="button" class="md:hidden tap-target p-2 rounded-lg text-white hover:bg-white/10" aria-expanded="false" aria-controls="nav-mobile-menu" aria-label="Open menu"
+                    onclick="document.getElementById('nav-mobile-menu').classList.toggle('open'); this.setAttribute('aria-expanded', document.getElementById('nav-mobile-menu').classList.contains('open'));">
+                    <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"/></svg>
+                </button>
+                </div>
+            </div>
+        </nav>
+    <div id="nav-mobile-menu" class="nav-mobile-menu" aria-hidden="true">
+        <p class="text-xs font-bold text-slate-500 uppercase tracking-widest pt-2 pb-1">Products</p>
+        <div class="nav-mobile-sub">
+            <a href="diagai.html">DiagAI</a>
+            <a href="cie_pro.html">CIE Pro</a>
+            <a href="helix.html">HELIX</a>
+            <a href="mdx.html">MDX</a>
+            <a href="xhandbook.html">XHandbook</a>
+        </div>
+        <a href="about.html">About Us</a>
+        <a href="docs.html">Resources</a>
+        <a href="contact_us.html" class="text-white font-semibold border-0 pt-4">Talk to Sales</a>
+    </div>
+        <main class="flex-1 relative z-10">
+            <!-- Hero Section -->
+            <section class="max-w-7xl mx-auto px-6 pt-28 pb-32 grid lg:grid-cols-2 gap-16 items-center">
+                <div class="flex flex-col gap-8">
+                    <div
+                        class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-primary/10 border border-primary/20 text-primary text-xs font-bold uppercase tracking-widest w-fit">
+                        <span class="relative flex h-2 w-2">
+                            <span
+                                class="animate-ping absolute inline-flex h-full w-full rounded-full bg-primary opacity-75"></span>
+                            <span class="relative inline-flex rounded-full h-2 w-2 bg-primary"></span>
+                        </span>
+                        Interactive ECU Knowledge Navigator
+                    </div>
+                    <h1 class="text-5xl md:text-7xl font-black leading-[1.1] text-white tracking-tight">
+                        XHandbook — Interactive <span
+                            class="text-transparent bg-clip-text bg-gradient-to-r from-primary to-amber-300">ECU
+                            Documentation Explorer</span>
+                    </h1>
+                    <p class="text-lg text-slate-400 max-w-xl leading-relaxed">
+                        Open, search, and navigate EHANDBOOK containers and interactive function models — then follow
+                        any label straight to its A2L calibration data. Local-first, no license server. The
+                        EHANDBOOK&#8209;NAVIGATOR workflow you know, modernized.
+                    </p>
+                    <div class="flex flex-wrap gap-4">
+                        <a href="contact_us.html"
+                            class="h-14 px-8 bg-primary text-background-dark font-bold rounded-xl hover:scale-105 transition-transform flex items-center gap-2">
+                            <span class="material-symbols-outlined">download</span>
+                            Download for Windows
+                        </a>
+                        <a href="https://github.com/vehicle-lab" target="_blank" rel="noopener noreferrer"
+                            class="h-14 px-8 bg-white/5 border border-white/10 text-white font-bold rounded-xl hover:bg-white/10 transition-colors flex items-center gap-2">
+                            <span class="material-symbols-outlined">code</span>
+                            View on GitHub
+                        </a>
+                    </div>
+                </div>
+                <div class="relative">
+                    <div
+                        class="aspect-square rounded-3xl overflow-hidden border border-primary/20 bg-primary/5 relative">
+                        <div
+                            class="absolute inset-0 bg-gradient-to-br from-primary/20 via-transparent to-transparent opacity-50">
+                        </div>
+                        <div class="absolute inset-0 flex items-center justify-center p-10">
+                            <!-- Simulated Navigator UI -->
+                            <div
+                                class="w-full h-full border border-primary/30 rounded-xl relative overflow-hidden backdrop-blur-sm bg-background-dark/50 flex flex-col">
+                                <div class="h-8 border-b border-primary/20 bg-primary/10 flex items-center px-4 gap-2">
+                                    <div class="size-2 rounded-full bg-red-500/50"></div>
+                                    <div class="size-2 rounded-full bg-yellow-500/50"></div>
+                                    <div class="size-2 rounded-full bg-green-500/50"></div>
+                                    <div class="ml-3 text-[10px] text-primary/70 font-mono">VC1CP091…_HVR100.ehb</div>
+                                </div>
+                                <div class="flex-1 grid grid-cols-5">
+                                    <!-- TOC tree -->
+                                    <div class="col-span-2 border-r border-primary/10 p-3 space-y-2 text-[10px] text-slate-400 font-mono">
+                                        <div class="flex items-center gap-1 text-primary"><span class="material-symbols-outlined text-xs">folder_open</span>Functions</div>
+                                        <div class="pl-3 tree-line space-y-1.5">
+                                            <div class="flex items-center gap-1"><span class="material-symbols-outlined text-xs">description</span>AccPed</div>
+                                            <div class="flex items-center gap-1 text-white bg-primary/15 rounded px-1 -ml-1"><span class="material-symbols-outlined text-xs">account_tree</span>TrqMod</div>
+                                            <div class="flex items-center gap-1"><span class="material-symbols-outlined text-xs">description</span>VehV</div>
+                                            <div class="flex items-center gap-1"><span class="material-symbols-outlined text-xs">description</span>FuelSys</div>
+                                        </div>
+                                    </div>
+                                    <!-- Model canvas -->
+                                    <div class="col-span-3 p-3 relative">
+                                        <div class="absolute top-3 right-3 h-5 px-2 rounded bg-primary/10 border border-primary/20 flex items-center text-[9px] text-primary/80 font-mono gap-1"><span class="material-symbols-outlined text-[11px]">search</span>VehV_vSign</div>
+                                        <div class="mt-7 grid grid-rows-3 gap-3 h-[80%]">
+                                            <div class="flex items-center gap-2">
+                                                <div class="h-7 w-16 rounded bg-primary/15 border border-primary/30"></div>
+                                                <div class="flex-1 border-t border-dashed border-primary/30"></div>
+                                                <div class="h-7 w-16 rounded bg-primary/10 border border-primary/20"></div>
+                                            </div>
+                                            <div class="flex items-center gap-2">
+                                                <div class="h-7 w-20 rounded bg-primary/10 border border-primary/20"></div>
+                                                <div class="flex-1 border-t border-dashed border-primary/30"></div>
+                                                <div class="h-7 w-12 rounded bg-amber-400/15 border border-amber-400/30"></div>
+                                            </div>
+                                            <div class="rounded bg-primary/5 border border-primary/10 flex items-center justify-center">
+                                                <span class="material-symbols-outlined text-primary/40 text-3xl">grid_on</span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- Floating Accents -->
+                    <div class="absolute -top-6 -right-6 size-32 bg-primary/20 blur-3xl rounded-full"></div>
+                    <div class="absolute -bottom-10 -left-10 size-48 bg-amber-500/10 blur-3xl rounded-full"></div>
+                </div>
+            </section>
+            <!-- Value Proposition Grid -->
+            <section class="py-24 bg-white/5 border-y border-white/5 relative overflow-hidden">
+                <div class="max-w-7xl mx-auto px-6">
+                    <div class="grid md:grid-cols-2 lg:grid-cols-4 gap-8">
+                        <div class="flex flex-col gap-4 group">
+                            <div
+                                class="size-12 rounded-xl bg-primary/10 flex items-center justify-center border border-primary/20 group-hover:border-primary/50 transition-colors">
+                                <span class="material-symbols-outlined text-primary">lock</span>
+                            </div>
+                            <h3 class="text-xl font-bold text-white">Local-First</h3>
+                            <p class="text-slate-400 text-sm leading-relaxed">Runs entirely on your workstation. No
+                                always-on backend, no license server — your proprietary documentation never leaves your
+                                machine.</p>
+                        </div>
+                        <div class="flex flex-col gap-4 group">
+                            <div
+                                class="size-12 rounded-xl bg-primary/10 flex items-center justify-center border border-primary/20 group-hover:border-primary/50 transition-colors">
+                                <span class="material-symbols-outlined text-primary">menu_book</span>
+                            </div>
+                            <h3 class="text-xl font-bold text-white">EHANDBOOK-Compatible</h3>
+                            <p class="text-slate-400 text-sm leading-relaxed">Opens EHANDBOOK containers (.ehb,
+                                .ehbcrypt, .ehbp) with their documentation, interactive models, and metadata — validated
+                                against real OEM containers.</p>
+                        </div>
+                        <div class="flex flex-col gap-4 group">
+                            <div
+                                class="size-12 rounded-xl bg-primary/10 flex items-center justify-center border border-primary/20 group-hover:border-primary/50 transition-colors">
+                                <span class="material-symbols-outlined text-primary">link</span>
+                            </div>
+                            <h3 class="text-xl font-bold text-white">A2L-Aware</h3>
+                            <p class="text-slate-400 text-sm leading-relaxed">Every label links to its calibration
+                                object — ECU address, record layout, conversion method, and units — bridging
+                                documentation and the live ECU.</p>
+                        </div>
+                        <div class="flex flex-col gap-4 group">
+                            <div
+                                class="size-12 rounded-xl bg-primary/10 flex items-center justify-center border border-primary/20 group-hover:border-primary/50 transition-colors">
+                                <span class="material-symbols-outlined text-primary">bolt</span>
+                            </div>
+                            <h3 class="text-xl font-bold text-white">Native Rust Core</h3>
+                            <p class="text-slate-400 text-sm leading-relaxed">A native Rust engine parses containers —
+                                archives, SQLite metadata, and model XML — with no Electron runtime. Lazy loading keeps
+                                huge multi-container projects fast and the install small.</p>
+                        </div>
+                    </div>
+                </div>
+            </section>
+            <!-- Deep Dive Features -->
+            <section class="py-32 max-w-7xl mx-auto px-6">
+                <div class="text-center mb-20">
+                    <h2 class="text-4xl font-black text-white mb-4">One Explorer, Whole Workflow</h2>
+                    <p class="text-slate-400 max-w-2xl mx-auto">Built for calibration and validation engineers who live
+                        between ECU function documentation, interactive models, and calibration data.</p>
+                </div>
+                <div class="grid md:grid-cols-2 gap-8">
+                    <!-- Card 1 -->
+                    <div
+                        class="glass-card p-8 rounded-2xl flex flex-col gap-6 neon-border-glow transition-all duration-300">
+                        <div
+                            class="aspect-video bg-background-dark/50 rounded-xl border border-white/5 overflow-hidden relative flex items-center justify-center">
+                            <span class="material-symbols-outlined text-primary text-6xl">account_tree</span>
+                        </div>
+                        <div>
+                            <h3 class="text-2xl font-bold text-white mb-3">Document &amp; Model Explorer</h3>
+                            <p class="text-slate-400 leading-relaxed">Browse the full table of contents, read function
+                                documentation, and open interactive function models with automatic graph layout. Follow
+                                breadcrumbs and cross-links between docs and models without losing your place.</p>
+                        </div>
+                    </div>
+                    <!-- Card 2 -->
+                    <div
+                        class="glass-card p-8 rounded-2xl flex flex-col gap-6 neon-border-glow transition-all duration-300">
+                        <div
+                            class="aspect-video bg-background-dark/50 rounded-xl border border-white/5 overflow-hidden relative flex items-center justify-center">
+                            <span class="material-symbols-outlined text-primary text-6xl">search</span>
+                        </div>
+                        <div>
+                            <h3 class="text-2xl font-bold text-white mb-3">Instant Global Search</h3>
+                            <p class="text-slate-400 leading-relaxed">Search across topics, labels, components, and
+                                calibration objects in one query — with source-container provenance so you always know
+                                which container a hit came from. Find-in-tab narrows results inside the current view.</p>
+                        </div>
+                    </div>
+                    <!-- Card 3 -->
+                    <div
+                        class="glass-card p-8 rounded-2xl flex flex-col gap-6 neon-border-glow transition-all duration-300">
+                        <div
+                            class="aspect-video bg-background-dark/50 rounded-xl border border-white/5 overflow-hidden relative flex items-center justify-center">
+                            <span class="material-symbols-outlined text-primary text-6xl">memory</span>
+                        </div>
+                        <div>
+                            <h3 class="text-2xl font-bold text-white mb-3">Deep A2L Integration</h3>
+                            <p class="text-slate-400 leading-relaxed">Convert A2L into a container, then resolve any
+                                label to its CHARACTERISTIC, MEASUREMENT, or AXIS_PTS — complete with ECU address,
+                                record layout, conversion method, units, and limits. Reverse lookup goes from an ECU
+                                parameter back to every topic that documents it.</p>
+                        </div>
+                    </div>
+                    <!-- Card 4 -->
+                    <div
+                        class="glass-card p-8 rounded-2xl flex flex-col gap-6 neon-border-glow transition-all duration-300">
+                        <div
+                            class="aspect-video bg-background-dark/50 rounded-xl border border-white/5 overflow-hidden relative flex items-center justify-center">
+                            <span class="material-symbols-outlined text-primary text-6xl">touch_app</span>
+                        </div>
+                        <div>
+                            <h3 class="text-2xl font-bold text-white mb-3">Label Intelligence</h3>
+                            <p class="text-slate-400 leading-relaxed">Click any label for a popup of its metadata and the
+                                functions that import, export, and define it. Curves and maps render as calibrated 2D and
+                                3D visualizations right where you need them — pin it, or copy it straight to search.</p>
+                        </div>
+                    </div>
+                    <!-- Card 5 -->
+                    <div
+                        class="glass-card p-8 rounded-2xl flex flex-col gap-6 neon-border-glow transition-all duration-300">
+                        <div
+                            class="aspect-video bg-background-dark/50 rounded-xl border border-white/5 overflow-hidden relative flex items-center justify-center">
+                            <span class="material-symbols-outlined text-primary text-6xl">bookmarks</span>
+                        </div>
+                        <div>
+                            <h3 class="text-2xl font-bold text-white mb-3">Library, Comments &amp; Attachments</h3>
+                            <p class="text-slate-400 leading-relaxed">Organize bookmarks and model views into folders,
+                                leave comments in document and model contexts, and attach supporting files to topics.
+                                Import and export your annotations to share knowledge across the team.</p>
+                        </div>
+                    </div>
+                    <!-- Card 6 -->
+                    <div
+                        class="glass-card p-8 rounded-2xl flex flex-col gap-6 neon-border-glow transition-all duration-300">
+                        <div
+                            class="aspect-video bg-background-dark/50 rounded-xl border border-white/5 overflow-hidden relative flex items-center justify-center">
+                            <span class="material-symbols-outlined text-primary text-6xl">ios_share</span>
+                        </div>
+                        <div>
+                            <h3 class="text-2xl font-bold text-white mb-3">Export &amp; Extract</h3>
+                            <p class="text-slate-400 leading-relaxed">Export functional components to PDF for review,
+                                extract a subset of content into a new container, and bundle support logs in a click.
+                                Share exactly what a colleague or supplier needs — nothing more.</p>
+                        </div>
+                    </div>
+                </div>
+            </section>
+            <!-- How It Works -->
+            <section class="py-24 bg-white/5 border-y border-white/5">
+                <div class="max-w-6xl mx-auto px-6">
+                    <div class="text-center mb-16">
+                        <h2 class="text-4xl font-black text-white mb-4">From Container to Calibration</h2>
+                        <p class="text-slate-400 max-w-2xl mx-auto">XHandbook turns a static documentation drop into a
+                            living, queryable knowledge base in three steps.</p>
+                    </div>
+                    <div class="grid md:grid-cols-3 gap-8">
+                        <div class="glass-card rounded-2xl p-8 flex flex-col gap-4 relative">
+                            <span class="text-primary/30 font-black text-5xl font-mono">01</span>
+                            <h3 class="text-xl font-bold text-white">Open the container</h3>
+                            <p class="text-slate-400 text-sm leading-relaxed">Load an EHANDBOOK container or convert an
+                                A2L on the spot. XHandbook indexes the table of contents, labels, and calibration objects
+                                first, then streams heavy content only when you open it.</p>
+                        </div>
+                        <div class="glass-card rounded-2xl p-8 flex flex-col gap-4 relative">
+                            <span class="text-primary/30 font-black text-5xl font-mono">02</span>
+                            <h3 class="text-xl font-bold text-white">Navigate &amp; search</h3>
+                            <p class="text-slate-400 text-sm leading-relaxed">Move through documentation and interactive
+                                models, or jump anywhere with global search. Multi-container projects keep clear source
+                                provenance so cross-references always resolve to the right place.</p>
+                        </div>
+                        <div class="glass-card rounded-2xl p-8 flex flex-col gap-4 relative">
+                            <span class="text-primary/30 font-black text-5xl font-mono">03</span>
+                            <h3 class="text-xl font-bold text-white">Resolve to the ECU</h3>
+                            <p class="text-slate-400 text-sm leading-relaxed">Click a label to bridge documentation and
+                                calibration data — its A2L object, ECU address, conversion, and value. Bookmark, comment,
+                                and export what matters for the next review.</p>
+                        </div>
+                    </div>
+                </div>
+            </section>
+            <!-- What's Inside a Container -->
+            <section class="py-32 max-w-7xl mx-auto px-6">
+                <div class="grid lg:grid-cols-2 gap-16 items-center">
+                    <div class="flex flex-col gap-6">
+                        <h2 class="text-4xl font-black text-white">It Understands the Whole Container</h2>
+                        <p class="text-slate-400 leading-relaxed">An EHANDBOOK container is far more than a PDF. XHandbook
+                            parses every layer — documentation, interactive models, structured metadata, and the search
+                            index — and normalizes them into one navigable model with stable, resolvable links.</p>
+                        <ul class="space-y-4">
+                            <li class="flex items-start gap-3">
+                                <span class="material-symbols-outlined text-primary mt-0.5">article</span>
+                                <span class="text-slate-300"><span class="font-bold text-white">Documentation</span> —
+                                    structured DITA topics and generated HTML for function descriptions and parameter
+                                    tables.</span>
+                            </li>
+                            <li class="flex items-start gap-3">
+                                <span class="material-symbols-outlined text-primary mt-0.5">hub</span>
+                                <span class="text-slate-300"><span class="font-bold text-white">Interactive
+                                        models</span> — KAOM function graphs with blocks, ports, connections, and
+                                    annotations, laid out automatically.</span>
+                            </li>
+                            <li class="flex items-start gap-3">
+                                <span class="material-symbols-outlined text-primary mt-0.5">database</span>
+                                <span class="text-slate-300"><span class="font-bold text-white">Metadata</span> —
+                                    component and element relationships with access type, category, data type, units, and
+                                    limits.</span>
+                            </li>
+                            <li class="flex items-start gap-3">
+                                <span class="material-symbols-outlined text-primary mt-0.5">manage_search</span>
+                                <span class="text-slate-300"><span class="font-bold text-white">Search index</span> —
+                                    ingested when present, with a fast fallback so any container stays searchable.</span>
+                            </li>
+                        </ul>
+                    </div>
+                    <div class="glass-card rounded-2xl p-6 font-mono text-xs text-slate-400 leading-relaxed">
+                        <div class="text-primary/70 mb-3"># resolving a label across the container</div>
+                        <div class="space-y-1">
+                            <div><span class="text-amber-300">label</span> AccPedEv_tqWhlNorm_M</div>
+                            <div class="pl-4 tree-line">&rarr; doc topic <span class="text-slate-500">Pedal Map</span></div>
+                            <div class="pl-4 tree-line">&rarr; model block <span class="text-slate-500">TrqMod / Subsystem</span></div>
+                            <div class="pl-4 tree-line">&rarr; a2l <span class="text-white">CHARACTERISTIC · MAP</span></div>
+                            <div class="pl-8">addr <span class="text-primary">0x80299464</span></div>
+                            <div class="pl-8">layout RB_Map_S16S16_S16</div>
+                            <div class="pl-8">unit <span class="text-primary">Nm</span></div>
+                            <div class="pl-8">axes [AccPed_rPrp %, VehV_vSign km/h]</div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+            <!-- Comparison Table -->
+            <section class="py-32 bg-primary/5">
+                <div class="max-w-5xl mx-auto px-6">
+                    <div class="text-center mb-16">
+                        <h2 class="text-4xl font-black text-white mb-4">XHandbook vs Legacy EHANDBOOK Tooling</h2>
+                        <p class="text-slate-400">The familiar EHANDBOOK&#8209;NAVIGATOR workflow, rebuilt local-first
+                            and calibration-aware.</p>
+                    </div>
+                    <div class="overflow-x-auto">
+                        <table class="w-full text-left border-collapse glass-card rounded-2xl overflow-hidden">
+                            <thead>
+                                <tr class="bg-primary/10 text-primary uppercase text-xs font-black tracking-widest">
+                                    <th class="px-8 py-6">Capability</th>
+                                    <th class="px-8 py-6 border-l border-primary/10">Legacy Doc Tooling</th>
+                                    <th class="px-8 py-6 border-l border-primary/10 bg-primary/5 text-white">XHandbook
+                                        Navigator</th>
+                                </tr>
+                            </thead>
+                            <tbody class="text-slate-300">
+                                <tr class="border-t border-white/5">
+                                    <td class="px-8 py-5 font-medium text-white">Deployment</td>
+                                    <td class="px-8 py-5 border-l border-white/5">License-server dependent</td>
+                                    <td class="px-8 py-5 border-l border-white/5 bg-primary/5">Local-first, no license
+                                        server</td>
+                                </tr>
+                                <tr class="border-t border-white/5">
+                                    <td class="px-8 py-5 font-medium text-white">Platform</td>
+                                    <td class="px-8 py-5 border-l border-white/5">Windows-only legacy build</td>
+                                    <td class="px-8 py-5 border-l border-white/5 bg-primary/5">Modern desktop —
+                                        Windows, macOS, Linux</td>
+                                </tr>
+                                <tr class="border-t border-white/5">
+                                    <td class="px-8 py-5 font-medium text-white">Runtime &amp; footprint</td>
+                                    <td class="px-8 py-5 border-l border-white/5">Heavy legacy runtime</td>
+                                    <td class="px-8 py-5 border-l border-white/5 bg-primary/5">Lightweight native Rust
+                                        core, small install</td>
+                                </tr>
+                                <tr class="border-t border-white/5">
+                                    <td class="px-8 py-5 font-medium text-white">Calibration link</td>
+                                    <td class="px-8 py-5 border-l border-white/5">Limited / separate tools</td>
+                                    <td class="px-8 py-5 border-l border-white/5 bg-primary/5">Deep native A2L
+                                        resolution &amp; reverse lookup</td>
+                                </tr>
+                                <tr class="border-t border-white/5">
+                                    <td class="px-8 py-5 font-medium text-white">Container authoring</td>
+                                    <td class="px-8 py-5 border-l border-white/5">Separate toolchain</td>
+                                    <td class="px-8 py-5 border-l border-white/5 bg-primary/5">Built-in A2L &rarr;
+                                        container builder</td>
+                                </tr>
+                                <tr class="border-t border-white/5">
+                                    <td class="px-8 py-5 font-medium text-white">Interface</td>
+                                    <td class="px-8 py-5 border-l border-white/5">Legacy desktop widgets</td>
+                                    <td class="px-8 py-5 border-l border-white/5 bg-primary/5">Modern, responsive UI</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </section>
+            <!-- CTA Section -->
+            <section class="py-32 max-w-7xl mx-auto px-6">
+                <div
+                    class="glass-card p-12 md:p-20 rounded-[2rem] border-primary/30 relative overflow-hidden text-center">
+                    <div
+                        class="absolute inset-0 bg-gradient-to-r from-primary/10 via-transparent to-primary/10 pointer-events-none">
+                    </div>
+                    <div class="relative z-10 flex flex-col items-center gap-8">
+                        <h2 class="text-4xl md:text-6xl font-black text-white max-w-3xl leading-tight">
+                            Bring your ECU documentation to life.
+                        </h2>
+                        <p class="text-slate-400 text-lg max-w-2xl">
+                            Give your calibration and validation teams a single, local-first explorer for documentation,
+                            models, and calibration data — part of the Vehicle Lab desktop suite alongside MDX. No
+                            license server, no data leaving the building.
+                        </p>
+                        <div class="flex flex-wrap justify-center gap-4 pt-4">
+                            <a href="contact_us.html"
+                                class="h-16 px-12 inline-flex items-center justify-center bg-primary text-background-dark font-black text-lg rounded-xl shadow-[0_0_30px_rgba(245,158,11,0.4)] hover:scale-105 transition-transform">
+                                Download Latest Release
+                            </a>
+                            <a href="contact_us.html"
+                                class="h-16 px-12 inline-flex items-center justify-center bg-white/5 border border-white/10 text-white font-bold text-lg rounded-xl hover:bg-white/10 transition-colors">
+                                Talk to Sales
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </section>
+        </main>
+        <footer class="bg-background-dark border-t border-white/5 py-16 px-6">
+            <div class="max-w-7xl mx-auto grid grid-cols-2 md:grid-cols-4 lg:grid-cols-5 gap-12">
+                <div class="col-span-2">
+                    <div class="flex items-center gap-3 mb-8">
+                        <span class="material-symbols-outlined text-primary text-3xl">precision_manufacturing</span>
+                        <span class="text-xl font-extrabold tracking-tighter uppercase dark:text-white">Vehicle
+                            Lab</span>
+                    </div>
+                    <p class="text-slate-400 max-w-sm mb-8 leading-relaxed font-medium">
+                        Advanced automotive software solutions for next-generation vehicle architectures. Engineered for
+                        precision, built for scale.
+                    </p>
+                <div class="flex gap-4">
+                    <a class="w-10 h-10 rounded-lg bg-white/5 flex items-center justify-center text-slate-400 hover:text-primary hover:bg-white/10 transition-all"
+                        href="https://www.linkedin.com/company/vehicle-lab" target="_blank" rel="noopener noreferrer" aria-label="Vehicle Lab on LinkedIn">
+                        <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 24 24"><path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433a2.062 2.062 0 01-2.063-2.065 2.064 2.064 0 112.063 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"/></svg>
+                    </a>
+                    <a class="w-10 h-10 rounded-lg bg-white/5 flex items-center justify-center text-slate-400 hover:text-primary hover:bg-white/10 transition-all"
+                        href="https://github.com/vehicle-lab" target="_blank" rel="noopener noreferrer" aria-label="Vehicle Lab on GitHub">
+                        <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 24 24"><path d="M12 0C5.374 0 0 5.373 0 12c0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23A11.509 11.509 0 0112 5.803c1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576C20.566 21.797 24 17.3 24 12c0-6.627-5.373-12-12-12z"/></svg>
+                    </a>
+                    <a class="w-10 h-10 rounded-lg bg-white/5 flex items-center justify-center text-slate-400 hover:text-primary hover:bg-white/10 transition-all"
+                        href="https://www.producthunt.com/@vehicle_lab" target="_blank" rel="noopener noreferrer" aria-label="Vehicle Lab on Product Hunt">
+                        <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 24 24"><path d="M13.604 8.4h-3.405V12h3.405a1.8 1.8 0 100-3.6zM12 0C5.372 0 0 5.372 0 12s5.372 12 12 12 12-5.372 12-12S18.628 0 12 0zm1.604 14.4h-3.405V18H7.801V6h5.804a4.2 4.2 0 010 8.4z"/></svg>
+                    </a>
+                    <a class="w-10 h-10 rounded-lg bg-white/5 flex items-center justify-center text-slate-400 hover:text-primary hover:bg-white/10 transition-all"
+                        href="mailto:business@vehiclelab.in" aria-label="Email us at business@vehiclelab.in">
+                        <span class="material-symbols-outlined">mail</span>
+                    </a>
+                </div>
+            </div>
+            <div>
+                <h5 class="font-bold text-white font-medium tracking-tight mb-6 text-sm">Product</h5>
+                <ul class="space-y-4 text-slate-400 font-semibold text-sm">
+                    <li><a class="hover:text-primary" href="diagai.html">DiagAI</a></li>
+                    <li><a class="hover:text-primary" href="cie_pro.html">CIE Pro</a></li>
+                    <li><a class="hover:text-primary" href="helix.html">HELIX Suite</a></li>
+                    <li><a class="hover:text-primary" href="mdx.html">MDX</a></li>
+                    <li><a class="hover:text-primary" href="xhandbook.html">XHandbook</a></li>
+                </ul>
+            </div>
+            <div>
+                <div>
+                    <h5 class="font-bold text-white font-medium tracking-tight mb-6 text-sm">Company</h5>
+                    <ul class="space-y-4 text-slate-400 font-semibold text-sm">
+                        <li><a class="hover:text-primary" href="about.html">About Us</a></li>
+                        <li><a class="hover:text-primary" href="solutions.html">Solutions</a></li>
+                        <li><a class="hover:text-primary" href="case_studies.html">Case Studies</a></li>
+                        <li><a class="hover:text-primary" href="https://linkedin.com/company/vehiclelab" target="_blank">LinkedIn</a></li>
+                        <li><a class="hover:text-primary" href="https://github.com/vehiclelab" target="_blank">GitHub</a></li>
+                        <li><a class="hover:text-primary" href="https://producthunt.com/products/vehicle-lab" target="_blank">Product Hunt</a></li>
+                    </ul>
+                </div>
+            </div>
+            <div>
+                <h5 class="font-bold text-white font-medium tracking-tight mb-6 text-sm">Legal</h5>
+                <ul class="space-y-4 text-slate-400 font-semibold text-sm">
+                    <li><a class="hover:text-primary" href="privacy.html">Privacy Policy</a></li>
+                    <li><a class="hover:text-primary" href="terms.html">Terms of Service</a></li>
+                    <li><a class="hover:text-primary" href="security.html">ISO Certifications</a></li>
+                    <li><a class="hover:text-primary" href="security.html">Security</a></li>
+                </ul>
+            </div>
+        </div>
+        <div class="max-w-7xl mx-auto mt-12 pt-8 border-t border-white/5">
+            <div class="flex flex-col items-center gap-4 mb-8">
+                <p class="text-xs font-bold text-slate-500 uppercase tracking-widest">Trusted by Engineering Teams at</p>
+                <div class="flex flex-wrap justify-center items-center gap-8 opacity-40 grayscale hover:grayscale-0 hover:opacity-60 transition-all duration-500">
+                    <div class="flex items-center gap-2 text-slate-400"><span class="material-symbols-outlined text-2xl">directions_car</span><span class="text-sm font-bold">Global OEM</span></div>
+                    <div class="flex items-center gap-2 text-slate-400"><span class="material-symbols-outlined text-2xl">electric_bolt</span><span class="text-sm font-bold">EV Manufacturer</span></div>
+                    <div class="flex items-center gap-2 text-slate-400"><span class="material-symbols-outlined text-2xl">precision_manufacturing</span><span class="text-sm font-bold">Tier-1 Supplier</span></div>
+                    <div class="flex items-center gap-2 text-slate-400"><span class="material-symbols-outlined text-2xl">engineering</span><span class="text-sm font-bold">R&D Center</span></div>
+                </div>
+            </div>
+        </div>
+        <div
+            class="max-w-7xl mx-auto mt-8 pt-8 border-t border-white/5 flex flex-col md:flex-row justify-between items-center gap-4">
+            <p class="text-slate-500 text-xs font-bold font-medium tracking-tight">&copy; 2025 Vehicle Lab Systems AG.
+                All Rights Reserved.</p>
+            <div class="flex items-center gap-6">
+                <span class="text-slate-500 text-xs font-bold font-medium tracking-tight">Status: Systems
+                    Operational</span>
+                <div class="w-2 h-2 bg-green-500 rounded-full animate-pulse"></div>
+            </div>
+        </div>
+    </footer>
+    </div>
+</body>
+
+</html>
