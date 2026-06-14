@@ -1,3 +1,12 @@
 [build]
-  command = "mkdir -p dist && cp -r assets pics *.html _redirects robots.txt sitemap.xml dist/ && (cp -r blog dist/ 2>/dev/null || true)"
+  command = "mkdir -p dist && cp -r assets pics *.html _redirects robots.txt sitemap.xml llms.txt dist/ && (cp -r blog dist/ 2>/dev/null || true) && mkdir -p dist/resourses/market && cp resourses/market/*.pdf dist/resourses/market/ && cp resourses/market/automotive_1_1.png resourses/market/automotive_2_1.png resourses/market/ciepro_1_1.png resourses/market/diagai_1_1.png resourses/market/diagai_2_1.png resourses/market/helix_1_1.png resourses/market/helix_2_1.png resourses/market/helix_3_1.png dist/resourses/market/"
   publish = "dist"
+
+[[headers]]
+  for = "/*"
+  [headers.values]
+    X-Frame-Options = "SAMEORIGIN"
+    X-Content-Type-Options = "nosniff"
+    Referrer-Policy = "strict-origin-when-cross-origin"
+    Strict-Transport-Security = "max-age=31536000; includeSubDomains; preload"
+    Content-Security-Policy = "default-src 'self'; script-src 'self' 'unsafe-inline' 'unsafe-eval' https://cdn.tailwindcss.com https://fonts.googleapis.com https://cdn.jsdelivr.net https://unpkg.com https://cdn.plot.ly; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com https://cdn.jsdelivr.net https://unpkg.com; font-src 'self' https://fonts.gstatic.com data:; img-src 'self' data: https:; connect-src 'self' https:; frame-src 'self' blob:; frame-ancestors 'self'"

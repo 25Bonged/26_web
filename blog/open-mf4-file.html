@@ -1,0 +1,390 @@
+<!DOCTYPE html>
+<html class="dark" lang="en">
+
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>How to Open and Read MF4 (.mf4) Files: A 2026 Guide</title>
+    <meta name="description"
+        content="Learn how to open MF4 files, what the .mf4 format is, and the best ways to read and analyze measurement data — from free tools to a pro MDF data lab." />
+    <link rel="canonical" href="https://vehiclelab.in/blog/open-mf4-file" />
+    <meta property="og:title" content="How to Open and Read MF4 (.mf4) Files: A 2026 Guide" />
+    <meta property="og:description"
+        content="What the .mf4 format is, why it needs special tooling, and the practical ways to open and read MDF4 measurement data." />
+    <meta property="og:url" content="https://vehiclelab.in/blog/open-mf4-file" />
+    <meta property="og:type" content="article" />
+    <meta name="twitter:card" content="summary" />
+    <meta name="twitter:title" content="How to Open and Read MF4 (.mf4) Files" />
+    <meta name="twitter:description"
+        content="Practical methods to open MDF4 files — from free Python tools to a dedicated MDF data lab." />
+    <!-- Structured Data: HowTo -->
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "HowTo",
+      "name": "How to Open and Read MF4 (.mf4) Files",
+      "description": "Practical methods to open and read MDF4 measurement files, from free Python tools to a dedicated MDF data lab.",
+      "step": [
+        {"@type": "HowToStep", "name": "Open with asammdf", "text": "Use the free open-source asammdf Python library or GUI to read channels and export to CSV."},
+        {"@type": "HowToStep", "name": "Use vendor tools", "text": "Calibration suites like CANape or INCA can reopen MF4 files they created."},
+        {"@type": "HowToStep", "name": "Convert to CSV", "text": "Export a subset of signals to CSV for quick inspection in a spreadsheet."},
+        {"@type": "HowToStep", "name": "Use a dedicated MDF data lab", "text": "For analysis at scale, open MF4 in MDX, which auto-indexes signals and downsamples large recordings locally."}
+      ]
+    }
+    </script>
+    <!-- Structured Data: BreadcrumbList -->
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "BreadcrumbList",
+      "itemListElement": [
+        {"@type": "ListItem", "position": 1, "name": "Vehicle Lab", "item": "https://vehiclelab.in/"},
+        {"@type": "ListItem", "position": 2, "name": "Blog", "item": "https://vehiclelab.in/blog/"},
+        {"@type": "ListItem", "position": 3, "name": "How to Open and Read MF4 Files", "item": "https://vehiclelab.in/blog/open-mf4-file"}
+      ]
+    }
+    </script>
+    <!-- Structured Data: FAQPage -->
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "FAQPage",
+      "mainEntity": [
+        {"@type": "Question", "name": "Can I open an MF4 file in Excel?", "acceptedAnswer": {"@type": "Answer", "text": "Not directly — Excel doesn't understand the binary MDF4 structure. You must first export the signals you need to CSV using a tool like asammdf, then open that CSV in Excel. Expect to lose the multi-rate time structure."}},
+        {"@type": "Question", "name": "What's the difference between .mdf and .mf4?", "acceptedAnswer": {"@type": "Answer", "text": "Both belong to the ASAM MDF family. .mf4 is version 4, the current standard; older .mdf/.dat files are MDF 3.x. MF4 supports better compression, larger files, and richer metadata."}},
+        {"@type": "Question", "name": "Is asammdf free?", "acceptedAnswer": {"@type": "Answer", "text": "Yes. asammdf is open-source and free to use as a Python library or its bundled GUI. It's an excellent choice for scripting and quick conversions, though it's not a full analysis workbench."}},
+        {"@type": "Question", "name": "How do I open a very large MF4 file without crashing?", "acceptedAnswer": {"@type": "Answer", "text": "Avoid loading the whole file into a spreadsheet. Use a tool that streams and downsamples data for display — a dedicated MDF lab like MDX is built to render long recordings without freezing."}}
+      ]
+    }
+    </script>
+    <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&amp;display=swap"
+        rel="stylesheet" />
+    <link
+        href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap"
+        rel="stylesheet" />
+    <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;700&amp;display=swap"
+        rel="stylesheet" />
+    <script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    colors: {
+                        "primary": "#00E5FF",
+                        "background-light": "#f6f6f8",
+                        "background-dark": "#0B0E14",
+                    },
+                    fontFamily: {
+                        "display": ["Inter", "sans-serif"],
+                        "mono": ["JetBrains Mono", "monospace"]
+                    },
+                    borderRadius: { "DEFAULT": "0.25rem", "lg": "0.5rem", "xl": "0.75rem", "full": "9999px" },
+                },
+            },
+        }
+    </script>
+    <style>
+        .glass-card { background: rgba(16, 22, 34, 0.6); backdrop-filter: blur(12px); border: 1px solid rgba(0, 229, 255, 0.14); }
+        .grid-overlay { background-image: radial-gradient(rgba(0, 229, 255, 0.12) 1px, transparent 1px); background-size: 30px 30px; }
+        .prose-vl h2 { color: #fff; font-weight: 800; font-size: 1.75rem; line-height: 1.2; margin-top: 3rem; margin-bottom: 1rem; letter-spacing: -0.01em; }
+        .prose-vl h3 { color: #e2e8f0; font-weight: 700; font-size: 1.2rem; margin-top: 2rem; margin-bottom: 0.75rem; }
+        .prose-vl p { color: #94a3b8; line-height: 1.8; margin-bottom: 1.25rem; }
+        .prose-vl ul, .prose-vl ol { color: #94a3b8; line-height: 1.8; margin-bottom: 1.5rem; padding-left: 1.5rem; }
+        .prose-vl ul { list-style: disc; } .prose-vl ol { list-style: decimal; }
+        .prose-vl li { margin-bottom: 0.5rem; }
+        .prose-vl a { color: #00E5FF; text-decoration: underline; text-underline-offset: 3px; }
+        .prose-vl a:hover { color: #7df9ff; }
+        .prose-vl strong { color: #e2e8f0; font-weight: 600; }
+        .prose-vl code { font-family: "JetBrains Mono", monospace; font-size: 0.85em; background: rgba(0,229,255,0.1); color: #7df9ff; padding: 0.15em 0.4em; border-radius: 0.25rem; }
+        .prose-vl pre { background: #06080d; border: 1px solid rgba(0,229,255,0.15); border-radius: 0.75rem; padding: 1.25rem; overflow-x: auto; margin-bottom: 1.5rem; }
+        .prose-vl pre code { background: none; color: #cbd5e1; padding: 0; font-size: 0.85rem; line-height: 1.7; }
+        .prose-vl table { width: 100%; border-collapse: collapse; margin-bottom: 1.5rem; font-size: 0.9rem; }
+        .prose-vl th { text-align: left; color: #fff; font-weight: 700; padding: 0.75rem; border-bottom: 2px solid rgba(0,229,255,0.3); }
+        .prose-vl td { color: #94a3b8; padding: 0.75rem; border-bottom: 1px solid rgba(255,255,255,0.06); vertical-align: top; }
+        .nav-mobile-menu { display: none; }
+        .nav-mobile-menu.open { display: block; position: fixed; top: 4rem; left: 0; right: 0; bottom: 0; z-index: 40; background: rgba(10,10,10,0.98); backdrop-filter: blur(12px); padding: 1rem 1.5rem 2rem; overflow-y: auto; }
+        .nav-mobile-menu a { display: block; padding: 0.875rem 0; font-size: 1.125rem; font-weight: 500; color: #94a3b8; border-bottom: 1px solid rgba(255,255,255,0.06); min-height: 44px; }
+        .nav-mobile-menu a:hover { color: #fff; }
+        .nav-mobile-menu .nav-mobile-sub { padding-left: 1rem; padding-top: 0.25rem; }
+        .nav-mobile-menu .nav-mobile-sub a { font-size: 1rem; }
+        @media (min-width: 768px) { .nav-mobile-menu { display: none !important; } }
+    </style>
+</head>
+
+<body
+    class="bg-background-light dark:bg-background-dark font-display text-slate-900 dark:text-slate-100 selection:bg-primary/30">
+    <div class="relative min-h-screen flex flex-col overflow-x-hidden">
+        <div class="absolute inset-0 grid-overlay opacity-20 pointer-events-none"></div>
+        <div
+            class="absolute top-0 left-1/2 -translate-x-1/2 w-full h-[600px] bg-gradient-to-b from-primary/10 to-transparent pointer-events-none blur-[120px]">
+        </div>
+        <!-- Navigation -->
+        <nav class="fixed w-full z-50 bg-[#0a0a0a]/80 backdrop-blur-md border-b border-white/5">
+            <div class="max-w-7xl mx-auto px-6 h-16 flex items-center justify-between">
+                <a class="flex items-center gap-3 group" href="/index.html">
+                    <div class="w-6 h-6 rounded flex items-center justify-center bg-white text-black transition-transform group-hover:scale-105">
+                        <svg class="w-4 h-4" fill="currentColor" viewBox="0 0 24 24">
+                            <path d="M12 2L2 7l10 5 10-5-10-5zM2 17l10 5 10-5M2 12l10 5 10-5"></path>
+                        </svg>
+                    </div>
+                    <span class="font-medium text-lg tracking-tight text-white group-hover:text-slate-300 transition-colors">Vehicle Lab</span>
+                </a>
+                <div class="hidden md:flex items-center gap-6 text-sm font-medium text-slate-400">
+                    <div class="relative group cursor-pointer inline-block py-6">
+                        <span class="hover:text-white transition-colors flex items-center gap-1">Products <svg class="w-3 h-3 opacity-50" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path d="M19 9l-7 7-7-7" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"></path></svg></span>
+                        <div class="absolute top-[100%] left-0 w-48 bg-[#111] border border-white/10 rounded-xl shadow-2xl opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-200 py-2">
+                            <a class="block px-4 py-2 hover:bg-white/5 hover:text-white transition-colors" href="/diagai.html">DiagAI</a>
+                            <a class="block px-4 py-2 hover:bg-white/5 hover:text-white transition-colors" href="/cie_pro.html">CIE Pro</a>
+                            <a class="block px-4 py-2 hover:bg-white/5 hover:text-white transition-colors" href="/helix.html">HELIX</a>
+                            <a class="block px-4 py-2 hover:bg-white/5 hover:text-white transition-colors" href="/mdx.html">MDX</a>
+                            <a class="block px-4 py-2 hover:bg-white/5 hover:text-white transition-colors" href="/xhandbook.html">XHandbook</a>
+                        </div>
+                    </div>
+                    <a class="hover:text-white transition-colors" href="/about.html">About Us</a>
+                    <a class="hover:text-white transition-colors" href="/blog/">Blog</a>
+                    <a class="hover:text-white transition-colors" href="/contact_us.html">Contact</a>
+                </div>
+                <div class="flex items-center gap-4">
+                    <a class="bg-white hover:bg-slate-200 text-black px-4 py-1.5 rounded-md text-sm font-medium transition-all shadow-sm" href="/contact_us.html">Talk to Sales</a>
+                    <button type="button" class="md:hidden tap-target p-2 rounded-lg text-white hover:bg-white/10" aria-expanded="false" aria-controls="nav-mobile-menu" aria-label="Open menu"
+                        onclick="document.getElementById('nav-mobile-menu').classList.toggle('open'); this.setAttribute('aria-expanded', document.getElementById('nav-mobile-menu').classList.contains('open'));">
+                        <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"/></svg>
+                    </button>
+                </div>
+            </div>
+        </nav>
+        <div id="nav-mobile-menu" class="nav-mobile-menu" aria-hidden="true">
+            <p class="text-xs font-bold text-slate-500 uppercase tracking-widest pt-2 pb-1">Products</p>
+            <div class="nav-mobile-sub">
+                <a href="/diagai.html">DiagAI</a>
+                <a href="/cie_pro.html">CIE Pro</a>
+                <a href="/helix.html">HELIX</a>
+                <a href="/mdx.html">MDX</a>
+                <a href="/xhandbook.html">XHandbook</a>
+            </div>
+            <a href="/about.html">About Us</a>
+            <a href="/blog/">Blog</a>
+            <a href="/contact_us.html" class="text-white font-semibold border-0 pt-4">Talk to Sales</a>
+        </div>
+
+        <main class="flex-1 relative z-10">
+            <article class="max-w-3xl mx-auto px-6 pt-28 pb-20">
+                <!-- Breadcrumb -->
+                <nav class="text-sm text-slate-500 mb-6 flex items-center gap-2 flex-wrap">
+                    <a href="/index.html" class="hover:text-primary">Vehicle Lab</a>
+                    <span>/</span>
+                    <a href="/blog/" class="hover:text-primary">Blog</a>
+                    <span>/</span>
+                    <span class="text-slate-400">Open MF4 Files</span>
+                </nav>
+
+                <div class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-primary/10 border border-primary/20 text-primary text-xs font-bold uppercase tracking-widest mb-6">
+                    <span class="material-symbols-outlined text-sm">analytics</span> MDF / MF4 Data
+                </div>
+
+                <h1 class="text-4xl md:text-5xl font-black leading-tight text-white tracking-tight mb-6">
+                    How to Open and Read MF4 (.mf4) Files
+                </h1>
+                <p class="text-lg text-slate-400 leading-relaxed mb-10">
+                    If you work with vehicle measurement data, you've hit a <code class="font-mono text-primary">.mf4</code>
+                    file you couldn't open. This guide explains what an MF4 file is, why it needs special tooling, and the
+                    practical ways to <strong class="text-slate-200">open an MF4 file</strong> and actually read the signals inside it.
+                </p>
+
+                <div class="prose-vl">
+                    <p>By the end you'll know which approach fits a quick look, a scripting workflow, or serious
+                        calibration analysis.</p>
+
+                    <h2>What Is an MF4 File?</h2>
+                    <p><code>.mf4</code> is the file extension for <strong>MDF version 4</strong> (Measurement Data
+                        Format), the binary standard defined by the
+                        <a href="https://www.asam.net/standards/detail/mdf/" target="_blank" rel="noopener noreferrer">ASAM MDF standard</a>
+                        for storing time-series measurement data. It's the default recording format for ECU calibration
+                        tools, data loggers, and bus-monitoring hardware across the automotive industry.</p>
+                    <p>An MF4 file is not a spreadsheet. Inside a single file you'll typically find:</p>
+                    <ul>
+                        <li><strong>Hundreds to thousands of channels</strong> (signals) sampled at different rates</li>
+                        <li><strong>Multiple time bases</strong> in one recording</li>
+                        <li><strong>Metadata</strong> — units, conversions, comments, source ECU info</li>
+                        <li><strong>Compressed, block-structured binary data</strong> for efficient storage</li>
+                    </ul>
+                    <p>That structure is exactly why a generic viewer can't help — the data is optimized for size and
+                        speed, not casual reading.</p>
+
+                    <h3>MDF vs MF4: Quick Clarification</h3>
+                    <p>People use the terms loosely. <strong>MDF</strong> is the format family; <strong>MF4</strong> is
+                        the modern version 4 generation (replacing the older MDF 3.x <code>.dat</code>/<code>.mdf</code>
+                        files). If you see <code>.mf4</code>, you're working with the current ASAM standard.</p>
+
+                    <h2>How to Open an MF4 File: 4 Methods</h2>
+                    <p>Here are the practical options, from fastest to most capable.</p>
+
+                    <h3>Method 1 — Open MF4 Files with asammdf (Free, Python)</h3>
+                    <p>The open-source <code>asammdf</code> library is the most common free way to <strong>read MDF4
+                        files</strong>. It works as a Python package and ships a standalone GUI.</p>
+                    <pre><code>from asammdf import MDF
+
+# Open the MF4 file
+mdf = MDF("measurement.mf4")
+
+# List available channels
+print(mdf.channels_db.keys())
+
+# Read one signal
+sig = mdf.get("EngineSpeed")
+print(sig.timestamps, sig.samples)
+
+# Export to CSV if you just need a flat table
+mdf.export(fmt="csv", filename="out.csv")</code></pre>
+                    <p><strong>Best for:</strong> engineers comfortable with Python who need scripted access or a quick
+                        CSV dump. See the
+                        <a href="https://github.com/danielhrisca/asammdf" target="_blank" rel="noopener noreferrer">asammdf project on GitHub</a>.</p>
+
+                    <h3>Method 2 — Vendor Tools (CANape, INCA, MDA)</h3>
+                    <p>ECU calibration suites that <em>created</em> the file can usually reopen it. These are powerful but
+                        seat-locked, expensive, and tied to a vendor license server — overkill if you just need to
+                        inspect or analyze data outside the calibration loop.</p>
+
+                    <h3>Method 3 — Convert to CSV / Excel</h3>
+                    <p>Tools like asammdf can export MF4 to CSV. This is fine for a small subset of signals, but it
+                        breaks down fast: full recordings explode into enormous files, you lose the multi-rate time
+                        structure, and plotting thousands of points in a spreadsheet is painful.</p>
+
+                    <h3>Method 4 — A Dedicated MDF Data Lab</h3>
+                    <p>When you're past "just open it" and into <em>analysis</em> — comparing signals, mapping GPS
+                        routes, building engine maps, hunting anomalies across many files — a purpose-built data lab is
+                        the right tool.</p>
+                    <p><a href="/mdx.html">MDX, the Vehicle Lab MDF/MF4 data lab</a>, reads MF4, MDF, CSV and Excel
+                        natively, auto-indexes every signal on import, and renders large recordings with smart
+                        downsampling so the browser stays responsive even on long logs. It runs
+                        <strong>local-first</strong> — your measurement data never leaves your machine, and there's no
+                        license server to phone home.</p>
+
+                    <h2>How to Read MF4 Data Effectively</h2>
+                    <p>Opening the file is step one. Reading it <em>well</em> means:</p>
+                    <ol>
+                        <li><strong>Find signals fast.</strong> With thousands of channels, search and indexing matter
+                            more than a raw channel list.</li>
+                        <li><strong>Respect multi-rate timing.</strong> Don't force every signal onto one clock — you'll
+                            distort events like misfires.</li>
+                        <li><strong>Downsample for display, not for analysis.</strong> Good tools thin points for the
+                            screen (e.g. LTTB) while keeping the underlying data intact.</li>
+                        <li><strong>Keep units and conversions.</strong> The metadata in an MF4 file is part of the
+                            measurement — don't strip it on export.</li>
+                    </ol>
+                </div>
+
+                <!-- CTA -->
+                <div class="glass-card rounded-2xl p-8 my-12 text-center">
+                    <h3 class="text-2xl font-bold text-white mb-3">Working inside MF4 data all day?</h3>
+                    <p class="text-slate-400 mb-6 max-w-xl mx-auto">See how MDX opens, indexes and analyzes large MF4
+                        recordings locally — no license server, no cloud upload.</p>
+                    <div class="flex flex-wrap gap-4 justify-center">
+                        <a href="/mdx.html" class="h-12 px-6 bg-primary text-background-dark font-bold rounded-xl hover:scale-105 transition-transform flex items-center gap-2">
+                            <span class="material-symbols-outlined">analytics</span> Explore MDX
+                        </a>
+                        <a href="/contact_us.html" class="h-12 px-6 bg-white/5 border border-white/10 text-white font-bold rounded-xl hover:bg-white/10 transition-colors flex items-center gap-2">
+                            Book a technical demo
+                        </a>
+                    </div>
+                </div>
+
+                <!-- FAQ -->
+                <div class="prose-vl">
+                    <h2>Frequently Asked Questions</h2>
+                </div>
+                <div class="space-y-4 mt-6">
+                    <details class="glass-card rounded-xl p-5 group">
+                        <summary class="font-semibold text-white cursor-pointer list-none flex justify-between items-center">Can I open an MF4 file in Excel?<span class="material-symbols-outlined text-primary group-open:rotate-180 transition-transform">expand_more</span></summary>
+                        <p class="text-slate-400 mt-3 leading-relaxed">Not directly — Excel doesn't understand the binary MDF4 structure. You must first export the signals you need to CSV using a tool like asammdf, then open that CSV in Excel. Expect to lose the multi-rate time structure.</p>
+                    </details>
+                    <details class="glass-card rounded-xl p-5 group">
+                        <summary class="font-semibold text-white cursor-pointer list-none flex justify-between items-center">What's the difference between .mdf and .mf4?<span class="material-symbols-outlined text-primary group-open:rotate-180 transition-transform">expand_more</span></summary>
+                        <p class="text-slate-400 mt-3 leading-relaxed">Both belong to the ASAM MDF family. <code class="font-mono text-primary">.mf4</code> is version 4, the current standard; older <code class="font-mono text-primary">.mdf</code>/<code class="font-mono text-primary">.dat</code> files are MDF 3.x. MF4 supports better compression, larger files, and richer metadata.</p>
+                    </details>
+                    <details class="glass-card rounded-xl p-5 group">
+                        <summary class="font-semibold text-white cursor-pointer list-none flex justify-between items-center">Is asammdf free?<span class="material-symbols-outlined text-primary group-open:rotate-180 transition-transform">expand_more</span></summary>
+                        <p class="text-slate-400 mt-3 leading-relaxed">Yes. asammdf is open-source and free to use as a Python library or its bundled GUI. It's an excellent choice for scripting and quick conversions, though it's not a full analysis workbench.</p>
+                    </details>
+                    <details class="glass-card rounded-xl p-5 group">
+                        <summary class="font-semibold text-white cursor-pointer list-none flex justify-between items-center">How do I open a very large MF4 file without crashing?<span class="material-symbols-outlined text-primary group-open:rotate-180 transition-transform">expand_more</span></summary>
+                        <p class="text-slate-400 mt-3 leading-relaxed">Avoid loading the whole file into a spreadsheet. Use a tool that streams and downsamples data for display — a dedicated MDF lab like <a href="/mdx.html" class="text-primary underline">MDX</a> is built to render long recordings without freezing.</p>
+                    </details>
+                </div>
+
+                <div class="prose-vl">
+                    <h2>Conclusion</h2>
+                    <p>Opening an <code>.mf4</code> file comes down to matching the tool to the job: reach for
+                        <strong>asammdf</strong> when you need a free, scriptable reader, lean on vendor suites inside the
+                        calibration loop, and use a <strong>dedicated MDF data lab</strong> when the work shifts from
+                        "open it" to "analyze it."</p>
+                    <p>If your team spends real time inside measurement data — searching signals, comparing logs,
+                        building maps — see how <a href="/mdx.html">MDX handles MF4 data locally</a> and
+                        <a href="/contact_us.html">book a technical demo</a>.</p>
+                </div>
+
+                <!-- Related -->
+                <div class="mt-14 pt-8 border-t border-white/10">
+                    <p class="text-xs font-bold text-slate-500 uppercase tracking-widest mb-4">Related</p>
+                    <a href="/blog/ehandbook-navigator-alternative" class="block glass-card rounded-xl p-5 hover:border-primary/40 transition-colors">
+                        <span class="text-white font-semibold">ETAS EHANDBOOK-NAVIGATOR Alternatives (2026)</span>
+                        <p class="text-slate-400 text-sm mt-1">Local-first ECU documentation tools with deep A2L integration and no license server.</p>
+                    </a>
+                </div>
+            </article>
+        </main>
+
+        <!-- Footer -->
+        <footer class="bg-background-dark border-t border-white/5 py-16 px-6 relative z-10">
+            <div class="max-w-7xl mx-auto grid grid-cols-2 md:grid-cols-4 lg:grid-cols-5 gap-12">
+                <div class="col-span-2">
+                    <a href="/" class="inline-flex items-center mb-6 group">
+                            <img src="../pics/logo-dark.png" alt="Vehicle Lab" class="h-14 w-auto transition-opacity group-hover:opacity-75" />
+                        </a>
+                    <p class="text-slate-400 max-w-sm mb-8 leading-relaxed font-medium">
+                        A local-first calibration and diagnostics toolchain for powertrain engineering teams. Built for
+                        precision, run on your own infrastructure.
+                    </p>
+                    <div class="flex gap-4">
+                        <a class="w-10 h-10 rounded-lg bg-white/5 flex items-center justify-center text-slate-400 hover:text-primary hover:bg-white/10 transition-all" href="https://www.linkedin.com/company/vehicle-lab" target="_blank" rel="noopener noreferrer" aria-label="Vehicle Lab on LinkedIn"><svg class="w-5 h-5" fill="currentColor" viewBox="0 0 24 24"><path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433a2.062 2.062 0 01-2.063-2.065 2.064 2.064 0 112.063 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"/></svg></a>
+                        <a class="w-10 h-10 rounded-lg bg-white/5 flex items-center justify-center text-slate-400 hover:text-primary hover:bg-white/10 transition-all" href="https://github.com/vehicle-lab" target="_blank" rel="noopener noreferrer" aria-label="Vehicle Lab on GitHub"><svg class="w-5 h-5" fill="currentColor" viewBox="0 0 24 24"><path d="M12 0C5.374 0 0 5.373 0 12c0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23A11.509 11.509 0 0112 5.803c1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576C20.566 21.797 24 17.3 24 12c0-6.627-5.373-12-12-12z"/></svg></a>
+                        <a class="w-10 h-10 rounded-lg bg-white/5 flex items-center justify-center text-slate-400 hover:text-primary hover:bg-white/10 transition-all" href="mailto:business@vehiclelab.in" aria-label="Email us"><span class="material-symbols-outlined">mail</span></a>
+                    </div>
+                </div>
+                <div>
+                    <h5 class="font-bold text-white tracking-tight mb-6 text-sm">Product</h5>
+                    <ul class="space-y-4 text-slate-400 font-semibold text-sm">
+                        <li><a class="hover:text-primary" href="/diagai.html">DiagAI</a></li>
+                        <li><a class="hover:text-primary" href="/cie_pro.html">CIE Pro</a></li>
+                        <li><a class="hover:text-primary" href="/helix.html">HELIX Suite</a></li>
+                        <li><a class="hover:text-primary" href="/mdx.html">MDX</a></li>
+                        <li><a class="hover:text-primary" href="/xhandbook.html">XHandbook</a></li>
+                    </ul>
+                </div>
+                <div>
+                    <h5 class="font-bold text-white tracking-tight mb-6 text-sm">Company</h5>
+                    <ul class="space-y-4 text-slate-400 font-semibold text-sm">
+                        <li><a class="hover:text-primary" href="/about.html">About Us</a></li>
+                        <li><a class="hover:text-primary" href="/solutions.html">Solutions</a></li>
+                        <li><a class="hover:text-primary" href="/blog/">Blog</a></li>
+                        <li><a class="hover:text-primary" href="/case_studies.html">Case Studies</a></li>
+                    </ul>
+                </div>
+                <div>
+                    <h5 class="font-bold text-white tracking-tight mb-6 text-sm">Legal</h5>
+                    <ul class="space-y-4 text-slate-400 font-semibold text-sm">
+                        <li><a class="hover:text-primary" href="/privacy.html">Privacy Policy</a></li>
+                        <li><a class="hover:text-primary" href="/terms.html">Terms of Service</a></li>
+                        <li><a class="hover:text-primary" href="/security.html">Security</a></li>
+                    </ul>
+                </div>
+            </div>
+            <div class="max-w-7xl mx-auto mt-12 pt-8 border-t border-white/5 flex flex-col md:flex-row justify-between items-center gap-4">
+                <p class="text-slate-500 text-xs font-bold tracking-tight">&copy; 2026 Vehicle Lab. All Rights Reserved.</p>
+            </div>
+        </footer>
+    </div>
+</body>
+
+</html>

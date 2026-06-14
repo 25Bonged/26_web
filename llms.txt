@@ -1,0 +1,30 @@
+# Vehicle Lab
+
+> Local-first automotive engineering software for OEM and Tier-1 calibration teams. MDF4 analysis, AI-assisted diagnostics, and ECU calibration tooling that runs on-premise, with no license server and no data leaving the customer's network.
+
+Vehicle Lab builds a suite of desktop tools for automotive engineers working with measurement data files, ECU calibration, and vehicle diagnostics. The suite is designed for data-sovereignty-sensitive environments such as OEM powertrain teams.
+
+## Products
+
+- [DiagAI](https://vehiclelab.in/diagai): AI-assisted vehicle diagnostics assistant for interpreting fault codes and sensor data.
+- [CIE Pro](https://vehiclelab.in/cie_pro): ECU calibration and instrumentation environment for tuning and validation work.
+- [HELIX](https://vehiclelab.in/helix): ECU calibration data management for A2L/base dataset upload, DCM/CDFX/PACO patch governance, validation, release control, and final ECU file generation.
+- [MDX](https://vehiclelab.in/mdx): Professional MDF4/MF4 data analysis lab for inspecting and processing measurement files.
+- [XHandbook](https://vehiclelab.in/xhandbook): ECU documentation explorer for navigating and searching ECU reference handbooks.
+
+## Resources
+
+- [Solutions](https://vehiclelab.in/solutions): How the suite maps to OEM and Tier-1 engineering workflows.
+- [Case Studies](https://vehiclelab.in/case_studies): Examples of the toolchain in use.
+- [Pricing](https://vehiclelab.in/pricing): Plans and licensing.
+- [Docs](https://vehiclelab.in/docs): Product documentation.
+- [MDF4 Guide](https://vehiclelab.in/mdf4-guide): Background and guidance on the MDF4/MF4 measurement data format.
+- [ETAS INCA Alternative](https://vehiclelab.in/etas-inca-alternative): Comparison for teams evaluating alternatives to ETAS INCA.
+- [Security](https://vehiclelab.in/security): Data-handling and security posture.
+- [About](https://vehiclelab.in/about): About Vehicle Lab.
+- [Blog](https://vehiclelab.in/blog/): Articles on calibration, diagnostics, and measurement data engineering.
+
+## Notes
+
+- All products are designed to run on-premise/local-first; no customer data is sent to external license or telemetry servers by default.
+- Vehicle Lab is currently in pilot with select Tier-1 powertrain teams; general access is via sales/demo, not self-serve signup.
