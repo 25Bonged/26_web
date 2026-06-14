@@ -113,8 +113,7 @@
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link rel="preconnect" href="https://cdn.jsdelivr.net" crossorigin />
-    <link rel="preload" href="https://cdn.jsdelivr.net/npm/geist@1.0.0/dist/fonts/geist-sans/style.css" as="style" />
-    <link href="https://cdn.jsdelivr.net/npm/geist@1.0.0/dist/fonts/geist-sans/style.css" rel="stylesheet" />
+    <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:ital,wght@0,400;0,500;0,600;0,700;1,400&amp;display=swap" rel="stylesheet" />
     <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;700&amp;display=swap"
         rel="stylesheet" media="print" onload="this.media='all'" />
     <link
@@ -138,8 +137,8 @@
                         "background-dark": "#0a0a0a",
                     },
                     fontFamily: {
-                        "display": ["Geist", "sans-serif"],
-                        "sans": ["Geist", "sans-serif"],
+                        "display": ["IBM Plex Sans", "sans-serif"],
+                        "sans": ["IBM Plex Sans", "sans-serif"],
                         "mono": ["JetBrains Mono", "monospace"]
                     },
                 },
@@ -147,7 +146,7 @@
         }</script>
     <style>
         body {
-            font-family: 'Geist', sans-serif;
+            font-family: 'IBM Plex Sans', sans-serif;
             background-color: #0a0a0a;
             color: #ededed;
             overflow-x: hidden;
@@ -280,7 +279,7 @@
 <body class="antialiased bg-background-dark text-white cyber-grid selection:bg-white/20">
     <nav class="fixed w-full z-50 bg-[#0a0a0a]/80 backdrop-blur-md border-b border-white/5 transition-all duration-300" aria-label="Main navigation">
         <div class="max-w-7xl mx-auto px-6 h-16 flex items-center justify-between">
-            <a class="flex items-center gap-3 group" href="index.html">
+            <a class="flex items-center gap-3 group" href="/">
                 <div
                     class="w-6 h-6 rounded flex items-center justify-center bg-white text-black transition-transform group-hover:scale-105">
                     <svg class="w-4 h-4" fill="currentColor" viewBox="0 0 24 24">
@@ -302,24 +301,25 @@
                     <div
                         class="absolute top-[100%] left-0 w-48 bg-[#111] border border-white/10 rounded-xl shadow-2xl opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-200 py-2">
                         <a class="block px-4 py-2 hover:bg-white/5 hover:text-white transition-colors"
-                            href="diagai.html">DiagAI</a>
+                            href="/diagai">DiagAI</a>
                         <a class="block px-4 py-2 hover:bg-white/5 hover:text-white transition-colors"
-                            href="cie_pro.html">CIE Pro</a>
+                            href="/cie_pro">CIE Pro</a>
                         <a class="block px-4 py-2 hover:bg-white/5 hover:text-white transition-colors"
-                            href="helix.html">HELIX</a>
+                            href="/helix">HELIX</a>
                         <a class="block px-4 py-2 hover:bg-white/5 hover:text-white transition-colors"
-                            href="mdx.html">MDX</a>
+                            href="/mdx">MDX</a>
                         <a class="block px-4 py-2 hover:bg-white/5 hover:text-white transition-colors"
-                            href="xhandbook.html">XHandbook</a>
+                            href="/xhandbook">XHandbook</a>
                     </div>
                 </div>
-                <a class="hover:text-white transition-colors" href="about.html">About Us</a>
-                <a class="hover:text-white transition-colors" href="docs.html">Resources</a>
-                <a class="hover:text-white transition-colors" href="contact_us.html">Contact</a>
+                <a class="hover:text-white transition-colors" href="/about">About Us</a>
+                <a class="hover:text-white transition-colors" href="/docs">Resources</a>
+                <a class="hover:text-white transition-colors" href="blog/">Blog</a>
+                <a class="hover:text-white transition-colors" href="/contact_us">Contact</a>
             </div>
             <div class="flex items-center gap-3">
                 <a class="bg-white hover:bg-slate-200 text-black px-4 py-2.5 rounded-md text-sm font-medium transition-all shadow-sm tap-target hidden md:inline-flex"
-                    href="contact_us.html">Talk to Sales</a>
+                    href="/contact_us">Talk to Sales</a>
                 <button type="button" class="md:hidden tap-target p-2 rounded-lg text-white hover:bg-white/10" aria-expanded="false" aria-controls="nav-mobile-menu" aria-label="Open menu" id="nav-mobile-toggle"
                     onclick="document.getElementById('nav-mobile-menu').classList.toggle('open'); this.setAttribute('aria-expanded', document.getElementById('nav-mobile-menu').classList.contains('open'));">
                     <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"/></svg>
@@ -329,15 +329,16 @@
         <div id="nav-mobile-menu" class="nav-mobile-menu" aria-hidden="true">
             <p class="text-xs font-bold text-slate-500 uppercase tracking-widest pt-2 pb-1">Products</p>
             <div class="nav-mobile-sub">
-                <a href="diagai.html">DiagAI</a>
-                <a href="cie_pro.html">CIE Pro</a>
-                <a href="helix.html">HELIX</a>
-                <a href="mdx.html">MDX</a>
-                <a href="xhandbook.html">XHandbook</a>
+                <a href="/diagai">DiagAI</a>
+                <a href="/cie_pro">CIE Pro</a>
+                <a href="/helix">HELIX</a>
+                <a href="/mdx">MDX</a>
+                <a href="/xhandbook">XHandbook</a>
             </div>
-            <a href="pricing.html">Pricing</a>
-            <a href="docs.html">Docs</a>
-            <a href="contact_us.html" class="text-white font-semibold border-0 pt-4">Talk to Sales</a>
+            <a href="/pricing">Pricing</a>
+            <a href="/docs">Docs</a>
+            <a href="blog/">Blog</a>
+            <a href="/contact_us" class="text-white font-semibold border-0 pt-4">Talk to Sales</a>
         </div>
     </nav>
     <main class="pt-16">
@@ -354,18 +355,18 @@
                         </span>
                         In pilot with Tier-1 powertrain teams
                     </div>
-                    <h1 class="hero-title">The calibration &amp; diagnostics toolchain, rebuilt <span class="text-neon-blue">local-first</span></h1>
+                    <h1 class="hero-title">Automotive calibration &amp; diagnostics software, rebuilt <span class="text-neon-blue">local-first</span></h1>
                     <p class="text-lg md:text-xl text-slate-400 leading-relaxed mb-10 max-w-xl">
                         Model-based calibration, multi-agent diagnostics, MDF analysis, and ECU documentation in one
                         suite. Runs on your hardware. Your calibration data never leaves the lab — and there's no
                         per-seat license server holding your team hostage.
                     </p>
                     <div class="flex flex-wrap gap-4">
-                        <a href="contact_us.html"
+                        <a href="/contact_us"
                             class="tap-target px-8 py-4 rounded-xl bg-primary text-background-dark font-bold text-lg hover:shadow-2xl hover:shadow-primary/30 transition-all inline-flex items-center gap-2">
                             Book a technical demo <span class="material-symbols-outlined">arrow_forward</span>
                         </a>
-                        <a href="docs.html"
+                        <a href="/docs"
                             class="tap-target px-8 py-4 rounded-xl bg-white/5 border border-white/10 font-bold text-lg hover:bg-white/10 transition-all inline-flex">
                             Read the technical docs
                         </a>
@@ -490,7 +491,7 @@
                                     Gaussian Process Modeling
                                 </li>
                             </ul>
-                            <a href="cie_pro.html"
+                            <a href="/cie_pro"
                                 class="block text-center w-full py-3 rounded-lg border border-white/10 group-hover:bg-primary transition-all text-sm font-bold uppercase tracking-wider">Explore
                                 CIE Pro</a>
                         </div>
@@ -525,7 +526,7 @@
                                     Advanced MDF Signal Analysis
                                 </li>
                             </ul>
-                            <a href="diagai.html"
+                            <a href="/diagai"
                                 class="block text-center w-full py-3 rounded-lg bg-neon-green/80 hover:bg-neon-green text-black text-sm font-bold uppercase tracking-wider shadow-lg shadow-neon-green/20">Explore
                                 DiagAI</a>
                         </div>
@@ -560,7 +561,7 @@
                                     CRDT-based Collaboration
                                 </li>
                             </ul>
-                            <a href="helix.html"
+                            <a href="/helix"
                                 class="block text-center w-full py-3 rounded-lg border border-neon-purple/30 group-hover:bg-neon-purple transition-all text-sm font-bold uppercase tracking-wider">Explore
                                 HELIX</a>
                         </div>
@@ -595,7 +596,7 @@
                                     Total Data Privacy (Local)
                                 </li>
                             </ul>
-                            <a href="mdx.html"
+                            <a href="/mdx"
                                 class="block text-center w-full py-3 rounded-lg border border-neon-cyan/30 group-hover:bg-neon-cyan transition-all text-sm font-bold uppercase tracking-wider">Explore
                                 MDX</a>
                         </div>
@@ -631,7 +632,7 @@
                                     Local-First, No License Server
                                 </li>
                             </ul>
-                            <a href="xhandbook.html"
+                            <a href="/xhandbook"
                                 class="block text-center w-full py-3 rounded-lg border border-neon-amber/30 group-hover:bg-neon-amber transition-all text-sm font-bold uppercase tracking-wider">Explore
                                 XHandbook</a>
                         </div>
@@ -972,11 +973,11 @@
                         diagnostics, MDF analysis and ECU docs. No sales engineer reading from a slide deck.
                     </p>
                     <div class="flex flex-col sm:flex-row gap-4 justify-center">
-                        <a href="contact_us.html"
+                        <a href="/contact_us"
                             class="px-10 py-5 bg-white text-background-dark font-bold text-xl rounded-xl hover:scale-105 transition-all shadow-xl text-center">
                             Book a technical demo
                         </a>
-                        <a href="contact_us.html"
+                        <a href="/contact_us"
                             class="px-10 py-5 bg-black/40 text-white font-bold text-xl rounded-xl border border-white/20 hover:bg-black/60 transition-all text-center">
                             Talk to an Engineer
                         </a>
@@ -1020,19 +1021,19 @@
             <div>
                 <h5 class="font-bold text-white font-medium tracking-tight mb-6 text-sm">Product</h5>
                 <ul class="space-y-4 text-slate-400 font-semibold text-sm">
-                    <li><a class="hover:text-primary" href="diagai.html">DiagAI</a></li>
-                    <li><a class="hover:text-primary" href="cie_pro.html">CIE Pro</a></li>
-                    <li><a class="hover:text-primary" href="helix.html">HELIX Suite</a></li>
-                    <li><a class="hover:text-primary" href="mdx.html">MDX</a></li>
-                    <li><a class="hover:text-primary" href="xhandbook.html">XHandbook</a></li>
+                    <li><a class="hover:text-primary" href="/diagai">DiagAI</a></li>
+                    <li><a class="hover:text-primary" href="/cie_pro">CIE Pro</a></li>
+                    <li><a class="hover:text-primary" href="/helix">HELIX Suite</a></li>
+                    <li><a class="hover:text-primary" href="/mdx">MDX</a></li>
+                    <li><a class="hover:text-primary" href="/xhandbook">XHandbook</a></li>
                 </ul>
             </div>
             <div>
                 <h5 class="font-bold text-white font-medium tracking-tight mb-6 text-sm">Company</h5>
                 <ul class="space-y-4 text-slate-400 font-semibold text-sm">
-                    <li><a class="hover:text-primary" href="about.html">About Us</a></li>
-                    <li><a class="hover:text-primary" href="solutions.html">Solutions</a></li>
-                    <li><a class="hover:text-primary" href="case_studies.html">Case Studies</a></li>
+                    <li><a class="hover:text-primary" href="/about">About Us</a></li>
+                    <li><a class="hover:text-primary" href="/solutions">Solutions</a></li>
+                    <li><a class="hover:text-primary" href="/case_studies">Case Studies</a></li>
                     <li><a class="hover:text-primary" href="https://linkedin.com/company/vehiclelab" target="_blank">LinkedIn</a></li>
                     <li><a class="hover:text-primary" href="https://github.com/vehiclelab" target="_blank">GitHub</a></li>
                     <li><a class="hover:text-primary" href="https://producthunt.com/products/vehicle-lab" target="_blank">Product Hunt</a></li>
@@ -1041,10 +1042,10 @@
             <div>
                 <h5 class="font-bold text-white font-medium tracking-tight mb-6 text-sm">Legal</h5>
                 <ul class="space-y-4 text-slate-400 font-semibold text-sm">
-                    <li><a class="hover:text-primary" href="privacy.html">Privacy Policy</a></li>
-                    <li><a class="hover:text-primary" href="terms.html">Terms of Service</a></li>
-                    <li><a class="hover:text-primary" href="security.html">ISO Certifications</a></li>
-                    <li><a class="hover:text-primary" href="security.html">Security</a></li>
+                    <li><a class="hover:text-primary" href="/privacy">Privacy Policy</a></li>
+                    <li><a class="hover:text-primary" href="/terms">Terms of Service</a></li>
+                    <li><a class="hover:text-primary" href="/security">ISO Certifications</a></li>
+                    <li><a class="hover:text-primary" href="/security">Security</a></li>
                 </ul>
             </div>
         </div>

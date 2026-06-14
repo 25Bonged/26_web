@@ -1,0 +1,319 @@
+<!DOCTYPE html>
+
+<html class="dark" lang="en">
+
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta property="og:title" content="What is MDF4? ASAM MDF4 Guide for Automotive Engineers | Vehicle Lab" />
+    <meta property="og:description" content="ASAM MDF4 explained for automotive engineers. File structure, MDF3 vs MDF4, how to open and analyze MDF files, and the best MDF4 analyzer tools for OEM test teams." />
+    <meta property="og:url" content="https://vehiclelab.in/mdf4-guide" />
+    <meta property="og:type" content="article" />
+    <meta name="twitter:card" content="summary" />
+    <meta name="twitter:title" content="What is MDF4? ASAM MDF4 Guide | Vehicle Lab" />
+    <meta name="twitter:description" content="ASAM MDF4 file format explained — structure, signals, how to analyze MDF files, and best MDF4 analyzer tools for OEM test teams." />
+    <title>What is MDF4? ASAM MDF4 Guide for Automotive Engineers | Vehicle Lab</title>
+    <meta name="description" content="ASAM MDF4 explained for automotive engineers. Understand MDF4 file structure, how to analyze MDF files, and the best MDF4 analyzer tools for OEM test teams." />
+    <link rel="canonical" href="https://vehiclelab.in/mdf4-guide" />
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "TechArticle",
+      "headline": "What is MDF4? A Guide to ASAM MDF4 for Automotive Engineers",
+      "description": "A technical guide to the ASAM MDF4 measurement data format for automotive engineers, covering file structure, signal analysis, tooling options, and best practices.",
+      "author": {
+        "@type": "Organization",
+        "name": "Vehicle Lab",
+        "url": "https://vehiclelab.in"
+      },
+      "publisher": {
+        "@type": "Organization",
+        "name": "Vehicle Lab",
+        "url": "https://vehiclelab.in"
+      },
+      "datePublished": "2026-06-13",
+      "dateModified": "2026-06-13",
+      "mainEntityOfPage": {
+        "@type": "WebPage",
+        "@id": "https://vehiclelab.in/mdf4-guide"
+      },
+      "about": {
+        "@type": "Thing",
+        "name": "ASAM MDF4",
+        "description": "ASAM Measurement Data Format version 4, a binary file format for storing measurement data from vehicle and powertrain test campaigns"
+      }
+    }
+    </script>
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "FAQPage",
+      "mainEntity": [
+        {
+          "@type": "Question",
+          "name": "What is an MDF4 file?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "An MDF4 file (.mf4) is a binary measurement data file conforming to the ASAM MDF (Measurement Data Format) version 4 standard. It stores time-series signal data captured during vehicle and powertrain test campaigns — ECU parameters, CAN bus signals, analog sensor readings, GPS data, and more — alongside metadata such as signal descriptions, units, and channel groups."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "How do I open and analyze MDF4 files?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "MDF4 files can be opened with graphical tools such as MDX (by Vehicle Lab), ETAS INCA, or Vector CANalyzer. For programmatic access, the open-source asammdf Python library reads MDF3 and MDF4 files and converts them to pandas DataFrames or NumPy arrays. MDX also exposes a REST API and Python SDK for automation."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "What is the difference between MDF3 and MDF4?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "MDF4 (introduced in ASAM MDF v4.0 around 2012) adds support for files larger than 4 GB, nanosecond-resolution timestamps, data compression (DZ blocks), variable-length signal data (VLSD), file attachments (AT blocks for CAN databases, calibration files), and bus logging channels. MDF3 is the legacy format still produced by some older data loggers."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "What is ASAM MDF used for in automotive engineering?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "ASAM MDF is used to store measurement data from vehicle test campaigns, powertrain test cells, dyno runs, and road tests. Typical signals include engine speed, torque, temperatures, pressures, fuel injection parameters, lambda values, CAN bus messages, GPS coordinates, and accelerometer data. The format is the de facto standard for automotive measurement data exchange between OEMs, Tier-1 suppliers, and calibration tool vendors."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "Can I analyze MDF4 files with Python?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "Yes. The asammdf open-source library (pip install asammdf) reads MDF3 and MDF4 files in Python and exports signals as pandas DataFrames or NumPy arrays. MDX, Vehicle Lab's MDF4 analyzer, extends this with a REST API and Python SDK (mdx_client) that adds DuckDB time-series storage, LTTB downsampling, batch analysis, and multi-agent AI diagnostics on top of the raw signal data."
+          }
+        }
+      ]
+    }
+    </script>
+    <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+    <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:ital,wght@0,400;0,500;0,600;0,700;1,400&amp;display=swap" rel="stylesheet" />
+    <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&display=swap" rel="stylesheet" />
+    <script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    colors: {
+                        "primary": "#00E5FF",
+                        "background-dark": "#0B0E14",
+                    },
+                    fontFamily: { "display": ["IBM Plex Sans", "sans-serif"] },
+                },
+            },
+        }
+    </script>
+    <style>
+        code { background: rgba(255,255,255,0.07); border: 1px solid rgba(255,255,255,0.1); border-radius: 4px; padding: 1px 6px; font-family: 'JetBrains Mono', monospace; font-size: 0.85em; }
+        pre { background: rgba(255,255,255,0.04); border: 1px solid rgba(255,255,255,0.1); border-radius: 10px; padding: 1.25rem 1.5rem; overflow-x: auto; }
+        pre code { background: none; border: none; padding: 0; font-size: 0.875rem; line-height: 1.7; }
+    </style>
+</head>
+
+<body class="bg-background-dark font-display text-slate-900 dark:text-slate-100">
+    <div class="relative min-h-screen flex flex-col overflow-x-hidden">
+        <!-- Navigation -->
+        <nav class="fixed w-full z-50 bg-[#0a0a0a]/80 backdrop-blur-md border-b border-white/5">
+            <div class="max-w-7xl mx-auto px-6 h-16 flex items-center justify-between">
+                <a class="flex items-center gap-3 group" href="/">
+                    <div class="w-6 h-6 rounded flex items-center justify-center bg-white text-black transition-transform group-hover:scale-105">
+                        <svg class="w-4 h-4" fill="currentColor" viewBox="0 0 24 24"><path d="M12 2L2 7l10 5 10-5-10-5zM2 17l10 5 10-5M2 12l10 5 10-5"></path></svg>
+                    </div>
+                    <span class="font-medium text-lg tracking-tight text-white group-hover:text-slate-300 transition-colors">Vehicle Lab</span>
+                </a>
+                <div class="hidden md:flex items-center gap-6 text-sm font-medium text-slate-400">
+                    <div class="relative group cursor-pointer inline-block py-6">
+                        <span class="hover:text-white transition-colors flex items-center gap-1">Products <svg class="w-3 h-3 opacity-50" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path d="M19 9l-7 7-7-7" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"></path></svg></span>
+                        <div class="absolute top-[100%] left-0 w-48 bg-[#111] border border-white/10 rounded-xl shadow-2xl opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-200 py-2">
+                            <a class="block px-4 py-2 hover:bg-white/5 hover:text-white transition-colors" href="/diagai">DiagAI</a>
+                            <a class="block px-4 py-2 hover:bg-white/5 hover:text-white transition-colors" href="/cie_pro">CIE Pro</a>
+                            <a class="block px-4 py-2 hover:bg-white/5 hover:text-white transition-colors" href="/helix">HELIX</a>
+                            <a class="block px-4 py-2 hover:bg-white/5 hover:text-white transition-colors" href="/mdx">MDX</a>
+                            <a class="block px-4 py-2 hover:bg-white/5 hover:text-white transition-colors" href="/xhandbook">XHandbook</a>
+                        </div>
+                    </div>
+                    <a class="hover:text-white transition-colors" href="/about">About Us</a>
+                    <a class="hover:text-white transition-colors" href="/docs">Resources</a>
+                    <a class="hover:text-white transition-colors" href="/contact_us">Contact</a>
+                </div>
+                <div class="flex items-center gap-4">
+                    <a class="bg-white hover:bg-slate-200 text-black px-4 py-1.5 rounded-md text-sm font-medium transition-all shadow-sm" href="/contact_us">Talk to Sales</a>
+                </div>
+            </div>
+        </nav>
+
+        <main class="flex-1 relative z-10 max-w-3xl mx-auto px-6 pt-32 pb-24 w-full">
+            <p class="text-primary text-xs font-bold uppercase tracking-widest mb-3">Technical Guide</p>
+            <h1 class="text-4xl md:text-5xl font-black text-white tracking-tight mb-4">What is MDF4? A guide to ASAM MDF4 for automotive engineers</h1>
+            <p class="text-slate-400 text-lg leading-relaxed mb-12">Everything you need to know about the ASAM MDF4 measurement data format — file structure, signals, tooling, and how to analyze MDF files in 2026.</p>
+
+            <div class="space-y-12 text-slate-300 leading-relaxed">
+
+                <section>
+                    <h2 class="text-2xl font-bold text-white mb-4">What is MDF4?</h2>
+                    <p class="mb-4">MDF4 — or ASAM MDF version 4 — is the binary file format used across the automotive industry to store measurement data captured during vehicle tests, dyno runs, calibration sessions, and road campaigns. The format is defined and maintained by <a href="https://www.asam.net/standards/detail/mdf/" class="text-primary hover:underline" target="_blank" rel="noopener">ASAM e.V.</a> (Association for Standardisation of Automation and Measuring Systems).</p>
+                    <p class="mb-4">An MDF4 file (extension <code>.mf4</code>) holds time-series signal data alongside rich metadata: signal names and descriptions, physical units, conversion rules (e.g. voltage → temperature), channel groups, and attachments such as CAN databases or calibration files. A single MF4 from a highway test might contain thousands of simultaneously logged signals — CAN bus messages, ECU parameters, analog sensor readings, GPS coordinates, and accelerometer data — at varying sample rates, all time-aligned in one file.</p>
+                    <p>This makes MDF4 the de facto data exchange format between OEMs, Tier-1 suppliers, test equipment vendors, and calibration tool providers across the industry.</p>
+                </section>
+
+                <section>
+                    <h2 class="text-2xl font-bold text-white mb-4">MDF4 file structure</h2>
+                    <p class="mb-4">MDF4 uses a block-based binary structure. Understanding the main blocks helps when debugging signal extraction or building tooling around the format:</p>
+                    <div class="space-y-4">
+                        <div class="border border-white/10 rounded-xl p-5">
+                            <h3 class="font-semibold text-white mb-1">HD — Header block</h3>
+                            <p class="text-sm text-slate-400">Contains the file start timestamp, measurement duration, author, project, and subject metadata. The root of the block hierarchy.</p>
+                        </div>
+                        <div class="border border-white/10 rounded-xl p-5">
+                            <h3 class="font-semibold text-white mb-1">CG — Channel group blocks</h3>
+                            <p class="text-sm text-slate-400">Groups channels that are sampled synchronously (same time base). A file may have many CGs — one per CAN message, one for ECU parameters at a fixed rate, one for GPS, etc.</p>
+                        </div>
+                        <div class="border border-white/10 rounded-xl p-5">
+                            <h3 class="font-semibold text-white mb-1">CN — Channel blocks</h3>
+                            <p class="text-sm text-slate-400">Defines individual signals within a CG: name, data type, bit offset, byte count, unit, and the conversion block (CC) that maps raw values to physical values.</p>
+                        </div>
+                        <div class="border border-white/10 rounded-xl p-5">
+                            <h3 class="font-semibold text-white mb-1">DT / DR / DZ — Data blocks</h3>
+                            <p class="text-sm text-slate-400">DT holds raw sample data. DR is the data list (references multiple DT/DZ). DZ is a compressed data block — MDF4's built-in zip or transposition compression, which often achieves 60–80% size reduction on floating-point signal data.</p>
+                        </div>
+                        <div class="border border-white/10 rounded-xl p-5">
+                            <h3 class="font-semibold text-white mb-1">AT — Attachment blocks</h3>
+                            <p class="text-sm text-slate-400">MDF4 can embed files directly inside the MF4: CAN DBC databases, A2L calibration files, calibration data, or even video. AT blocks store these attachments as embedded or referenced external files.</p>
+                        </div>
+                    </div>
+                </section>
+
+                <section>
+                    <h2 class="text-2xl font-bold text-white mb-4">MDF3 vs MDF4 — what changed</h2>
+                    <p class="mb-6">MDF3 (.mdf) is still produced by older data loggers and some legacy measurement systems. Here is what MDF4 adds:</p>
+                    <div class="overflow-x-auto rounded-xl border border-white/10">
+                        <table class="w-full text-sm">
+                            <thead>
+                                <tr class="border-b border-white/10 bg-white/3">
+                                    <th class="text-left px-4 py-3 font-semibold text-white">Feature</th>
+                                    <th class="text-left px-4 py-3 font-semibold text-slate-300">MDF3</th>
+                                    <th class="text-left px-4 py-3 font-semibold text-primary">MDF4</th>
+                                </tr>
+                            </thead>
+                            <tbody class="divide-y divide-white/5">
+                                <tr><td class="px-4 py-3 text-slate-200">Max file size</td><td class="px-4 py-3 text-slate-400">4 GB</td><td class="px-4 py-3 text-slate-200">Unlimited (64-bit offsets)</td></tr>
+                                <tr><td class="px-4 py-3 text-slate-200">Time resolution</td><td class="px-4 py-3 text-slate-400">Microseconds</td><td class="px-4 py-3 text-slate-200">Nanoseconds</td></tr>
+                                <tr><td class="px-4 py-3 text-slate-200">Data compression</td><td class="px-4 py-3 text-slate-400">None</td><td class="px-4 py-3 text-slate-200">DZ blocks (zip / transposition)</td></tr>
+                                <tr><td class="px-4 py-3 text-slate-200">Variable-length data (VLSD)</td><td class="px-4 py-3 text-slate-400">No</td><td class="px-4 py-3 text-slate-200">Yes — for strings, raw byte signals</td></tr>
+                                <tr><td class="px-4 py-3 text-slate-200">File attachments</td><td class="px-4 py-3 text-slate-400">No</td><td class="px-4 py-3 text-slate-200">Yes — DBC, A2L, video embedded</td></tr>
+                                <tr><td class="px-4 py-3 text-slate-200">Bus logging channels</td><td class="px-4 py-3 text-slate-400">Limited</td><td class="px-4 py-3 text-slate-200">Native CAN, CAN FD, LIN, FlexRay, Ethernet</td></tr>
+                                <tr><td class="px-4 py-3 text-slate-200">Unicode channel names</td><td class="px-4 py-3 text-slate-400">No (ASCII)</td><td class="px-4 py-3 text-slate-200">Yes</td></tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </section>
+
+                <section>
+                    <h2 class="text-2xl font-bold text-white mb-4">How to analyze MDF4 files</h2>
+                    <p class="mb-6">There are several paths for working with MDF4 data, depending on whether you need a graphical interface, scripted access, or production pipeline integration.</p>
+
+                    <h3 class="text-lg font-semibold text-white mb-3">Graphical analysis tools</h3>
+                    <p class="mb-4">For interactive signal exploration, overlay plotting, and oscilloscope-style inspection, a dedicated MDF4 analyzer is the fastest way to work. <a href="/mdx" class="text-primary hover:underline">MDX by Vehicle Lab</a> is a professional MDF/MF4 data lab with sub-second loading for GB-sized files, a high-resolution oscilloscope with dual cursors, a variable explorer with cross-DBC signal matching, and offline GPS route mapping. It includes an AI diagnostics layer (DiagAI) for natural-language queries over signal data.</p>
+                    <p class="mb-6">Other graphical tools include ETAS INCA (calibration-focused), Vector CANalyzer (CAN protocol analysis), and neoVI (Intrepid Control Systems).</p>
+
+                    <h3 class="text-lg font-semibold text-white mb-3">Python — asammdf</h3>
+                    <p class="mb-3">The open-source <code>asammdf</code> library is the standard Python interface for MDF3 and MDF4 files:</p>
+                    <pre><code>pip install asammdf
+
+from asammdf import MDF
+
+mdf = MDF("test_run_highway.mf4")
+
+# Get all channel names
+print(mdf.channels_db.keys())
+
+# Read a signal as a pandas Series
+rpm = mdf.get("engine_speed_n")
+print(rpm.samples[:10], rpm.timestamps[:10])
+
+# Export selected channels to CSV
+mdf.export(fmt="csv", channels=["engine_speed_n", "lambda_1", "coolant_temp"])</code></pre>
+                    <p class="mt-4 text-sm text-slate-400">asammdf handles MDF3 (.mdf) and MDF4 (.mf4), DZ compression, VLSD channels, and bus-logging data transparently. It is the dependency used internally by MDX's backend for file parsing.</p>
+
+                    <h3 class="text-lg font-semibold text-white mb-3 mt-8">MDX Python SDK and REST API</h3>
+                    <p class="mb-3">For production automation — batch processing of test campaigns, signal anomaly detection, WLTP analysis across fleets of MF4 files — MDX exposes a Python SDK (<code>mdx_client</code>) and REST API on top of its DuckDB time-series engine:</p>
+                    <pre><code>from mdx_client import MDXClient
+
+client = MDXClient("http://localhost:5001")
+
+# Import a file and get all signals indexed
+file_id = client.files.import_file("run_42.mf4")
+
+# Query a signal with LTTB downsampling
+data = client.signals.get(file_id, "engine_speed_n", max_points=2000)
+
+# Run misfire analysis
+result = client.analysis.misfire(file_id)
+print(result["events"])</code></pre>
+                    <p class="mt-4 text-sm text-slate-400">The REST API allows scripted integration into CI/CD pipelines, test automation systems, or data warehouses — keeping the heavy data processing local while surfacing results via API.</p>
+                </section>
+
+                <section>
+                    <h2 class="text-2xl font-bold text-white mb-4">MDF4 vs CSV for vehicle data</h2>
+                    <p class="mb-4">CSV is frequently used as a data exchange format in automotive test, especially when teams want something universally readable. But MDF4 has significant structural advantages for measurement data:</p>
+                    <ul class="list-none space-y-3">
+                        <li class="flex gap-3"><span class="text-primary mt-1 flex-shrink-0">→</span><span><span class="font-semibold text-white">Multi-rate signals.</span> A single MF4 can store a 1 Hz GPS signal alongside a 10 kHz combustion pressure signal, time-aligned, in one file. CSV requires either resampling (lossy) or separate files per rate.</span></li>
+                        <li class="flex gap-3"><span class="text-primary mt-1 flex-shrink-0">→</span><span><span class="font-semibold text-white">Built-in metadata.</span> Units, conversion rules, channel descriptions, and signal provenance are in the file. CSV has no standard metadata convention.</span></li>
+                        <li class="flex gap-3"><span class="text-primary mt-1 flex-shrink-0">→</span><span><span class="font-semibold text-white">Size.</span> A compressed MF4 is typically 3–5× smaller than the equivalent CSV for floating-point data. A 10-minute highway run at 1000 signals × 100 Hz = 6 GB as CSV, ~1.5 GB as compressed MF4.</span></li>
+                        <li class="flex gap-3"><span class="text-primary mt-1 flex-shrink-0">→</span><span><span class="font-semibold text-white">Random access.</span> MDF4 tools can seek to specific time ranges without reading the full file. CSV requires a full sequential parse.</span></li>
+                    </ul>
+                    <p class="mt-4 text-sm text-slate-400">CSV is reasonable for small exports or sharing isolated signals with external parties. For anything at test-campaign scale, MDF4 is the right format.</p>
+                </section>
+
+                <section>
+                    <h2 class="text-2xl font-bold text-white mb-4">Common MDF4 tooling questions</h2>
+                    <div class="space-y-6">
+                        <div>
+                            <h3 class="font-semibold text-white mb-1">What file extensions do MDF4 files use?</h3>
+                            <p class="text-slate-400 text-sm leading-relaxed">MDF4 files typically use <code>.mf4</code>. Older MDF3 files use <code>.mdf</code>. Some tools write <code>.dat</code> or <code>.mdf4</code> — these are usually MDF format regardless of extension. The file header magic bytes (<code>MDF</code> at offset 0) identify the format definitively.</p>
+                        </div>
+                        <div>
+                            <h3 class="font-semibold text-white mb-1">How do I view the channel list without reading the whole file?</h3>
+                            <p class="text-slate-400 text-sm leading-relaxed">MDF4's block structure allows reading the channel index without parsing data blocks. In asammdf: <code>MDF("file.mf4", memory="minimum")</code> loads only the index. MDX auto-indexes all channels on import and stores them in a DuckDB catalog, making signal search instant on subsequent opens.</p>
+                        </div>
+                        <div>
+                            <h3 class="font-semibold text-white mb-1">Can MDF4 files store video or GPS data?</h3>
+                            <p class="text-slate-400 text-sm leading-relaxed">Yes. GPS data is typically stored as channel signals (latitude, longitude, altitude, speed) in a low-rate channel group. Video can be embedded as an AT attachment. MDX renders GPS signals on interactive offline maps (MapLibre GL with offline tile bundles) without requiring internet access.</p>
+                        </div>
+                    </div>
+                </section>
+
+                <!-- CTA -->
+                <section class="border border-primary/30 rounded-2xl p-8 bg-primary/5">
+                    <h2 class="text-2xl font-bold text-white mb-3">Analyze your MDF4 files with MDX</h2>
+                    <p class="text-slate-400 mb-6">MDX is a professional MDF/MF4 data lab for OEM test and calibration teams. Sub-second loading for multi-GB files, oscilloscope, GPS mapping, AI diagnostics, and a Python SDK — all offline-first, no data leaves your network.</p>
+                    <div class="flex flex-wrap gap-4">
+                        <a href="/mdx" class="inline-block bg-primary hover:bg-primary/90 text-black font-bold px-8 py-4 rounded-xl transition-all">Learn about MDX</a>
+                        <a href="/contact_us" class="inline-block border border-white/20 hover:border-white/40 text-white font-bold px-8 py-4 rounded-xl transition-all">Book a technical demo</a>
+                    </div>
+                </section>
+
+            </div>
+        </main>
+
+        <footer class="bg-background-dark border-t border-white/5 py-10 px-6">
+            <div class="max-w-7xl mx-auto flex flex-col md:flex-row justify-between items-center gap-4">
+                <p class="text-slate-500 text-xs font-bold tracking-tight">&copy; 2026 Vehicle Lab. All Rights Reserved.</p>
+                <div class="flex items-center gap-6 text-sm text-slate-400">
+                    <a class="hover:text-primary" href="/privacy">Privacy Policy</a>
+                    <a class="hover:text-primary" href="/terms">Terms of Service</a>
+                    <a class="hover:text-primary" href="/security">Security</a>
+                    <a class="hover:text-primary" href="/contact_us">Contact</a>
+                </div>
+            </div>
+        </footer>
+    </div>
+</body>
+
+</html>

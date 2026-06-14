@@ -130,8 +130,7 @@
     }
     </script>
     <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&amp;display=swap"
-        rel="stylesheet" />
+    <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:ital,wght@0,400;0,500;0,600;0,700;1,400&amp;display=swap" rel="stylesheet" />
     <link
         href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap"
         rel="stylesheet" />
@@ -146,7 +145,7 @@
                         "background-dark": "#0B0E14",
                     },
                     fontFamily: {
-                        "display": ["Inter", "sans-serif"]
+                        "display": ["IBM Plex Sans", "sans-serif"]
                     },
                     borderRadius: {
                         "DEFAULT": "0.25rem",
@@ -198,7 +197,7 @@
         <nav
             class="fixed w-full z-50 bg-[#0a0a0a]/80 backdrop-blur-md border-b border-white/5 transition-all duration-300">
             <div class="max-w-7xl mx-auto px-6 h-16 flex items-center justify-between">
-                <a class="flex items-center gap-3 group" href="index.html">
+                <a class="flex items-center gap-3 group" href="/">
                     <div
                         class="w-6 h-6 rounded flex items-center justify-center bg-white text-black transition-transform group-hover:scale-105">
                         <svg class="w-4 h-4" fill="currentColor" viewBox="0 0 24 24">
@@ -221,24 +220,25 @@
                         <div
                             class="absolute top-[100%] left-0 w-48 bg-[#111] border border-white/10 rounded-xl shadow-2xl opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-200 py-2">
                             <a class="block px-4 py-2 hover:bg-white/5 hover:text-white transition-colors"
-                                href="diagai.html">DiagAI</a>
+                                href="/diagai">DiagAI</a>
                             <a class="block px-4 py-2 hover:bg-white/5 hover:text-white transition-colors"
-                                href="cie_pro.html">CIE Pro</a>
+                                href="/cie_pro">CIE Pro</a>
                             <a class="block px-4 py-2 hover:bg-white/5 hover:text-white transition-colors"
-                                href="helix.html">HELIX</a>
+                                href="/helix">HELIX</a>
                             <a class="block px-4 py-2 hover:bg-white/5 hover:text-white transition-colors"
-                                href="mdx.html">MDX</a>
+                                href="/mdx">MDX</a>
                             <a class="block px-4 py-2 hover:bg-white/5 hover:text-white transition-colors"
-                                href="xhandbook.html">XHandbook</a>
+                                href="/xhandbook">XHandbook</a>
                         </div>
                     </div>
-                    <a class="hover:text-white transition-colors" href="about.html">About Us</a>
-                    <a class="hover:text-white transition-colors" href="docs.html">Resources</a>
-                    <a class="hover:text-white transition-colors" href="contact_us.html">Contact</a>
+                    <a class="hover:text-white transition-colors" href="/about">About Us</a>
+                    <a class="hover:text-white transition-colors" href="/docs">Resources</a>
+                    <a class="hover:text-white transition-colors" href="blog/">Blog</a>
+                    <a class="hover:text-white transition-colors" href="/contact_us">Contact</a>
                 </div>
                 <div class="flex items-center gap-4">
                     <a class="bg-white hover:bg-slate-200 text-black px-4 py-1.5 rounded-md text-sm font-medium transition-all shadow-sm"
-                        href="contact_us.html">Talk to Sales</a>
+                        href="/contact_us">Talk to Sales</a>
                 <button type="button" class="md:hidden tap-target p-2 rounded-lg text-white hover:bg-white/10" aria-expanded="false" aria-controls="nav-mobile-menu" aria-label="Open menu"
                     onclick="document.getElementById('nav-mobile-menu').classList.toggle('open'); this.setAttribute('aria-expanded', document.getElementById('nav-mobile-menu').classList.contains('open'));">
                     <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"/></svg>
@@ -249,15 +249,16 @@
     <div id="nav-mobile-menu" class="nav-mobile-menu" aria-hidden="true">
         <p class="text-xs font-bold text-slate-500 uppercase tracking-widest pt-2 pb-1">Products</p>
         <div class="nav-mobile-sub">
-            <a href="diagai.html">DiagAI</a>
-            <a href="cie_pro.html">CIE Pro</a>
-            <a href="helix.html">HELIX</a>
-            <a href="mdx.html">MDX</a>
-            <a href="xhandbook.html">XHandbook</a>
+            <a href="/diagai">DiagAI</a>
+            <a href="/cie_pro">CIE Pro</a>
+            <a href="/helix">HELIX</a>
+            <a href="/mdx">MDX</a>
+            <a href="/xhandbook">XHandbook</a>
         </div>
-        <a href="about.html">About Us</a>
-        <a href="docs.html">Resources</a>
-        <a href="contact_us.html" class="text-white font-semibold border-0 pt-4">Talk to Sales</a>
+        <a href="/about">About Us</a>
+        <a href="/docs">Resources</a>
+        <a href="blog/">Blog</a>
+        <a href="/contact_us" class="text-white font-semibold border-0 pt-4">Talk to Sales</a>
     </div>
         <main class="flex-1 relative z-10">
             <!-- Hero Section -->
@@ -274,15 +275,14 @@
                     </div>
                     <h1 class="text-5xl md:text-7xl font-black leading-[1.1] text-white tracking-tight">
                         MDX — Professional <span
-                            class="text-transparent bg-clip-text bg-gradient-to-r from-primary to-cyan-400">MDF Data
-                            Lab</span>
+                            class="text-transparent bg-clip-text bg-gradient-to-r from-primary to-cyan-400">MDF4 Analyzer</span> &amp; Vehicle Data Lab
                     </h1>
                     <p class="text-lg text-slate-400 max-w-xl leading-relaxed">
                         Full-stack MDF/MF4 analytics with oscilloscope, instruments, and AI diagnostics. Faster than
                         legacy desktop tools. Offline-first. Same workflow you know, evolved.
                     </p>
                     <div class="flex flex-wrap gap-4">
-                        <a href="contact_us.html"
+                        <a href="/contact_us"
                             class="h-14 px-8 bg-primary text-background-dark font-bold rounded-xl hover:scale-105 transition-transform flex items-center gap-2">
                             <span class="material-symbols-outlined">download</span>
                             Download for Windows
@@ -642,15 +642,34 @@
                             modern data laboratory environment.
                         </p>
                         <div class="flex flex-wrap justify-center gap-4 pt-4">
-                            <a href="contact_us.html"
+                            <a href="/contact_us"
                                 class="h-16 px-12 inline-flex items-center justify-center bg-primary text-background-dark font-black text-lg rounded-xl shadow-[0_0_30px_rgba(0,229,255,0.4)] hover:scale-105 transition-transform">
                                 Download Latest Release
                             </a>
-                            <a href="docs.html"
+                            <a href="/docs"
                                 class="h-16 px-12 inline-flex items-center justify-center bg-white/5 border border-white/10 text-white font-bold text-lg rounded-xl hover:bg-white/10 transition-colors">
                                 Documentation
                             </a>
                         </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Blog / Learn strip -->
+            <section class="max-w-7xl mx-auto px-6 pb-20">
+                <div class="border-t border-white/10 pt-16">
+                    <p class="text-xs font-bold text-slate-500 uppercase tracking-widest mb-6">From the Blog</p>
+                    <div class="grid md:grid-cols-2 gap-4">
+                        <a href="blog/open-mf4-file" class="group flex flex-col gap-2 rounded-xl border border-white/8 bg-white/3 hover:border-primary/40 hover:bg-primary/5 transition-all p-6">
+                            <span class="text-xs font-bold text-primary uppercase tracking-widest">MDF / MF4 Data</span>
+                            <span class="text-white font-semibold group-hover:text-primary transition-colors">How to Open and Read MF4 (.mf4) Files</span>
+                            <span class="text-slate-400 text-sm">What the .mf4 format is and the practical ways to read large measurement recordings.</span>
+                            <span class="text-primary text-sm font-semibold mt-1 flex items-center gap-1">Read guide <span class="material-symbols-outlined text-base">arrow_forward</span></span>
+                        </a>
+                        <a href="blog/" class="group flex flex-col gap-2 rounded-xl border border-white/8 bg-white/3 hover:border-primary/40 hover:bg-primary/5 transition-all p-6 justify-center items-center text-center">
+                            <span class="material-symbols-outlined text-4xl text-slate-600 group-hover:text-primary transition-colors">library_books</span>
+                            <span class="text-slate-400 text-sm group-hover:text-slate-300 transition-colors">More engineering guides →</span>
+                        </a>
                     </div>
                 </div>
             </section>
@@ -689,20 +708,20 @@
             <div>
                 <h5 class="font-bold text-white font-medium tracking-tight mb-6 text-sm">Product</h5>
                 <ul class="space-y-4 text-slate-400 font-semibold text-sm">
-                    <li><a class="hover:text-primary" href="diagai.html">DiagAI</a></li>
-                    <li><a class="hover:text-primary" href="cie_pro.html">CIE Pro</a></li>
-                    <li><a class="hover:text-primary" href="helix.html">HELIX Suite</a></li>
-                    <li><a class="hover:text-primary" href="mdx.html">MDX</a></li>
-                    <li><a class="hover:text-primary" href="xhandbook.html">XHandbook</a></li>
+                    <li><a class="hover:text-primary" href="/diagai">DiagAI</a></li>
+                    <li><a class="hover:text-primary" href="/cie_pro">CIE Pro</a></li>
+                    <li><a class="hover:text-primary" href="/helix">HELIX Suite</a></li>
+                    <li><a class="hover:text-primary" href="/mdx">MDX</a></li>
+                    <li><a class="hover:text-primary" href="/xhandbook">XHandbook</a></li>
                 </ul>
             </div>
             <div>
                 <div>
                     <h5 class="font-bold text-white font-medium tracking-tight mb-6 text-sm">Company</h5>
                     <ul class="space-y-4 text-slate-400 font-semibold text-sm">
-                        <li><a class="hover:text-primary" href="about.html">About Us</a></li>
-                        <li><a class="hover:text-primary" href="solutions.html">Solutions</a></li>
-                        <li><a class="hover:text-primary" href="case_studies.html">Case Studies</a></li>
+                        <li><a class="hover:text-primary" href="/about">About Us</a></li>
+                        <li><a class="hover:text-primary" href="/solutions">Solutions</a></li>
+                        <li><a class="hover:text-primary" href="/case_studies">Case Studies</a></li>
                         <li><a class="hover:text-primary" href="https://linkedin.com/company/vehiclelab" target="_blank">LinkedIn</a></li>
                         <li><a class="hover:text-primary" href="https://github.com/vehiclelab" target="_blank">GitHub</a></li>
                         <li><a class="hover:text-primary" href="https://producthunt.com/products/vehicle-lab" target="_blank">Product Hunt</a></li>
@@ -712,26 +731,15 @@
             <div>
                 <h5 class="font-bold text-white font-medium tracking-tight mb-6 text-sm">Legal</h5>
                 <ul class="space-y-4 text-slate-400 font-semibold text-sm">
-                    <li><a class="hover:text-primary" href="privacy.html">Privacy Policy</a></li>
-                    <li><a class="hover:text-primary" href="terms.html">Terms of Service</a></li>
-                    <li><a class="hover:text-primary" href="security.html">ISO Certifications</a></li>
-                    <li><a class="hover:text-primary" href="security.html">Security</a></li>
+                    <li><a class="hover:text-primary" href="/privacy">Privacy Policy</a></li>
+                    <li><a class="hover:text-primary" href="/terms">Terms of Service</a></li>
+                    <li><a class="hover:text-primary" href="/security">ISO Certifications</a></li>
+                    <li><a class="hover:text-primary" href="/security">Security</a></li>
                 </ul>
             </div>
         </div>
-        <div class="max-w-7xl mx-auto mt-12 pt-8 border-t border-white/5">
-            <div class="flex flex-col items-center gap-4 mb-8">
-                <p class="text-xs font-bold text-slate-500 uppercase tracking-widest">Trusted by Engineering Teams at</p>
-                <div class="flex flex-wrap justify-center items-center gap-8 opacity-40 grayscale hover:grayscale-0 hover:opacity-60 transition-all duration-500">
-                    <div class="flex items-center gap-2 text-slate-400"><span class="material-symbols-outlined text-2xl">directions_car</span><span class="text-sm font-bold">Global OEM</span></div>
-                    <div class="flex items-center gap-2 text-slate-400"><span class="material-symbols-outlined text-2xl">electric_bolt</span><span class="text-sm font-bold">EV Manufacturer</span></div>
-                    <div class="flex items-center gap-2 text-slate-400"><span class="material-symbols-outlined text-2xl">precision_manufacturing</span><span class="text-sm font-bold">Tier-1 Supplier</span></div>
-                    <div class="flex items-center gap-2 text-slate-400"><span class="material-symbols-outlined text-2xl">engineering</span><span class="text-sm font-bold">R&D Center</span></div>
-                </div>
-            </div>
-        </div>
         <div
-            class="max-w-7xl mx-auto mt-8 pt-8 border-t border-white/5 flex flex-col md:flex-row justify-between items-center gap-4">
+            class="max-w-7xl mx-auto mt-12 pt-8 border-t border-white/5 flex flex-col md:flex-row justify-between items-center gap-4">
             <p class="text-slate-500 text-xs font-bold font-medium tracking-tight">&copy; 2025 Vehicle Lab Systems AG.
                 All Rights Reserved.</p>
             <div class="flex items-center gap-6">
