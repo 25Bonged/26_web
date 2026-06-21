@@ -1,0 +1,836 @@
+<!DOCTYPE html>
+
+<html class="dark" lang="en">
+
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta property="og:title" content="Hexx — ECU-Grade Hex & Binary Editor | Intel HEX, S-Record, BIN + A2L" />
+    <meta property="og:description" content="Hexx is a precision hex & binary editor for ECU calibration. Open Intel HEX, Motorola S-record and raw BIN, decode them against your A2L, edit calibration maps cell-by-cell, and write back with checksums that always validate. Offline-first." />
+    <meta property="og:image" content="https://vehiclelab.in/pics/og-image.png" />
+    <meta property="og:image:width" content="1200" />
+    <meta property="og:image:height" content="630" />
+    <meta property="og:url" content="https://vehiclelab.in/hexx" />
+    <meta property="og:type" content="website" />
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:image" content="https://vehiclelab.in/pics/og-image.png" />
+    <meta name="twitter:title" content="Hexx — ECU-Grade Hex & Binary Editor (A2L-aware)" />
+    <meta name="twitter:description" content="Read, edit and trust every byte of your ECU. Intel HEX / S19 / S37 / BIN, A2L-decoded calibration maps, byte-trace viewer, automatic checksums. Offline-first." />
+    <title>Hexx — ECU-Grade Hex & Binary Editor (Intel HEX, S-Record, BIN + A2L) | Vehicle Lab</title>
+    <meta name="description" content="Hexx is an A2L-aware hex & binary editor for ECU calibration — open Intel HEX, Motorola S-record and raw BIN, decode bytes into named calibration maps, edit in engineering units, and write back with valid checksums. Offline-first, zero data egress.">
+    <link rel="canonical" href="https://vehiclelab.in/hexx" />
+    <!-- Structured Data: SoftwareApplication -->
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "SoftwareApplication",
+      "name": "Hexx",
+      "alternateName": "Hexx ECU Hex & Binary Editor",
+      "description": "Hexx is an A2L-aware hex and binary editor purpose-built for ECU calibration. It opens Intel HEX, Motorola S-record (S19/S37) and raw BIN images, decodes raw bytes into named calibration characteristics using an ASAM A2L description, and lets engineers edit 1D and 2D maps cell-by-cell in physical engineering units with axis breakpoints and upper/lower limits. A canvas byte-trace viewer visualizes memory as a continuous trace with 8/16/32-bit modes, zoom, pan, address navigation and highlighted map regions. Checksum blocks are auto-detected and recomputed on write so every image stays flash-valid. Edits are made against a Base/Reference dataset with batch updates and full change tracking. Offline-first architecture with zero data egress. Hexx is part of the HELIX calibration suite.",
+      "url": "https://vehiclelab.in/hexx",
+      "applicationCategory": "Engineering Software",
+      "operatingSystem": "Web, Windows, macOS, Linux",
+      "offers": {
+        "@type": "Offer",
+        "price": "0",
+        "priceCurrency": "INR",
+        "description": "Enterprise licensing on request. Contact sales to book a technical demo."
+      },
+      "featureList": [
+        "Intel HEX, Motorola S-Record (S19/S37) and Raw BIN Support",
+        "A2L-Aware Decoding — Raw Bytes to Named Calibration Characteristics",
+        "Automatic Map Extraction Filtered from Thousands of A2L Characteristics",
+        "Live 1D and 2D Map Editor in Physical Engineering Units",
+        "Axis Breakpoints, Units, and Upper/Lower Limit Enforcement",
+        "Canvas Byte-Trace Viewer with 8/16/32-bit Modes",
+        "Zoom, Pan, Address Navigation and Highlighted Memory Regions",
+        "Jump-to-Offset (0x) and Focus-on-Map Address",
+        "Automatic Checksum Detection and Recomputation on Write",
+        "Pre-Flash Integrity Validation",
+        "Edit Against a Base / Reference Dataset with Batch Updates",
+        "Full Change Tracking and Reference Diff",
+        "Part of the HELIX Calibration Lifecycle Suite",
+        "REST API for Automation and Batch Processing",
+        "Offline-First with Total Data Privacy"
+      ],
+      "author": {
+        "@type": "Organization",
+        "name": "Vehicle Lab",
+        "url": "https://vehiclelab.in"
+      },
+      "citation": [
+        {
+          "@type": "CreativeWork",
+          "name": "ASAM MCD-2 MC (A2L): ECU Description Standard",
+          "url": "https://www.asam.net/standards/detail/mcd-2-mc/"
+        },
+        {
+          "@type": "CreativeWork",
+          "name": "Intel HEX Record Format",
+          "url": "https://en.wikipedia.org/wiki/Intel_HEX"
+        }
+      ]
+    }
+    </script>
+    <!-- Structured Data: BreadcrumbList -->
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "BreadcrumbList",
+      "itemListElement": [
+        {
+          "@type": "ListItem",
+          "position": 1,
+          "name": "Vehicle Lab",
+          "item": "https://vehiclelab.in/"
+        },
+        {
+          "@type": "ListItem",
+          "position": 2,
+          "name": "Hexx",
+          "item": "https://vehiclelab.in/hexx"
+        }
+      ]
+    }
+    </script>
+    <!-- Structured Data: FAQPage -->
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "FAQPage",
+      "mainEntity": [
+        {
+          "@type": "Question",
+          "name": "What file formats does Hexx open and edit?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "Hexx reads and writes Intel HEX (.hex), Motorola S-record (.s19, .s37) and raw binary (.bin) ECU images. It pairs any of these with an ASAM A2L (.a2l) description so addresses are decoded into named calibration characteristics. Files are written back in the same format with checksums recomputed."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "How is Hexx different from a normal hex editor?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "A normal hex editor shows you bytes and leaves the address math to you. Hexx is A2L-aware: it decodes the image against your ECU description, surfaces named 1D and 2D calibration maps, and lets you edit them in physical engineering units with axis breakpoints, units, and upper/lower limits — instead of nudging raw bytes by hand. It also auto-detects checksum blocks and recomputes them on write so the image stays flash-valid."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "Does Hexx keep the ECU image valid after I edit a map?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "Yes. Hexx detects checksum regions in the image and recomputes them automatically when you write changes, then validates integrity before you flash. Every edit is applied against a Base/Reference dataset with batch updates and full change tracking, so you can diff exactly what moved."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "Can Hexx work fully offline?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "Yes. Hexx is offline-first. It runs the backend and frontend locally with zero data egress — your ECU images, A2L files and calibration data never leave your machine. It can run as a web app against a local API or as part of the native HELIX desktop suite."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "How does Hexx relate to HELIX?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "Hexx is the hex & binary editing engine from the HELIX calibration suite, available as a focused standalone product. Inside HELIX it powers project-linked calibration editing across the full release lifecycle; standalone, it is a precision byte-and-map editor you can point at any HEX/A2L pair."
+          }
+        }
+      ]
+    }
+    </script>
+    <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+    <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:ital,wght@0,400;0,500;0,600;0,700;1,400&amp;display=swap" rel="stylesheet" />
+    <link
+        href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap"
+        rel="stylesheet" />
+    <script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    colors: {
+                        "primary": "#A855F7",
+                        "background-light": "#f6f6f8",
+                        "background-dark": "#0B0E14",
+                    },
+                    fontFamily: {
+                        "display": ["IBM Plex Sans", "sans-serif"]
+                    },
+                    borderRadius: {
+                        "DEFAULT": "0.25rem",
+                        "lg": "0.5rem",
+                        "xl": "0.75rem",
+                        "full": "9999px"
+                    },
+                },
+            },
+        }
+    </script>
+    <style>
+        .glass-card {
+            background: rgba(16, 22, 34, 0.6);
+            backdrop-filter: blur(12px);
+            border: 1px solid rgba(168, 85, 247, 0.1);
+        }
+
+        .neon-border-glow:hover {
+            border-color: #A855F7;
+            box-shadow: 0 0 15px rgba(168, 85, 247, 0.3);
+        }
+
+        .grid-overlay {
+            background-image: radial-gradient(rgba(168, 85, 247, 0.1) 1px, transparent 1px);
+            background-size: 30px 30px;
+        }
+
+        /* Mobile nav overlay */
+        .nav-mobile-menu { display: none; }
+        .nav-mobile-menu.open { display: block; position: fixed; top: 4rem; left: 0; right: 0; bottom: 0; z-index: 40; background: rgba(10,10,10,0.98); backdrop-filter: blur(12px); padding: 1rem 1.5rem 2rem; overflow-y: auto; }
+        .nav-mobile-menu a { display: block; padding: 0.875rem 0; font-size: 1.125rem; font-weight: 500; color: #94a3b8; border-bottom: 1px solid rgba(255,255,255,0.06); min-height: 44px; align-items: center; }
+        .nav-mobile-menu a:hover, .nav-mobile-menu a:focus { color: #fff; }
+        .nav-mobile-menu .nav-mobile-sub { padding-left: 1rem; padding-top: 0.25rem; }
+        .nav-mobile-menu .nav-mobile-sub a { font-size: 1rem; }
+        @media (min-width: 768px) { .nav-mobile-menu { display: none !important; } }
+    </style>
+    <link rel="stylesheet" href="/assets/cursor.css" />
+</head>
+
+<body
+    class="bg-background-light dark:bg-background-dark font-display text-slate-900 dark:text-slate-100 selection:bg-primary/30">
+    <div class="relative min-h-screen flex flex-col overflow-x-hidden">
+        <!-- Background Decorative Elements -->
+        <div class="absolute inset-0 grid-overlay opacity-20 pointer-events-none"></div>
+        <div
+            class="absolute top-0 left-1/2 -translate-x-1/2 w-full h-[600px] bg-gradient-to-b from-primary/10 to-transparent pointer-events-none blur-[120px]">
+        </div>
+        <!-- Navigation -->
+        <nav
+            class="fixed w-full z-50 bg-[#0a0a0a]/80 backdrop-blur-md border-b border-white/5 transition-all duration-300">
+            <div class="max-w-7xl mx-auto px-6 h-16 flex items-center justify-between">
+                <a class="flex items-center group" href="/">
+    <img src="pics/logo-dark.png" alt="Vehicle Lab" class="h-12 w-auto transition-opacity group-hover:opacity-75" />
+</a>
+                <div class="hidden md:flex items-center gap-6 text-sm font-medium text-slate-400">
+                    <!-- Solutions Dropdown -->
+                    <div class="relative group cursor-pointer inline-block py-6">
+                        <span class="hover:text-white transition-colors flex items-center gap-1">Products <svg
+                                class="w-3 h-3 opacity-50" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path d="M19 9l-7 7-7-7" stroke-linecap="round" stroke-linejoin="round"
+                                    stroke-width="2">
+                                </path>
+                            </svg></span>
+                        <div
+                            class="absolute top-[100%] left-0 w-48 bg-[#111] border border-white/10 rounded-xl shadow-2xl opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-200 py-2">
+                            <a class="block px-4 py-2 hover:bg-white/5 hover:text-white transition-colors"
+                                href="/diagai">DiagAI</a>
+                            <a class="block px-4 py-2 hover:bg-white/5 hover:text-white transition-colors"
+                                href="/cie_pro">CIE Pro</a>
+                            <a class="block px-4 py-2 hover:bg-white/5 hover:text-white transition-colors"
+                                href="/helix">HELIX</a>
+                            <a class="block px-4 py-2 hover:bg-white/5 hover:text-white transition-colors"
+                                href="/hexx">Hexx</a>
+                            <a class="block px-4 py-2 hover:bg-white/5 hover:text-white transition-colors"
+                                href="/mdx">MDX</a>
+                            <a class="block px-4 py-2 hover:bg-white/5 hover:text-white transition-colors"
+                                href="/xhandbook">XHandbook</a>
+                        </div>
+                    </div>
+                    <a class="hover:text-white transition-colors" href="/about">About Us</a>
+                    <a class="hover:text-white transition-colors" href="/docs">Resources</a>
+                    <a class="hover:text-white transition-colors" href="blog/">Blog</a>
+                    <a class="hover:text-white transition-colors" href="/contact_us">Contact</a>
+                </div>
+                <div class="flex items-center gap-4">
+                    <a class="bg-white hover:bg-slate-200 text-black px-4 py-1.5 rounded-md text-sm font-medium transition-all shadow-sm"
+                        href="/contact_us">Talk to Sales</a>
+                <button type="button" class="md:hidden tap-target p-2 rounded-lg text-white hover:bg-white/10" aria-expanded="false" aria-controls="nav-mobile-menu" aria-label="Open menu"
+                    onclick="document.getElementById('nav-mobile-menu').classList.toggle('open'); this.setAttribute('aria-expanded', document.getElementById('nav-mobile-menu').classList.contains('open'));">
+                    <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"/></svg>
+                </button>
+                </div>
+            </div>
+        </nav>
+    <div id="nav-mobile-menu" class="nav-mobile-menu" aria-hidden="true">
+        <p class="text-xs font-bold text-slate-500 uppercase tracking-widest pt-2 pb-1">Products</p>
+        <div class="nav-mobile-sub">
+            <a href="/diagai">DiagAI</a>
+            <a href="/cie_pro">CIE Pro</a>
+            <a href="/helix">HELIX</a>
+            <a href="/hexx">Hexx</a>
+            <a href="/mdx">MDX</a>
+            <a href="/xhandbook">XHandbook</a>
+        </div>
+        <a href="/about">About Us</a>
+        <a href="/docs">Resources</a>
+        <a href="blog/">Blog</a>
+        <a href="/contact_us" class="text-white font-semibold border-0 pt-4">Talk to Sales</a>
+    </div>
+        <main class="flex-1 relative z-10">
+            <!-- Hero Section -->
+            <section class="max-w-7xl mx-auto px-6 pt-20 pb-32 grid lg:grid-cols-2 gap-16 items-center">
+                <div class="flex flex-col gap-8">
+                    <div
+                        class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-primary/10 border border-primary/20 text-primary text-xs font-bold uppercase tracking-widest">
+                        <span class="relative flex h-2 w-2">
+                            <span
+                                class="animate-ping absolute inline-flex h-full w-full rounded-full bg-primary opacity-75"></span>
+                            <span class="relative inline-flex rounded-full h-2 w-2 bg-primary"></span>
+                        </span>
+                        ECU-grade hex &amp; binary editor
+                    </div>
+                    <h1 class="text-5xl md:text-7xl font-black leading-[1.1] text-white tracking-tight">
+                        Every byte of your ECU, finally <span
+                            class="text-transparent bg-clip-text bg-gradient-to-r from-primary to-fuchsia-400">readable</span>
+                    </h1>
+                    <p class="text-lg text-slate-400 max-w-xl leading-relaxed">
+                        Hexx isn't just another hex editor. It opens Intel HEX, Motorola S-record and raw BIN images,
+                        decodes them against your A2L into named calibration maps, and lets you edit in real
+                        engineering units — then writes back with checksums that always validate. Offline-first.
+                    </p>
+                    <div class="flex flex-wrap gap-4">
+                        <a href="#maps"
+                            class="h-14 px-8 bg-primary text-background-dark font-bold rounded-xl hover:scale-105 transition-transform flex items-center gap-2">
+                            <span class="material-symbols-outlined">grid_on</span>
+                            See bytes become maps
+                        </a>
+                        <a href="/contact_us"
+                            class="h-14 px-8 bg-white/5 border border-white/10 text-white font-bold rounded-xl hover:bg-white/10 transition-colors flex items-center gap-2">
+                            <span class="material-symbols-outlined">download</span>
+                            Download for Windows
+                        </a>
+                    </div>
+                    <div class="flex flex-col gap-3 pt-2">
+                        <span class="text-[11px] font-bold uppercase tracking-widest text-slate-600">Reads &amp; writes</span>
+                        <div class="flex flex-wrap items-center gap-2">
+                            <span
+                                class="text-xs font-mono text-slate-300 bg-white/5 border border-white/10 rounded-full px-3 py-1.5">Intel HEX</span>
+                            <span
+                                class="text-xs font-mono text-slate-300 bg-white/5 border border-white/10 rounded-full px-3 py-1.5">S19</span>
+                            <span
+                                class="text-xs font-mono text-slate-300 bg-white/5 border border-white/10 rounded-full px-3 py-1.5">S37</span>
+                            <span
+                                class="text-xs font-mono text-slate-300 bg-white/5 border border-white/10 rounded-full px-3 py-1.5">.bin</span>
+                            <span
+                                class="text-xs font-mono text-slate-300 bg-white/5 border border-white/10 rounded-full px-3 py-1.5">ASAM A2L</span>
+                        </div>
+                    </div>
+                </div>
+                <div class="relative">
+                    <div
+                        class="aspect-square rounded-3xl overflow-hidden border border-primary/20 bg-gradient-to-br from-primary/10 via-background-dark/60 to-background-dark relative p-5 flex flex-col">
+                        <div class="flex items-center gap-2 pb-3 mb-3 border-b border-primary/15">
+                            <span class="material-symbols-outlined text-primary text-lg">memory</span>
+                            <span class="text-sm font-bold text-white">ecu_image.hex</span>
+                            <span class="text-[10px] font-mono text-slate-500">&harr; map.a2l</span>
+                            <span class="ml-auto text-[10px] text-green-400 font-mono flex items-center gap-1"><span
+                                    class="w-1.5 h-1.5 bg-green-400 rounded-full"></span>checksum ok</span>
+                        </div>
+                        <div class="flex-1 flex flex-col gap-3 text-sm overflow-hidden">
+                            <div class="bg-white/5 border border-white/10 rounded-xl p-3 font-mono text-[10px] leading-relaxed text-slate-400 overflow-hidden">
+                                <div><span class="text-slate-600">0x8A40</span>&nbsp;&nbsp;1F 2A 30 3C <span class="text-primary">48 55 61</span> 6E&nbsp;&nbsp;<span class="text-slate-600">.*0&lt;HUan</span></div>
+                                <div><span class="text-slate-600">0x8A48</span>&nbsp;&nbsp;<span class="text-primary">7A 84 8F 99</span> A2 AB B3 BA&nbsp;&nbsp;<span class="text-slate-600">z....&middot;&middot;&middot;</span></div>
+                                <div><span class="text-slate-600">0x8A50</span>&nbsp;&nbsp;C0 C5 C9 CD D0 D3 D5 D7&nbsp;&nbsp;<span class="text-slate-600">........</span></div>
+                            </div>
+                            <div class="font-mono text-[11px] text-primary/90 flex items-center gap-1.5"><span
+                                    class="material-symbols-outlined text-sm">bolt</span>decode A2L &rarr; extract map &rarr; edit</div>
+                            <div class="bg-white/5 border border-white/10 rounded-xl p-3 flex flex-col gap-2">
+                                <div class="flex items-center justify-between text-[10px] font-mono text-slate-500"><span>InjTiming_MAP</span><span>16&times;16 &middot; °CA</span></div>
+                                <div class="grid grid-cols-8 gap-0.5">
+                                    <div class="h-3 rounded-sm bg-primary/20"></div><div class="h-3 rounded-sm bg-primary/30"></div><div class="h-3 rounded-sm bg-primary/40"></div><div class="h-3 rounded-sm bg-primary/50"></div><div class="h-3 rounded-sm bg-primary/60"></div><div class="h-3 rounded-sm bg-primary/70"></div><div class="h-3 rounded-sm bg-primary/80"></div><div class="h-3 rounded-sm bg-primary"></div>
+                                    <div class="h-3 rounded-sm bg-primary/30"></div><div class="h-3 rounded-sm bg-primary/40"></div><div class="h-3 rounded-sm bg-primary/50"></div><div class="h-3 rounded-sm bg-primary/60"></div><div class="h-3 rounded-sm bg-primary/70"></div><div class="h-3 rounded-sm bg-primary/80"></div><div class="h-3 rounded-sm bg-primary"></div><div class="h-3 rounded-sm bg-fuchsia-400"></div>
+                                </div>
+                            </div>
+                            <div
+                                class="bg-white/5 border border-white/10 rounded-2xl rounded-tl-sm px-4 py-2.5 text-slate-300 text-[13px] max-w-[92%]">
+                                Cell <span class="text-primary font-mono">[12,7]</span> set to <span class="text-primary font-mono">8.5 °CA</span> — within limits. Checksum recomputed on write.</div>
+                        </div>
+                    </div>
+                    <!-- Floating Accents -->
+                    <div class="absolute -top-6 -right-6 size-32 bg-primary/20 blur-3xl rounded-full"></div>
+                    <div class="absolute -bottom-10 -left-10 size-48 bg-fuchsia-500/10 blur-3xl rounded-full"></div>
+                </div>
+            </section>
+            <!-- Value Proposition Grid -->
+            <section class="py-24 bg-white/5 border-y border-white/5 relative overflow-hidden">
+                <div class="max-w-7xl mx-auto px-6">
+                    <div class="grid md:grid-cols-2 lg:grid-cols-4 gap-8">
+                        <div class="flex flex-col gap-4 group">
+                            <div
+                                class="size-12 rounded-xl bg-primary/10 flex items-center justify-center border border-primary/20 group-hover:border-primary/50 transition-colors">
+                                <span class="material-symbols-outlined text-primary">memory</span>
+                            </div>
+                            <h3 class="text-xl font-bold text-white">Every ECU Format</h3>
+                            <p class="text-slate-400 text-sm leading-relaxed">Intel HEX, Motorola S-record (S19/S37) and
+                                raw BIN — open, edit and write back in the same format. One editor for every image.</p>
+                        </div>
+                        <div class="flex flex-col gap-4 group">
+                            <div
+                                class="size-12 rounded-xl bg-primary/10 flex items-center justify-center border border-primary/20 group-hover:border-primary/50 transition-colors">
+                                <span class="material-symbols-outlined text-primary">account_tree</span>
+                            </div>
+                            <h3 class="text-xl font-bold text-white">A2L-Aware</h3>
+                            <p class="text-slate-400 text-sm leading-relaxed">Point Hexx at an ASAM A2L and raw addresses
+                                turn into named characteristics — no manual address math, no spreadsheet of offsets.</p>
+                        </div>
+                        <div class="flex flex-col gap-4 group">
+                            <div
+                                class="size-12 rounded-xl bg-primary/10 flex items-center justify-center border border-primary/20 group-hover:border-primary/50 transition-colors">
+                                <span class="material-symbols-outlined text-primary">grid_on</span>
+                            </div>
+                            <h3 class="text-xl font-bold text-white">Map-Accurate</h3>
+                            <p class="text-slate-400 text-sm leading-relaxed">Edit 1D and 2D maps in physical engineering
+                                units with real axis breakpoints, units and upper/lower limits — not raw byte nudging.</p>
+                        </div>
+                        <div class="flex flex-col gap-4 group">
+                            <div
+                                class="size-12 rounded-xl bg-primary/10 flex items-center justify-center border border-primary/20 group-hover:border-primary/50 transition-colors">
+                                <span class="material-symbols-outlined text-primary">verified</span>
+                            </div>
+                            <h3 class="text-xl font-bold text-white">Checksum-Safe</h3>
+                            <p class="text-slate-400 text-sm leading-relaxed">Checksum blocks are auto-detected and
+                                recomputed on every write, then validated before flash. Your image stays valid, always.</p>
+                        </div>
+                    </div>
+                </div>
+            </section>
+            <!-- Deep Dive Features -->
+            <section class="py-32 max-w-7xl mx-auto px-6">
+                <div class="text-center mb-20">
+                    <h2 class="text-4xl font-black text-white mb-4">A Precision Byte-and-Map Editor</h2>
+                    <p class="text-slate-400 max-w-2xl mx-auto">Built for calibration engineers who need to see exactly
+                        what is in the image — and change it without breaking it.</p>
+                </div>
+                <div class="grid md:grid-cols-2 gap-8">
+                    <!-- Card 1 -->
+                    <div
+                        class="glass-card p-8 rounded-2xl flex flex-col gap-6 neon-border-glow transition-all duration-300">
+                        <div
+                            class="aspect-video bg-gradient-to-br from-primary/15 via-background-dark/40 to-background-dark rounded-xl border border-white/5 overflow-hidden relative flex items-center justify-center">
+                            <span class="material-symbols-outlined text-primary text-6xl">show_chart</span>
+                        </div>
+                        <div>
+                            <h3 class="text-2xl font-bold text-white mb-3">Byte-Trace Viewer</h3>
+                            <p class="text-slate-400 leading-relaxed">See the whole image as a continuous trace, not just
+                                rows of digits. Switch between 8/16/32-bit interpretation, zoom and pan across memory,
+                                jump straight to a 0x offset, and watch highlighted memory regions light up where your
+                                maps live.</p>
+                        </div>
+                    </div>
+                    <!-- Card 2 -->
+                    <div
+                        class="glass-card p-8 rounded-2xl flex flex-col gap-6 neon-border-glow transition-all duration-300">
+                        <div
+                            class="aspect-video bg-gradient-to-br from-primary/15 via-background-dark/40 to-background-dark rounded-xl border border-white/5 overflow-hidden relative flex items-center justify-center">
+                            <span class="material-symbols-outlined text-primary text-6xl">account_tree</span>
+                        </div>
+                        <div>
+                            <h3 class="text-2xl font-bold text-white mb-3">A2L-Driven Map Extraction</h3>
+                            <p class="text-slate-400 leading-relaxed">Upload a HEX/A2L pair and Hexx pulls out the
+                                calibration maps that actually matter — filtered from thousands of characteristics down to
+                                the editable curves and tables, each with its address, axes, units and limits resolved.</p>
+                        </div>
+                    </div>
+                    <!-- Card 3 -->
+                    <div
+                        class="glass-card p-8 rounded-2xl flex flex-col gap-6 neon-border-glow transition-all duration-300">
+                        <div
+                            class="aspect-video bg-gradient-to-br from-primary/15 via-background-dark/40 to-background-dark rounded-xl border border-white/5 overflow-hidden relative flex items-center justify-center">
+                            <span class="material-symbols-outlined text-primary text-6xl">edit_note</span>
+                        </div>
+                        <div>
+                            <h3 class="text-2xl font-bold text-white mb-3">Live Map Editor</h3>
+                            <p class="text-slate-400 leading-relaxed">Edit single cells or whole regions in engineering
+                                units, with axis breakpoints and upper/lower limits enforced as you type. Min/max update
+                                live, and the byte image updates underneath so the trace and the table never disagree.</p>
+                        </div>
+                    </div>
+                    <!-- Card 4 -->
+                    <div
+                        class="glass-card p-8 rounded-2xl flex flex-col gap-6 neon-border-glow transition-all duration-300">
+                        <div
+                            class="aspect-video bg-gradient-to-br from-primary/15 via-background-dark/40 to-background-dark rounded-xl border border-white/5 overflow-hidden relative flex items-center justify-center">
+                            <span class="material-symbols-outlined text-primary text-6xl">verified_user</span>
+                        </div>
+                        <div>
+                            <h3 class="text-2xl font-bold text-white mb-3">Checksum &amp; Integrity</h3>
+                            <p class="text-slate-400 leading-relaxed">Hexx detects checksum regions in the image and
+                                recomputes them whenever you write, then validates the result before you flash. No more
+                                bricked ECUs from a stale checksum after a last-minute map tweak.</p>
+                        </div>
+                    </div>
+                </div>
+            </section>
+            <!-- From bytes to maps -->
+            <section id="maps" class="py-32 max-w-7xl mx-auto px-6 relative overflow-hidden scroll-mt-16">
+                <div
+                    class="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[720px] h-[420px] bg-primary/5 blur-[150px] pointer-events-none">
+                </div>
+                <div class="text-center mb-20 relative z-10">
+                    <div
+                        class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-primary/10 border border-primary/20 text-primary text-xs font-bold uppercase tracking-widest mb-6">
+                        <span class="material-symbols-outlined text-sm">transform</span>
+                        From raw bytes to named maps
+                    </div>
+                    <h2 class="text-4xl font-black text-white mb-4">A hex dump no one can read is not calibration.</h2>
+                    <p class="text-slate-400 max-w-2xl mx-auto">Hexx walks the A2L, finds where each characteristic lives
+                        in the image, applies its conversion, and hands you an editable map — addresses, axes and units
+                        already worked out.</p>
+                </div>
+                <div class="grid md:grid-cols-2 gap-8 relative z-10">
+                    <!-- Raw bytes -->
+                    <div
+                        class="glass-card p-8 rounded-2xl flex flex-col gap-6 neon-border-glow transition-all duration-300">
+                        <div
+                            class="aspect-video bg-background-dark/50 rounded-xl border border-white/5 overflow-hidden relative p-5 flex flex-col justify-center gap-1 font-mono text-[10px] leading-relaxed text-slate-500">
+                            <span
+                                class="absolute top-3 right-4 text-[10px] font-mono text-slate-500 uppercase tracking-widest">raw
+                                · bytes</span>
+                            <div><span class="text-slate-600">0x8A40</span> 1F 2A 30 3C 48 55 61 6E</div>
+                            <div><span class="text-slate-600">0x8A48</span> 7A 84 8F 99 A2 AB B3 BA</div>
+                            <div><span class="text-slate-600">0x8A50</span> C0 C5 C9 CD D0 D3 D5 D7</div>
+                            <div><span class="text-slate-600">0x8A58</span> D8 D9 DA DA DB DB DC DC</div>
+                        </div>
+                        <div class="flex flex-col gap-4">
+                            <div class="flex items-center gap-3">
+                                <div
+                                    class="size-10 rounded-xl bg-primary/10 flex items-center justify-center border border-primary/20 shrink-0">
+                                    <span class="material-symbols-outlined text-primary">data_object</span>
+                                </div>
+                                <h3 class="text-2xl font-bold text-white">Before</h3>
+                            </div>
+                            <p class="text-slate-400 leading-relaxed"><span class="text-white font-semibold">Just bytes.</span>
+                                A raw region at an address. No name, no axes, no units — and no way to know whether 0xA2
+                                is a safe value or a misfire waiting to happen.</p>
+                            <span
+                                class="text-xs font-mono text-primary/80 bg-primary/5 border border-primary/15 rounded-full px-3 py-1 w-fit">0x8A40
+                                · 256 bytes · uint8</span>
+                        </div>
+                    </div>
+                    <!-- Named map -->
+                    <div
+                        class="glass-card p-8 rounded-2xl flex flex-col gap-6 neon-border-glow transition-all duration-300">
+                        <div
+                            class="aspect-video bg-background-dark/50 rounded-xl border border-white/5 overflow-hidden relative p-5 flex flex-col justify-center gap-2">
+                            <span
+                                class="absolute top-3 right-4 text-[10px] font-mono text-slate-500 uppercase tracking-widest">decoded
+                                · map</span>
+                            <div class="flex items-center justify-between text-[10px] font-mono text-slate-500"><span>InjTiming_MAP</span><span>°CA</span></div>
+                            <div class="grid grid-cols-8 gap-0.5">
+                                <div class="h-4 rounded-sm bg-primary/20"></div><div class="h-4 rounded-sm bg-primary/30"></div><div class="h-4 rounded-sm bg-primary/40"></div><div class="h-4 rounded-sm bg-primary/55"></div><div class="h-4 rounded-sm bg-primary/65"></div><div class="h-4 rounded-sm bg-primary/75"></div><div class="h-4 rounded-sm bg-primary/90"></div><div class="h-4 rounded-sm bg-primary"></div>
+                                <div class="h-4 rounded-sm bg-primary/30"></div><div class="h-4 rounded-sm bg-primary/40"></div><div class="h-4 rounded-sm bg-primary/55"></div><div class="h-4 rounded-sm bg-primary/65"></div><div class="h-4 rounded-sm bg-primary/75"></div><div class="h-4 rounded-sm bg-primary/90"></div><div class="h-4 rounded-sm bg-primary"></div><div class="h-4 rounded-sm bg-fuchsia-400"></div>
+                                <div class="h-4 rounded-sm bg-primary/40"></div><div class="h-4 rounded-sm bg-primary/55"></div><div class="h-4 rounded-sm bg-primary/65"></div><div class="h-4 rounded-sm bg-primary/75"></div><div class="h-4 rounded-sm bg-primary/90"></div><div class="h-4 rounded-sm bg-primary"></div><div class="h-4 rounded-sm bg-fuchsia-400"></div><div class="h-4 rounded-sm bg-fuchsia-300"></div>
+                            </div>
+                            <div class="flex justify-between text-[9px] font-mono text-slate-600">
+                                <span>rpm &rarr;</span><span>load &darr;</span>
+                            </div>
+                        </div>
+                        <div class="flex flex-col gap-4">
+                            <div class="flex items-center gap-3">
+                                <div
+                                    class="size-10 rounded-xl bg-primary/10 flex items-center justify-center border border-primary/20 shrink-0">
+                                    <span class="material-symbols-outlined text-primary">grid_on</span>
+                                </div>
+                                <h3 class="text-2xl font-bold text-white">After</h3>
+                            </div>
+                            <p class="text-slate-400 leading-relaxed"><span class="text-white font-semibold">A real map.</span>
+                                Named, 16&times;16, axes in rpm and load, values in °CA, limits enforced. Edit a cell and
+                                Hexx writes the right bytes back and fixes the checksum — automatically.</p>
+                            <span
+                                class="text-xs font-mono text-primary/80 bg-primary/5 border border-primary/15 rounded-full px-3 py-1 w-fit">A2L-decoded
+                                · engineering units · limit-checked</span>
+                        </div>
+                    </div>
+                </div>
+            </section>
+            <!-- Reference / change tracking -->
+            <section class="py-32 bg-white/5 border-y border-white/5 relative overflow-hidden">
+                <div class="max-w-7xl mx-auto px-6 grid lg:grid-cols-2 gap-16 items-center">
+                    <div class="flex flex-col gap-6">
+                        <div
+                            class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-primary/10 border border-primary/20 text-primary text-xs font-bold uppercase tracking-widest w-fit">
+                            <span class="material-symbols-outlined text-sm">difference</span>
+                            Safe by construction
+                        </div>
+                        <h2 class="text-4xl font-black text-white leading-tight">Edit against a <span
+                                class="text-transparent bg-clip-text bg-gradient-to-r from-primary to-fuchsia-400">Reference</span>,
+                            not the void</h2>
+                        <p class="text-slate-400 leading-relaxed">Every change in Hexx is applied against a Base/Reference
+                            dataset, so you always know exactly what moved. Batch edits commit together, and a full diff
+                            shows the before/after of every cell — the audit trail your release process expects.</p>
+                        <ul class="space-y-4">
+                            <li class="flex items-start gap-3">
+                                <span class="material-symbols-outlined text-primary mt-0.5">history</span>
+                                <span class="text-slate-300"><span class="font-bold text-white">Change tracking</span>
+                                    — every cell edit recorded against the reference, with old and new values.</span>
+                            </li>
+                            <li class="flex items-start gap-3">
+                                <span class="material-symbols-outlined text-primary mt-0.5">dynamic_feed</span>
+                                <span class="text-slate-300"><span class="font-bold text-white">Batch updates</span>
+                                    — apply a whole region of changes in one atomic write, not cell-by-cell guesswork.</span>
+                            </li>
+                            <li class="flex items-start gap-3">
+                                <span class="material-symbols-outlined text-primary mt-0.5">rule</span>
+                                <span class="text-slate-300"><span class="font-bold text-white">Limit enforcement</span>
+                                    — upper/lower limits from the A2L keep edits inside the safe envelope.</span>
+                            </li>
+                            <li class="flex items-start gap-3">
+                                <span class="material-symbols-outlined text-primary mt-0.5">hub</span>
+                                <span class="text-slate-300"><span class="font-bold text-white">HELIX-native</span>
+                                    — the same engine that powers project-linked calibration across the <a href="/helix"
+                                        class="text-primary hover:underline">HELIX</a> release lifecycle.</span>
+                            </li>
+                        </ul>
+                    </div>
+                    <div class="glass-card rounded-2xl p-6 flex flex-col gap-4">
+                        <div class="flex items-center gap-2 pb-3 border-b border-white/5">
+                            <span class="material-symbols-outlined text-primary">difference</span>
+                            <span class="text-sm font-bold text-white">Reference diff</span>
+                            <span class="ml-auto text-[10px] text-green-400 font-mono flex items-center gap-1"><span
+                                    class="w-1.5 h-1.5 bg-green-400 rounded-full"></span>3 cells changed</span>
+                        </div>
+                        <div class="flex flex-col gap-2 font-mono text-[12px]">
+                            <div class="flex items-center justify-between bg-white/5 border border-white/10 rounded-lg px-3 py-2">
+                                <span class="text-slate-400">InjTiming_MAP[12,7]</span>
+                                <span class="text-slate-500">7.2 <span class="material-symbols-outlined text-xs align-middle">arrow_forward</span> <span class="text-primary">8.5 °CA</span></span>
+                            </div>
+                            <div class="flex items-center justify-between bg-white/5 border border-white/10 rounded-lg px-3 py-2">
+                                <span class="text-slate-400">BoostLimit_CUR[9]</span>
+                                <span class="text-slate-500">1.84 <span class="material-symbols-outlined text-xs align-middle">arrow_forward</span> <span class="text-primary">1.92 bar</span></span>
+                            </div>
+                            <div class="flex items-center justify-between bg-white/5 border border-white/10 rounded-lg px-3 py-2">
+                                <span class="text-slate-400">RailP_MAP[4,2]</span>
+                                <span class="text-slate-500">1450 <span class="material-symbols-outlined text-xs align-middle">arrow_forward</span> <span class="text-primary">1500 bar</span></span>
+                            </div>
+                        </div>
+                        <div class="flex items-center gap-2 pt-2 border-t border-white/5 text-xs text-slate-400">
+                            <span class="material-symbols-outlined text-primary text-base">verified</span>
+                            Checksum recomputed · image valid · ready to flash
+                        </div>
+                    </div>
+                </div>
+            </section>
+            <!-- Comparison Table -->
+            <section class="py-32 bg-primary/5">
+                <div class="max-w-5xl mx-auto px-6">
+                    <div class="text-center mb-16">
+                        <h2 class="text-4xl font-black text-white mb-4">Hexx vs a Plain Hex Editor</h2>
+                        <p class="text-slate-400">The low-level control of a hex editor — plus the A2L decoding, map
+                            editing, and checksum safety a generic byte editor never had.</p>
+                    </div>
+                    <div class="overflow-x-auto">
+                        <table class="w-full text-left border-collapse glass-card rounded-2xl overflow-hidden">
+                            <thead>
+                                <tr class="bg-primary/10 text-primary uppercase text-xs font-black tracking-widest">
+                                    <th class="px-8 py-6">Capability</th>
+                                    <th class="px-8 py-6 border-l border-primary/10">Plain Hex Editor</th>
+                                    <th class="px-8 py-6 border-l border-primary/10 bg-primary/5 text-white">Hexx</th>
+                                </tr>
+                            </thead>
+                            <tbody class="text-slate-300">
+                                <tr class="border-t border-white/5">
+                                    <td class="px-8 py-5 font-medium text-white">A2L Awareness</td>
+                                    <td class="px-8 py-5 border-l border-white/5">Manual address math</td>
+                                    <td class="px-8 py-5 border-l border-white/5 bg-primary/5">Auto-decoded named
+                                        characteristics</td>
+                                </tr>
+                                <tr class="border-t border-white/5">
+                                    <td class="px-8 py-5 font-medium text-white">Map Editing</td>
+                                    <td class="px-8 py-5 border-l border-white/5">Raw byte nudging</td>
+                                    <td class="px-8 py-5 border-l border-white/5 bg-primary/5">1D/2D cell editor in
+                                        engineering units</td>
+                                </tr>
+                                <tr class="border-t border-white/5">
+                                    <td class="px-8 py-5 font-medium text-white">Axes &amp; Limits</td>
+                                    <td class="px-8 py-5 border-l border-white/5">None</td>
+                                    <td class="px-8 py-5 border-l border-white/5 bg-primary/5">Breakpoints, units,
+                                        upper/lower limits enforced</td>
+                                </tr>
+                                <tr class="border-t border-white/5">
+                                    <td class="px-8 py-5 font-medium text-white">Checksums</td>
+                                    <td class="px-8 py-5 border-l border-white/5">Manual or plugin</td>
+                                    <td class="px-8 py-5 border-l border-white/5 bg-primary/5">Auto-detect + recompute on
+                                        write</td>
+                                </tr>
+                                <tr class="border-t border-white/5">
+                                    <td class="px-8 py-5 font-medium text-white">Formats</td>
+                                    <td class="px-8 py-5 border-l border-white/5">Often one at a time</td>
+                                    <td class="px-8 py-5 border-l border-white/5 bg-primary/5">Intel HEX / S19 / S37 / BIN</td>
+                                </tr>
+                                <tr class="border-t border-white/5">
+                                    <td class="px-8 py-5 font-medium text-white">Visualization</td>
+                                    <td class="px-8 py-5 border-l border-white/5">Hex rows only</td>
+                                    <td class="px-8 py-5 border-l border-white/5 bg-primary/5">Byte-trace viewer, 8/16/32-bit,
+                                        memory regions</td>
+                                </tr>
+                                <tr class="border-t border-white/5">
+                                    <td class="px-8 py-5 font-medium text-white">Change Safety</td>
+                                    <td class="px-8 py-5 border-l border-white/5">No validation</td>
+                                    <td class="px-8 py-5 border-l border-white/5 bg-primary/5">Reference diff + pre-flash
+                                        validation</td>
+                                </tr>
+                                <tr class="border-t border-white/5">
+                                    <td class="px-8 py-5 font-medium text-white">Workflow</td>
+                                    <td class="px-8 py-5 border-l border-white/5">Standalone tool</td>
+                                    <td class="px-8 py-5 border-l border-white/5 bg-primary/5">Part of the HELIX
+                                        calibration lifecycle</td>
+                                </tr>
+                                <tr class="border-t border-white/5">
+                                    <td class="px-8 py-5 font-medium text-white">Deployment</td>
+                                    <td class="px-8 py-5 border-l border-white/5">Windows desktop only</td>
+                                    <td class="px-8 py-5 border-l border-white/5 bg-primary/5">Web, Desktop, or Portable</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </section>
+            <!-- Platform & Integration -->
+            <section class="py-32 max-w-7xl mx-auto px-6">
+                <div class="text-center mb-20">
+                    <h2 class="text-4xl font-black text-white mb-4">Built to Fit Your Calibration Pipeline</h2>
+                    <p class="text-slate-400 max-w-2xl mx-auto">Run Hexx on its own or as the byte-editing core of HELIX —
+                        either way it stays offline and scriptable.</p>
+                </div>
+                <div class="grid md:grid-cols-3 gap-8">
+                    <div class="glass-card p-8 rounded-2xl flex flex-col gap-4 neon-border-glow transition-all duration-300">
+                        <div class="size-12 rounded-xl bg-primary/10 flex items-center justify-center border border-primary/20">
+                            <span class="material-symbols-outlined text-primary">hub</span>
+                        </div>
+                        <h3 class="text-xl font-bold text-white">HELIX-Native</h3>
+                        <p class="text-slate-400 text-sm leading-relaxed">Hexx is the hex &amp; binary editing engine
+                            inside the <a href="/helix" class="text-primary hover:underline">HELIX calibration suite</a>.
+                            Use it standalone, or project-linked across freezes, reviews and releases with the rest of
+                            the lifecycle.</p>
+                    </div>
+                    <div class="glass-card p-8 rounded-2xl flex flex-col gap-4 neon-border-glow transition-all duration-300">
+                        <div class="size-12 rounded-xl bg-primary/10 flex items-center justify-center border border-primary/20">
+                            <span class="material-symbols-outlined text-primary">cloud_off</span>
+                        </div>
+                        <h3 class="text-xl font-bold text-white">Offline-First</h3>
+                        <p class="text-slate-400 text-sm leading-relaxed">Total privacy. Backend and frontend run locally,
+                            so your ECU images, A2L files and calibration data never leave your machine — no cloud
+                            round-trip, no data egress.</p>
+                    </div>
+                    <div class="glass-card p-8 rounded-2xl flex flex-col gap-4 neon-border-glow transition-all duration-300">
+                        <div class="size-12 rounded-xl bg-primary/10 flex items-center justify-center border border-primary/20">
+                            <span class="material-symbols-outlined text-primary">terminal</span>
+                        </div>
+                        <h3 class="text-xl font-bold text-white">REST API &amp; Automation</h3>
+                        <p class="text-slate-400 text-sm leading-relaxed">Ingest HEX/A2L, extract maps, apply batch cell
+                            updates and validate checksums from your own scripts. The same operations the UI uses are
+                            available over a documented local API.</p>
+                    </div>
+                </div>
+            </section>
+            <!-- CTA Section -->
+            <section class="py-32 max-w-7xl mx-auto px-6">
+                <div
+                    class="glass-card p-12 md:p-20 rounded-[2rem] border-primary/30 relative overflow-hidden text-center">
+                    <div
+                        class="absolute inset-0 bg-gradient-to-r from-primary/10 via-transparent to-primary/10 pointer-events-none">
+                    </div>
+                    <div class="relative z-10 flex flex-col items-center gap-8">
+                        <h2 class="text-4xl md:text-6xl font-black text-white max-w-3xl leading-tight">
+                            Ready to read every byte of your ECU?
+                        </h2>
+                        <p class="text-slate-400 text-lg max-w-2xl">
+                            Open a HEX/A2L pair, see the maps appear, and make your first limit-checked edit in minutes —
+                            with checksums that take care of themselves.
+                        </p>
+                        <div class="flex flex-wrap justify-center gap-4 pt-4">
+                            <a href="/contact_us"
+                                class="h-16 px-12 inline-flex items-center justify-center bg-primary text-background-dark font-black text-lg rounded-xl shadow-[0_0_30px_rgba(168,85,247,0.4)] hover:scale-105 transition-transform">
+                                Download Latest Release
+                            </a>
+                            <a href="/docs"
+                                class="h-16 px-12 inline-flex items-center justify-center bg-white/5 border border-white/10 text-white font-bold text-lg rounded-xl hover:bg-white/10 transition-colors">
+                                Documentation
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </section>
+        </main>
+        <footer class="bg-background-dark border-t border-white/5 py-16 px-6">
+            <div class="max-w-7xl mx-auto grid grid-cols-2 md:grid-cols-4 lg:grid-cols-5 gap-12">
+                <div class="col-span-2">
+                    <a href="/" class="inline-flex items-center mb-8 group">
+                    <img src="pics/logo-dark.png" alt="Vehicle Lab" class="h-14 w-auto transition-opacity group-hover:opacity-75" />
+                </a>
+                    <p class="text-slate-400 max-w-sm mb-8 leading-relaxed font-medium">
+                        Advanced automotive software solutions for next-generation vehicle architectures. Engineered for
+                        precision, built for scale.
+                    </p>
+                <div class="flex gap-4">
+                    <a class="w-10 h-10 rounded-lg bg-white/5 flex items-center justify-center text-slate-400 hover:text-primary hover:bg-white/10 transition-all"
+                        href="https://linkedin.com/company/vehiclelab" target="_blank" rel="noopener noreferrer" aria-label="Vehicle Lab on LinkedIn">
+                        <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 24 24"><path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433a2.062 2.062 0 01-2.063-2.065 2.064 2.064 0 112.063 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"/></svg>
+                    </a>
+                    <a class="w-10 h-10 rounded-lg bg-white/5 flex items-center justify-center text-slate-400 hover:text-primary hover:bg-white/10 transition-all"
+                        href="https://github.com/vehiclelab" target="_blank" rel="noopener noreferrer" aria-label="Vehicle Lab on GitHub">
+                        <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 24 24"><path d="M12 0C5.374 0 0 5.373 0 12c0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23A11.509 11.509 0 0112 5.803c1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576C20.566 21.797 24 17.3 24 12c0-6.627-5.373-12-12-12z"/></svg>
+                    </a>
+                    <a class="w-10 h-10 rounded-lg bg-white/5 flex items-center justify-center text-slate-400 hover:text-primary hover:bg-white/10 transition-all"
+                        href="https://producthunt.com/products/vehicle-lab" target="_blank" rel="noopener noreferrer" aria-label="Vehicle Lab on Product Hunt">
+                        <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 24 24"><path d="M13.604 8.4h-3.405V12h3.405a1.8 1.8 0 100-3.6zM12 0C5.372 0 0 5.372 0 12s5.372 12 12 12 12-5.372 12-12S18.628 0 12 0zm1.604 14.4h-3.405V18H7.801V6h5.804a4.2 4.2 0 010 8.4z"/></svg>
+                    </a>
+                    <a class="w-10 h-10 rounded-lg bg-white/5 flex items-center justify-center text-slate-400 hover:text-primary hover:bg-white/10 transition-all"
+                        href="mailto:business@vehiclelab.in" aria-label="Email us at business@vehiclelab.in">
+                        <span class="material-symbols-outlined">mail</span>
+                    </a>
+                </div>
+            </div>
+            <div>
+                <h5 class="font-bold text-white font-medium tracking-tight mb-6 text-sm">Product</h5>
+                <ul class="space-y-4 text-slate-400 font-semibold text-sm">
+                    <li><a class="hover:text-primary" href="/diagai">DiagAI</a></li>
+                    <li><a class="hover:text-primary" href="/cie_pro">CIE Pro</a></li>
+                    <li><a class="hover:text-primary" href="/helix">HELIX Suite</a></li>
+                    <li><a class="hover:text-primary" href="/hexx">Hexx</a></li>
+                    <li><a class="hover:text-primary" href="/mdx">MDX</a></li>
+                    <li><a class="hover:text-primary" href="/xhandbook">XHandbook</a></li>
+                </ul>
+            </div>
+            <div>
+                <div>
+                    <h5 class="font-bold text-white font-medium tracking-tight mb-6 text-sm">Company</h5>
+                    <ul class="space-y-4 text-slate-400 font-semibold text-sm">
+                        <li><a class="hover:text-primary" href="/about">About Us</a></li>
+                        <li><a class="hover:text-primary" href="/solutions">Solutions</a></li>
+                        <li><a class="hover:text-primary" href="/case_studies">Case Studies</a></li>
+                        <li><a class="hover:text-primary" href="https://linkedin.com/company/vehiclelab" target="_blank" rel="noopener noreferrer">LinkedIn</a></li>
+                        <li><a class="hover:text-primary" href="https://github.com/vehiclelab" target="_blank" rel="noopener noreferrer">GitHub</a></li>
+                        <li><a class="hover:text-primary" href="https://producthunt.com/products/vehicle-lab" target="_blank" rel="noopener noreferrer">Product Hunt</a></li>
+                    </ul>
+                </div>
+            </div>
+            <div>
+                <h5 class="font-bold text-white font-medium tracking-tight mb-6 text-sm">Legal</h5>
+                <ul class="space-y-4 text-slate-400 font-semibold text-sm">
+                    <li><a class="hover:text-primary" href="/privacy">Privacy Policy</a></li>
+                    <li><a class="hover:text-primary" href="/terms">Terms of Service</a></li>
+                    <li><a class="hover:text-primary" href="/security">ISO Certifications</a></li>
+                    <li><a class="hover:text-primary" href="/security">Security</a></li>
+                </ul>
+            </div>
+        </div>
+        <div
+            class="max-w-7xl mx-auto mt-12 pt-8 border-t border-white/5 flex flex-col md:flex-row justify-between items-center gap-4">
+            <p class="text-slate-500 text-xs font-bold font-medium tracking-tight">&copy; 2025 Vehicle Lab Systems AG.
+                All Rights Reserved.</p>
+            <div class="flex items-center gap-6">
+                <span class="text-slate-500 text-xs font-bold font-medium tracking-tight">Status: Systems
+                    Operational</span>
+                <div class="w-2 h-2 bg-green-500 rounded-full animate-pulse"></div>
+            </div>
+        </div>
+    </footer>
+    </div>
+    <script src="/assets/cursor.js" defer></script>
+</body>
+
+</html>

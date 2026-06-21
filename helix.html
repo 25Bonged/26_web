@@ -140,6 +140,22 @@
             "@type": "Answer",
             "text": "Helix is local-first: core analysis runs on your machine, next to the data, with no server to stand up for day-to-day work. Your calibration data does not have to leave your bench."
           }
+        },
+        {
+          "@type": "Question",
+          "name": "Will I have to convert my files?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "No. HELIX works with the calibration formats teams already exchange: A2L / ASAP2, base HEX/S19/SREC, and DCM, CDFX, and PACO change packages. Adoption is additive, not a migration."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "What is the main value of HELIX?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "HELIX prevents silent overwrite and weak traceability across calibration patch batches. It makes release readiness explicit, linking source A2L, base dataset, approved changes, and validation, before the final ECU artifact is generated."
+          }
         }
       ]
     }
@@ -274,7 +290,194 @@
         .nav-mobile-menu .nav-mobile-sub { padding-left: 1rem; padding-top: 0.25rem; }
         .nav-mobile-menu .nav-mobile-sub a { font-size: 1rem; }
         @media (min-width: 768px) { .nav-mobile-menu { display: none !important; } }
+
+        /* ============================================================
+           HELIX MOTION SYSTEM  (transform/opacity only — GPU friendly)
+           ============================================================ */
+
+        /* --- Scroll reveal (custom, layered on top of AOS) --- */
+        .reveal {
+            opacity: 0;
+            transform: translateY(22px);
+            transition: opacity .42s cubic-bezier(.16,1,.3,1), transform .42s cubic-bezier(.16,1,.3,1);
+            transition-delay: var(--d, 0ms);
+            will-change: opacity, transform;
+        }
+        .reveal.in { opacity: 1; transform: none; }
+
+        /* --- Ambient background drift for the glow blobs --- */
+        @keyframes driftGlow {
+            0%   { transform: translate(-50%, 0) scale(1);     opacity: .5; }
+            50%  { transform: translate(-50%, 18px) scale(1.12); opacity: .85; }
+            100% { transform: translate(-50%, 0) scale(1);     opacity: .5; }
+        }
+        .anim-drift { animation: driftGlow 11s ease-in-out infinite; }
+
+        @keyframes floatSlow {
+            0%,100% { transform: translateY(0); }
+            50%     { transform: translateY(-9px); }
+        }
+        .anim-float   { animation: floatSlow 7s ease-in-out 2; }
+        .anim-float-2 { animation: floatSlow 8s ease-in-out 2; animation-delay: -2s; }
+
+        /* --- Sequenced "boot log" reveal for the mock terminals --- */
+        @keyframes logIn {
+            from { opacity: 0; transform: translateY(8px); }
+            to   { opacity: 1; transform: translateY(0); }
+        }
+        .seq > * { opacity: 0; }
+        .seq.in > * { animation: logIn .55s cubic-bezier(.16,1,.3,1) forwards; }
+        .seq.in > *:nth-child(1) { animation-delay: .05s; }
+        .seq.in > *:nth-child(2) { animation-delay: .20s; }
+        .seq.in > *:nth-child(3) { animation-delay: .35s; }
+        .seq.in > *:nth-child(4) { animation-delay: .50s; }
+        .seq.in > *:nth-child(5) { animation-delay: .65s; }
+        .seq.in > *:nth-child(6) { animation-delay: .80s; }
+
+        /* per-line reveal inside a code block */
+        .codeline { display: block; opacity: 0; }
+        .in .codeline { animation: logIn .4s ease-out forwards; }
+        .in .codeline:nth-child(1) { animation-delay: .55s; }
+        .in .codeline:nth-child(2) { animation-delay: .75s; }
+        .in .codeline:nth-child(3) { animation-delay: .95s; }
+        .in .codeline:nth-child(4) { animation-delay: 1.15s; }
+        .codeline.build { position: relative; }
+        .in .codeline.build::after {
+            content: "▋";
+            color: #8b5cf6;
+            animation: blink 1s steps(1) infinite;
+            animation-delay: 1.3s;
+            margin-left: 2px;
+        }
+        @keyframes blink { 0%,50% { opacity: 1; } 51%,100% { opacity: 0; } }
+
+        /* --- Diagonal shimmer sweep across glass mockups --- */
+        .shimmer { position: relative; overflow: hidden; }
+        .shimmer::after {
+            content: "";
+            position: absolute; inset: 0;
+            background: linear-gradient(115deg, transparent 30%, rgba(139,92,246,.10) 48%, rgba(255,255,255,.06) 52%, transparent 70%);
+            transform: translateX(-120%);
+            pointer-events: none;
+        }
+        .shimmer.in::after { animation: sweep 1.1s cubic-bezier(.23,1,.32,1) .25s 1 both; }
+        @keyframes sweep { 0% { transform: translateX(-120%); } 55%,100% { transform: translateX(120%); } }
+
+        /* --- Animated pipeline connector (the flow section) --- */
+        .flow-track {
+            position: relative;
+            height: 2px;
+            background: linear-gradient(90deg, rgba(139,92,246,.05), rgba(139,92,246,.35), rgba(0,112,243,.05));
+            transform: scaleX(0);
+            transform-origin: left;
+            transition: transform 1.2s cubic-bezier(.16,1,.3,1);
+        }
+        .flow-track.in { transform: scaleX(1); }
+        .flow-pulse {
+            position: absolute; top: 50%; left: 0;
+            width: 20%; height: 2px; margin-top: -1px;
+            border-radius: 9999px;
+            background: linear-gradient(90deg, transparent, #8b5cf6, transparent);
+            box-shadow: 0 0 10px rgba(139,92,246,.55);
+            opacity: 0;
+            will-change: transform, opacity;
+        }
+        .flow-track.in .flow-pulse { animation: travel 1.4s cubic-bezier(.77,0,.175,1) .35s 1 both; }
+        @keyframes travel {
+            0%   { transform: translateX(-100%); opacity: 0; }
+            8%   { opacity: 1; }
+            92%  { opacity: 1; }
+            100% { transform: translateX(500%); opacity: 0; }
+        }
+
+        /* --- Step node "ping" when the flow arrives --- */
+        .step-dot { position: relative; }
+        .step-dot::before {
+            content: "";
+            position: absolute; inset: -6px;
+            border-radius: inherit;
+            border: 1px solid rgba(139,92,246,.4);
+            opacity: 0;
+        }
+        .reveal.in .step-dot::before { animation: ping .8s cubic-bezier(.23,1,.32,1) .4s 1; }
+        @keyframes ping {
+            0%   { transform: scale(.8); opacity: .8; }
+            80%,100% { transform: scale(1.5); opacity: 0; }
+        }
+
+        /* --- Card hover lift --- */
+        .lift { transition: transform .2s cubic-bezier(.16,1,.3,1), box-shadow .2s ease, border-color .2s ease, background .2s ease; }
+        .lift:hover { transform: translateY(-6px); }
+
+        /* --- Icon nudge on card hover --- */
+        .icon-pop { transition: transform .35s cubic-bezier(.34,1.56,.64,1); display: inline-block; }
+        .lift:hover .icon-pop { transform: translateY(-3px) scale(1.12); }
+
+        /* --- Gradient pan for the CTA --- */
+        @keyframes gradientPan { 0% { background-position: 0% 50%; } 50% { background-position: 100% 50%; } 100% { background-position: 0% 50%; } }
+        .gradient-pan { background-size: 200% 200%; animation: gradientPan 1.2s cubic-bezier(.77,0,.175,1) 1 both; }
+
+        /* --- Gradient text sheen on the hero headline accent --- */
+        @keyframes textSheen { 0% { background-position: 0% 50%; } 100% { background-position: 200% 50%; } }
+        .text-sheen {
+            background-size: 200% auto;
+            animation: textSheen 1.1s cubic-bezier(.77,0,.175,1) .2s 1 both;
+        }
+
+        /* --- Animated underline tabs (hero header nav) --- */
+        .hx-tab { position: relative; }
+        .hx-tab::after {
+            content: ""; position: absolute; left: 12px; right: 12px; bottom: 4px; height: 2px;
+            background: #8b5cf6; border-radius: 2px;
+            transform: scaleX(0); transform-origin: left;
+            transition: transform .3s ease;
+        }
+        .hx-tab:hover::after { transform: scaleX(1); }
+
+        /* --- Showcase carousel: auto-scroll (JS) + manual drag/scroll, zoom-out on hover --- */
+        .marquee {
+            overflow-x: auto;
+            overflow-y: hidden;
+            scrollbar-width: none;          /* Firefox */
+            -ms-overflow-style: none;       /* IE/Edge */
+            cursor: grab;
+            -webkit-mask-image: linear-gradient(to right, transparent, #000 5%, #000 95%, transparent);
+            mask-image: linear-gradient(to right, transparent, #000 5%, #000 95%, transparent);
+        }
+        .marquee::-webkit-scrollbar { display: none; }   /* Chrome/Safari */
+        .marquee.dragging { cursor: grabbing; }
+        .marquee.dragging * { user-select: none; }
+        .marquee-track { display: flex; width: max-content; }
+        .mq-card {
+            flex: 0 0 auto;
+            width: 460px;
+            margin-right: 24px;
+            transition: transform .45s cubic-bezier(.16,1,.3,1), opacity .45s ease;
+        }
+        .mq-card .mq-frame { transition: border-color .35s ease, box-shadow .35s ease; }
+        /* hovering the strip gently zooms every card OUT so the full screen reads clearly;
+           the card you point at stays the clearest */
+        .marquee:hover .mq-card { transform: scale(.93); opacity: .78; }
+        .marquee:hover .mq-card:hover { transform: scale(.97); opacity: 1; }
+        .marquee:hover .mq-card:hover .mq-frame { border-color: rgba(139,92,246,.5); box-shadow: 0 24px 60px -20px rgba(139,92,246,.4); }
+        @media (max-width: 640px) {
+            .mq-card { width: 300px; margin-right: 16px; }
+            .marquee:hover .mq-card,
+            .marquee:hover .mq-card:hover { transform: none; opacity: 1; }   /* touch: no hover zoom */
+        }
+
+        /* --- Respect reduced-motion --- */
+        @media (prefers-reduced-motion: reduce) {
+            .marquee-track { animation: none; }
+            .marquee { overflow-x: auto; }
+            .reveal { opacity: 1 !important; transform: none !important; transition: none !important; }
+            .anim-drift, .anim-float, .anim-float-2, .gradient-pan, .text-sheen,
+            .shimmer::after, .flow-track .flow-pulse, .reveal.in .step-dot::before { animation: none !important; }
+            .seq > *, .codeline { opacity: 1 !important; }
+            .flow-track { transform: scaleX(1) !important; }
+        }
     </style>
+    <link rel="stylesheet" href="/assets/cursor.css" />
 </head>
 
 <body class="antialiased bg-background-dark text-white cyber-grid selection:bg-white/20">
@@ -300,6 +503,8 @@
                         <a class="block px-4 py-2 hover:bg-white/5 hover:text-white transition-colors"
                             href="/helix">HELIX</a>
                         <a class="block px-4 py-2 hover:bg-white/5 hover:text-white transition-colors"
+                            href="/hexx">Hexx</a>
+                        <a class="block px-4 py-2 hover:bg-white/5 hover:text-white transition-colors"
                             href="/mdx">MDX</a>
                         <a class="block px-4 py-2 hover:bg-white/5 hover:text-white transition-colors"
                             href="/xhandbook">XHandbook</a>
@@ -307,6 +512,7 @@
                 </div>
                 <a class="hover:text-white transition-colors" href="/about">About Us</a>
                 <a class="hover:text-white transition-colors" href="/docs">Resources</a>
+                <a class="hover:text-white transition-colors" href="/blog/">Blog</a>
                 <a class="hover:text-white transition-colors" href="/contact_us">Contact</a>
             </div>
             <div class="flex items-center gap-4">
@@ -325,19 +531,21 @@
             <a href="/diagai">DiagAI</a>
             <a href="/cie_pro">CIE Pro</a>
             <a href="/helix">HELIX</a>
+            <a href="/hexx">Hexx</a>
             <a href="/mdx">MDX</a>
             <a href="/xhandbook">XHandbook</a>
         </div>
         <a href="/about">About Us</a>
         <a href="/docs">Resources</a>
+        <a href="/blog/">Blog</a>
         <a href="/contact_us" class="text-white font-semibold border-0 pt-4">Talk to Sales</a>
     </div>
     <main class="pt-16">
         <!-- ============================ HERO ============================ -->
         <section class="relative overflow-hidden text-white" data-aos="fade-up" data-aos-delay="0" id="helix-hero">
             <div class="absolute inset-0 bg-[#050508]"></div>
-            <div class="absolute top-0 left-1/2 -translate-x-1/2 w-[900px] h-[500px] bg-neon-purple/5 blur-[80px] rounded-full -z-0"></div>
-            <div class="absolute top-1/3 left-1/4 w-64 h-64 bg-primary/5 blur-[80px] rounded-full -z-0"></div>
+            <div class="absolute top-0 left-1/2 w-[900px] h-[500px] bg-neon-purple/5 blur-[80px] rounded-full -z-0 anim-drift"></div>
+            <div class="absolute top-1/3 left-1/4 w-64 h-64 bg-neon-blue/5 blur-[80px] rounded-full -z-0 anim-float"></div>
             <div class="relative z-10 max-w-7xl mx-auto px-6 pt-20 pb-16">
                 <!-- HELIX Header Bar -->
                 <div class="flex items-center justify-between mb-12 border-b border-white/10 pb-6">
@@ -348,11 +556,12 @@
                         <span class="text-2xl font-bold uppercase tracking-[0.3em] text-white">HELIX</span>
                     </div>
                     <div class="hidden md:flex items-center gap-1 bg-white/5 border border-white/10 rounded-xl p-1">
-                        <a class="px-4 py-2 rounded-lg text-xs font-bold text-white bg-neon-purple/20 border border-neon-purple/30 transition-all" href="#how">Flow</a>
-                        <a class="px-4 py-2 rounded-lg text-xs font-bold text-slate-400 hover:text-white transition-all" href="#ingest">Ingest</a>
-                        <a class="px-4 py-2 rounded-lg text-xs font-bold text-slate-400 hover:text-white transition-all" href="#patches">Patches</a>
-                        <a class="px-4 py-2 rounded-lg text-xs font-bold text-slate-400 hover:text-white transition-all" href="#release">Release</a>
-                        <a class="px-4 py-2 rounded-lg text-xs font-bold text-slate-400 hover:text-white transition-all" href="#qa">QA</a>
+                        <a class="hx-tab px-4 py-2 rounded-lg text-xs font-bold text-white bg-neon-purple/20 border border-neon-purple/30 transition-all" href="#how">Flow</a>
+                        <a class="hx-tab px-4 py-2 rounded-lg text-xs font-bold text-slate-400 hover:text-white transition-all" href="#ingest">Ingest</a>
+                        <a class="hx-tab px-4 py-2 rounded-lg text-xs font-bold text-slate-400 hover:text-white transition-all" href="#patches">Patches</a>
+                        <a class="hx-tab px-4 py-2 rounded-lg text-xs font-bold text-slate-400 hover:text-white transition-all" href="#release">Release</a>
+                        <a class="hx-tab px-4 py-2 rounded-lg text-xs font-bold text-slate-400 hover:text-white transition-all" href="#qa">QA</a>
+                        <a class="hx-tab px-4 py-2 rounded-lg text-xs font-bold text-slate-400 hover:text-white transition-all" href="#gallery">Screens</a>
                     </div>
                     <a class="hidden lg:block bg-neon-purple hover:bg-neon-purple/90 text-white px-6 py-2.5 rounded-xl text-sm font-bold transition-all shadow-lg shadow-neon-purple/30" href="/contact_us">Book a demo</a>
                 </div>
@@ -366,7 +575,7 @@
                         </div>
                         <h1 class="text-6xl xl:text-7xl font-bold leading-[0.9] tracking-tighter">
                             HELIX: ECU calibration<br />
-                            <span class="text-transparent bg-clip-text bg-gradient-to-r from-neon-purple to-neon-blue">data management.</span>
+                            <span class="text-transparent bg-clip-text bg-gradient-to-r from-neon-purple via-neon-blue to-neon-purple text-sheen">data management.</span>
                         </h1>
                         <p class="text-xl text-slate-400 leading-relaxed max-w-xl">
                             Upload the ECU description and base dataset, import multiple DCM/CDFX/PACO change
@@ -404,7 +613,7 @@
                     </div>
                     <!-- Right: Visual — calibration release pipeline -->
                     <div class="relative">
-                        <div class="glass-cyber rounded-3xl border border-white/5 p-6 shadow-2xl shadow-neon-purple/10 relative overflow-hidden" data-aos="fade-up" data-aos-delay="0">
+                        <div class="glass-cyber rounded-3xl border border-white/5 p-6 shadow-2xl shadow-neon-purple/10 relative overflow-hidden shimmer reveal" data-aos="fade-up" data-aos-delay="0">
                             <!-- Window chrome -->
                             <div class="flex items-center gap-3 mb-5 pb-4 border-b border-white/10">
                                 <div class="flex gap-1.5">
@@ -415,7 +624,7 @@
                                 <div class="flex-1 bg-white/5 rounded px-3 py-1 text-[10px] font-mono text-slate-500">HELIXWF0605 · calibration release</div>
                                 <span class="material-symbols-outlined text-neon-purple text-base">account_tree</span>
                             </div>
-                            <div class="space-y-3 font-mono text-xs">
+                            <div class="space-y-3 font-mono text-xs seq">
                                 <div class="flex items-center justify-between rounded-lg bg-white/5 border border-white/10 p-3">
                                     <span class="text-slate-300">MG1CS051_H443_2C.a2l</span>
                                     <span class="text-neon-purple">description</span>
@@ -426,25 +635,25 @@
                                 </div>
                                 <div class="grid grid-cols-2 gap-3">
                                     <div class="rounded-lg bg-neon-green/10 border border-neon-green/20 p-3">
-                                        <div class="text-neon-green font-bold">23 DCM</div>
+                                        <div class="text-neon-green font-bold">DCM batch</div>
                                         <div class="text-slate-500 mt-1">change packages</div>
                                     </div>
                                     <div class="rounded-lg bg-neon-purple/10 border border-neon-purple/20 p-3">
-                                        <div class="text-neon-purple font-bold">7 variants</div>
+                                        <div class="text-neon-purple font-bold">variants</div>
                                         <div class="text-slate-500 mt-1">merge candidates</div>
                                     </div>
                                 </div>
                                 <div class="rounded-lg bg-black/50 border border-white/10 p-4 text-green-400 leading-relaxed">
-                                    [PASS] A2L symbols resolved<br />
-                                    [PASS] patch conflicts reviewed<br />
-                                    [PASS] validation gates complete<br />
-                                    [BUILD] BOSCHVC999_release.s19
+                                    <span class="codeline">[PASS] A2L symbols resolved</span>
+                                    <span class="codeline">[PASS] patch conflicts reviewed</span>
+                                    <span class="codeline">[PASS] validation gates complete</span>
+                                    <span class="codeline build text-neon-purple">[BUILD] BOSCHVC999_release.s19</span>
                                 </div>
                             </div>
                             <div class="absolute -bottom-20 -right-20 w-64 h-64 bg-neon-purple/5 blur-[80px] rounded-full -z-10"></div>
                         </div>
                         <!-- floating badges -->
-                        <div class="absolute -top-4 -right-4 bg-slate-900 border border-neon-purple/30 rounded-2xl px-4 py-3 shadow-xl" data-aos="fade-up" data-aos-delay="100">
+                        <div class="absolute -top-4 -right-4 bg-slate-900 border border-neon-purple/30 rounded-2xl px-4 py-3 shadow-xl anim-float" data-aos="fade-up" data-aos-delay="100">
                             <div class="flex items-center gap-2">
                                 <span class="material-symbols-outlined text-neon-purple text-lg">layers</span>
                                 <div>
@@ -453,7 +662,7 @@
                                 </div>
                             </div>
                         </div>
-                        <div class="absolute -bottom-4 -left-4 bg-slate-900 border border-neon-blue/30 rounded-2xl px-4 py-3 shadow-xl" data-aos="fade-up" data-aos-delay="200">
+                        <div class="absolute -bottom-4 -left-4 bg-slate-900 border border-neon-blue/30 rounded-2xl px-4 py-3 shadow-xl anim-float-2" data-aos="fade-up" data-aos-delay="200">
                             <div class="flex items-center gap-2">
                                 <span class="material-symbols-outlined text-neon-blue text-lg">memory</span>
                                 <div>
@@ -475,18 +684,18 @@
                     <h3 class="text-3xl md:text-4xl font-bold text-white max-w-3xl mx-auto leading-tight">Calibration releases break when dataset changes are scattered across files and teams.</h3>
                 </div>
                 <div class="grid md:grid-cols-3 gap-6">
-                    <div class="glass-card rounded-2xl p-8">
-                        <span class="material-symbols-outlined text-neon-purple text-3xl mb-4">apps</span>
+                    <div class="glass-card lift reveal rounded-2xl p-8" style="--d:0ms">
+                        <span class="material-symbols-outlined icon-pop text-neon-purple text-3xl mb-4">apps</span>
                         <h4 class="text-lg font-bold mb-2">Patch batches arrive from everywhere</h4>
                         <p class="text-slate-400 text-sm leading-relaxed">Each engineer or supplier sends calibration deltas as separate DCM, CDFX, or PACO packages. HELIX turns them into one controlled release candidate.</p>
                     </div>
-                    <div class="glass-card rounded-2xl p-8">
-                        <span class="material-symbols-outlined text-neon-blue text-3xl mb-4">paid</span>
+                    <div class="glass-card lift reveal rounded-2xl p-8" style="--d:120ms">
+                        <span class="material-symbols-outlined icon-pop text-neon-blue text-3xl mb-4">paid</span>
                         <h4 class="text-lg font-bold mb-2">Manual merge is risky</h4>
                         <p class="text-slate-400 text-sm leading-relaxed">Maps, curves, scalars, and axes need shape-aware comparison. HELIX surfaces conflicts before one patch silently overwrites another.</p>
                     </div>
-                    <div class="glass-card rounded-2xl p-8">
-                        <span class="material-symbols-outlined text-neon-green text-3xl mb-4">verified</span>
+                    <div class="glass-card lift reveal rounded-2xl p-8" style="--d:240ms">
+                        <span class="material-symbols-outlined icon-pop text-neon-green text-3xl mb-4">verified</span>
                         <h4 class="text-lg font-bold mb-2">Final files need evidence</h4>
                         <p class="text-slate-400 text-sm leading-relaxed">A release is not just a binary. HELIX keeps the link between source A2L, base dataset, approved changes, validation result, and final ECU artifact.</p>
                     </div>
@@ -502,36 +711,42 @@
                     <h3 class="text-3xl md:text-5xl font-bold text-white mb-6">From ECU description to final release file</h3>
                     <p class="text-slate-400 max-w-2xl mx-auto text-lg">HELIX controls the calibration data-management path. MDX handles data viewing. XHandbook handles ECU documentation. HELIX governs the dataset.</p>
                 </div>
-                <div class="grid md:grid-cols-5 gap-5">
-                    <div class="glass-card rounded-2xl p-7 relative">
-                        <span class="text-5xl font-bold text-white/10 absolute top-4 right-5">1</span>
-                        <span class="material-symbols-outlined text-neon-purple text-3xl mb-4">description</span>
-                        <h4 class="text-lg font-bold mb-2">Describe</h4>
-                        <p class="text-slate-400 text-sm leading-relaxed">Upload the A2L / ASAP2 file so HELIX knows ECU symbols, maps, curves, scalars, axes, units, and memory layout.</p>
+                <div class="relative">
+                    <!-- animated pipeline connector (md+ only) -->
+                    <div class="hidden md:block absolute left-[10%] right-[10%] top-[68px] z-0">
+                        <div class="flow-track reveal"><span class="flow-pulse"></span></div>
                     </div>
-                    <div class="glass-card rounded-2xl p-7 relative">
-                        <span class="text-5xl font-bold text-white/10 absolute top-4 right-5">2</span>
-                        <span class="material-symbols-outlined text-neon-blue text-3xl mb-4">memory</span>
-                        <h4 class="text-lg font-bold mb-2">Baseline</h4>
-                        <p class="text-slate-400 text-sm leading-relaxed">Attach the base ECU dataset: HEX, S19, or SREC. HELIX maps calibration values back to the A2L-defined memory regions.</p>
-                    </div>
-                    <div class="glass-card rounded-2xl p-7 relative">
-                        <span class="text-5xl font-bold text-white/10 absolute top-4 right-5">3</span>
-                        <span class="material-symbols-outlined text-neon-green text-3xl mb-4">difference</span>
-                        <h4 class="text-lg font-bold mb-2">Patch</h4>
-                        <p class="text-slate-400 text-sm leading-relaxed">Import multiple DCM, CDFX, or PACO change packages from calibration work packages and suppliers.</p>
-                    </div>
-                    <div class="glass-card rounded-2xl p-7 relative">
-                        <span class="text-5xl font-bold text-white/10 absolute top-4 right-5">4</span>
-                        <span class="material-symbols-outlined text-neon-purple text-3xl mb-4">merge</span>
-                        <h4 class="text-lg font-bold mb-2">Review</h4>
-                        <p class="text-slate-400 text-sm leading-relaxed">Compare variants, surface conflicts, approve changes, and preserve audit evidence before a release is frozen.</p>
-                    </div>
-                    <div class="glass-card rounded-2xl p-7 relative">
-                        <span class="text-5xl font-bold text-white/10 absolute top-4 right-5">5</span>
-                        <span class="material-symbols-outlined text-neon-blue text-3xl mb-4">verified</span>
-                        <h4 class="text-lg font-bold mb-2">Generate</h4>
-                        <p class="text-slate-400 text-sm leading-relaxed">Compile the approved calibration state into the final ECU-ready HEX/S19 release artifact with validation status attached.</p>
+                    <div class="grid md:grid-cols-5 gap-5 relative z-10">
+                        <div class="glass-card lift reveal rounded-2xl p-7 relative" style="--d:0ms">
+                            <span class="text-5xl font-bold text-white/10 absolute top-4 right-5">1</span>
+                            <span class="material-symbols-outlined icon-pop step-dot text-neon-purple text-3xl mb-4">description</span>
+                            <h4 class="text-lg font-bold mb-2">Describe</h4>
+                            <p class="text-slate-400 text-sm leading-relaxed">Upload the A2L / ASAP2 file so HELIX knows ECU symbols, maps, curves, scalars, axes, units, and memory layout.</p>
+                        </div>
+                        <div class="glass-card lift reveal rounded-2xl p-7 relative" style="--d:120ms">
+                            <span class="text-5xl font-bold text-white/10 absolute top-4 right-5">2</span>
+                            <span class="material-symbols-outlined icon-pop step-dot text-neon-blue text-3xl mb-4">memory</span>
+                            <h4 class="text-lg font-bold mb-2">Baseline</h4>
+                            <p class="text-slate-400 text-sm leading-relaxed">Attach the base ECU dataset: HEX, S19, or SREC. HELIX maps calibration values back to the A2L-defined memory regions.</p>
+                        </div>
+                        <div class="glass-card lift reveal rounded-2xl p-7 relative" style="--d:240ms">
+                            <span class="text-5xl font-bold text-white/10 absolute top-4 right-5">3</span>
+                            <span class="material-symbols-outlined icon-pop step-dot text-neon-green text-3xl mb-4">difference</span>
+                            <h4 class="text-lg font-bold mb-2">Patch</h4>
+                            <p class="text-slate-400 text-sm leading-relaxed">Import multiple DCM, CDFX, or PACO change packages from calibration work packages and suppliers.</p>
+                        </div>
+                        <div class="glass-card lift reveal rounded-2xl p-7 relative" style="--d:360ms">
+                            <span class="text-5xl font-bold text-white/10 absolute top-4 right-5">4</span>
+                            <span class="material-symbols-outlined icon-pop step-dot text-neon-purple text-3xl mb-4">merge</span>
+                            <h4 class="text-lg font-bold mb-2">Review</h4>
+                            <p class="text-slate-400 text-sm leading-relaxed">Compare variants, surface conflicts, approve changes, and preserve audit evidence before a release is frozen.</p>
+                        </div>
+                        <div class="glass-card lift reveal rounded-2xl p-7 relative" style="--d:480ms">
+                            <span class="text-5xl font-bold text-white/10 absolute top-4 right-5">5</span>
+                            <span class="material-symbols-outlined icon-pop step-dot text-neon-blue text-3xl mb-4">verified</span>
+                            <h4 class="text-lg font-bold mb-2">Generate</h4>
+                            <p class="text-slate-400 text-sm leading-relaxed">Compile the approved calibration state into the final ECU-ready HEX/S19 release artifact with validation status attached.</p>
+                        </div>
                     </div>
                 </div>
             </div>
@@ -569,19 +784,19 @@
                             </li>
                         </ul>
                     </div>
-                    <div class="glass-card rounded-2xl p-6 shadow-2xl">
+                    <div class="glass-card lift reveal shimmer rounded-2xl p-6 shadow-2xl">
                         <div class="flex items-center justify-between mb-4 border-b border-white/10 pb-3">
                             <div class="flex items-center gap-2"><span class="material-symbols-outlined text-slate-500 text-base">folder_open</span><span class="text-xs font-mono text-slate-400">Project_Engine_V8_Turbo</span></div>
                             <span class="text-[10px] bg-neon-blue/15 text-neon-blue px-2 py-0.5 rounded font-bold uppercase">resolved</span>
                         </div>
-                        <div class="space-y-3 font-mono text-xs">
-                            <div class="flex justify-between p-3 bg-slate-800/80 rounded-lg"><span class="text-slate-300">Base_Map.a2l</span><span class="text-neon-blue">4,291 chars</span></div>
+                        <div class="space-y-3 font-mono text-xs seq">
+                            <div class="flex justify-between p-3 bg-slate-800/80 rounded-lg"><span class="text-slate-300">Base_Map.a2l</span><span class="text-neon-blue">ASAP2</span></div>
                             <div class="flex justify-between p-3 bg-slate-800/50 rounded-lg"><span class="text-slate-300">Base.hex</span><span class="text-neon-purple">memory regions</span></div>
                             <div class="flex justify-between p-3 bg-slate-800/50 rounded-lg"><span class="text-slate-300">BOSCHVC999_release.s19</span><span class="text-neon-green">target</span></div>
                             <div class="mt-5 rounded-lg bg-black/70 border border-white/10 p-4 text-green-400 leading-relaxed">
-                                [INFO] parsing ASAP2 metadata<br />
-                                [INFO] mapping HEX memory regions<br />
-                                [PASS] symbols mapped to dataset
+                                <span class="codeline">[INFO] parsing ASAP2 metadata</span>
+                                <span class="codeline">[INFO] mapping HEX memory regions</span>
+                                <span class="codeline">[PASS] symbols mapped to dataset</span>
                             </div>
                         </div>
                     </div>
@@ -593,12 +808,12 @@
         <section class="py-28" data-aos="fade-up" data-aos-delay="0" id="patches">
             <div class="max-w-7xl mx-auto px-6">
                 <div class="grid lg:grid-cols-2 gap-16 items-center">
-                    <div class="order-2 lg:order-1 glass-card rounded-2xl p-6 shadow-2xl">
+                    <div class="order-2 lg:order-1 glass-card lift reveal shimmer rounded-2xl p-6 shadow-2xl">
                         <div class="flex items-center justify-between mb-4 border-b border-white/10 pb-3">
                             <div class="flex items-center gap-2"><span class="material-symbols-outlined text-slate-500 text-base">difference</span><span class="text-xs font-mono text-slate-400">patch review</span></div>
                             <span class="text-[10px] bg-neon-green/15 text-neon-green px-2 py-0.5 rounded font-bold uppercase font-mono">merge ready</span>
                         </div>
-                        <div class="space-y-3 font-mono text-xs">
+                        <div class="space-y-3 font-mono text-xs seq">
                             <div class="grid grid-cols-[1fr_auto] gap-3 rounded-lg bg-white/5 border border-white/10 p-3"><span class="text-slate-300">WP_Ignition_v2.dcm</span><span class="text-neon-green">approved</span></div>
                             <div class="grid grid-cols-[1fr_auto] gap-3 rounded-lg bg-white/5 border border-white/10 p-3"><span class="text-slate-300">Supplier_BoostSafety.cdfx</span><span class="text-yellow-400">2 conflicts</span></div>
                             <div class="grid grid-cols-[1fr_auto] gap-3 rounded-lg bg-white/5 border border-white/10 p-3"><span class="text-slate-300">ColdStart_PACO_04.paco</span><span class="text-neon-green">approved</span></div>
@@ -651,23 +866,23 @@
                     <p class="text-slate-400 max-w-2xl mx-auto text-lg">HELIX should never imply a release is ready when the base dataset, calibration package set, validation evidence, or compiled artifact is missing.</p>
                 </div>
                 <div class="grid sm:grid-cols-2 lg:grid-cols-4 gap-4">
-                    <div class="glass-card rounded-2xl p-6 text-center">
-                        <span class="material-symbols-outlined text-neon-purple text-3xl mb-3">inventory_2</span>
+                    <div class="glass-card lift reveal rounded-2xl p-6 text-center" style="--d:0ms">
+                        <span class="material-symbols-outlined icon-pop text-neon-purple text-3xl mb-3">inventory_2</span>
                         <h4 class="font-bold mb-1 text-sm">Work package freeze</h4>
                         <p class="text-slate-400 text-xs">Approved deltas are locked for release review.</p>
                     </div>
-                    <div class="glass-card rounded-2xl p-6 text-center">
-                        <span class="material-symbols-outlined text-neon-blue text-3xl mb-3">fact_check</span>
+                    <div class="glass-card lift reveal rounded-2xl p-6 text-center" style="--d:100ms">
+                        <span class="material-symbols-outlined icon-pop text-neon-blue text-3xl mb-3">fact_check</span>
                         <h4 class="font-bold mb-1 text-sm">Validation evidence</h4>
                         <p class="text-slate-400 text-xs">Rules and readiness checks travel with the release.</p>
                     </div>
-                    <div class="glass-card rounded-2xl p-6 text-center">
-                        <span class="material-symbols-outlined text-neon-green text-3xl mb-3">memory</span>
+                    <div class="glass-card lift reveal rounded-2xl p-6 text-center" style="--d:200ms">
+                        <span class="material-symbols-outlined icon-pop text-neon-green text-3xl mb-3">memory</span>
                         <h4 class="font-bold mb-1 text-sm">Compiled artifact</h4>
                         <p class="text-slate-400 text-xs">Generate the final HEX/S19/SREC release output.</p>
                     </div>
-                    <div class="glass-card rounded-2xl p-6 text-center">
-                        <span class="material-symbols-outlined text-neon-purple text-3xl mb-3">history</span>
+                    <div class="glass-card lift reveal rounded-2xl p-6 text-center" style="--d:300ms">
+                        <span class="material-symbols-outlined icon-pop text-neon-purple text-3xl mb-3">history</span>
                         <h4 class="font-bold mb-1 text-sm">Audit trail</h4>
                         <p class="text-slate-400 text-xs">Who changed what, when, why, and from which package.</p>
                     </div>
@@ -707,17 +922,125 @@
                             </li>
                         </ul>
                     </div>
-                    <div class="glass-card rounded-2xl p-6 shadow-2xl">
+                    <div class="glass-card lift reveal shimmer rounded-2xl p-6 shadow-2xl">
                         <div class="flex items-center justify-between mb-4 border-b border-white/10 pb-3">
                             <div class="flex items-center gap-2"><span class="material-symbols-outlined text-slate-500 text-base">fact_check</span><span class="text-xs font-mono text-slate-400">release readiness</span></div>
                             <span class="text-[10px] bg-yellow-500/15 text-yellow-400 px-2 py-0.5 rounded font-bold uppercase">blocked</span>
                         </div>
-                        <div class="space-y-3 font-mono text-xs">
+                        <div class="space-y-3 font-mono text-xs seq">
                             <div class="flex justify-between p-3 bg-green-500/10 border border-green-500/20 rounded-lg"><span class="text-slate-300">A2L parsed</span><span class="text-green-300">PASS</span></div>
                             <div class="flex justify-between p-3 bg-green-500/10 border border-green-500/20 rounded-lg"><span class="text-slate-300">base dataset loaded</span><span class="text-green-300">PASS</span></div>
                             <div class="flex justify-between p-3 bg-yellow-500/10 border border-yellow-500/20 rounded-lg"><span class="text-slate-300">boost patch conflicts</span><span class="text-yellow-300">REVIEW</span></div>
                             <div class="flex justify-between p-3 bg-red-500/10 border border-red-500/20 rounded-lg"><span class="text-slate-300">compiled release artifact</span><span class="text-red-300">MISSING</span></div>
                         </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- ============================ PRODUCT GALLERY ============================ -->
+        <section class="py-28 border-t border-white/5" data-aos="fade-up" data-aos-delay="0" id="gallery">
+            <div class="max-w-7xl mx-auto px-6">
+                <div class="text-center mb-16">
+                    <h2 class="text-neon-purple font-bold tracking-widest uppercase text-sm mb-4">Inside HELIX</h2>
+                    <h3 class="text-3xl md:text-5xl font-bold text-white mb-6">The calibration data workbench, end to end</h3>
+                    <p class="text-slate-400 max-w-2xl mx-auto text-lg">From release readiness to compare, merge, and governed work-package review &mdash; real screens from HELIX.</p>
+                </div>
+
+                <p class="text-center text-[11px] font-bold uppercase tracking-[0.25em] text-slate-500 mb-10 flex items-center justify-center gap-2">
+                    <span class="material-symbols-outlined text-sm text-neon-purple">touch_app</span>
+                    Auto-scrolling &mdash; hover or tap any screen to pause &amp; inspect
+                </p>
+
+                <!-- Auto-scroll marquee (pauses on hover / focus / tap) -->
+                <div class="marquee" id="hx-marquee" aria-label="HELIX product screenshots, auto-scrolling carousel">
+                    <div class="marquee-track">
+                        <!-- Set A -->
+                        <figure class="mq-card">
+                            <div class="mq-frame glass-cyber rounded-2xl border border-white/10 overflow-hidden shadow-2xl shadow-neon-purple/10">
+                                <div class="flex items-center gap-2 px-4 py-3 border-b border-white/10 bg-white/[0.03]"><span class="flex gap-1.5"><span class="w-3 h-3 rounded-full bg-red-500/70"></span><span class="w-3 h-3 rounded-full bg-yellow-500/70"></span><span class="w-3 h-3 rounded-full bg-green-500/70"></span></span><span class="ml-2 text-[11px] font-mono text-slate-500 truncate">helix · cockpit</span></div>
+                                <img src="pics/helix/cockpit.png" alt="HELIX cockpit dashboard showing calibration release readiness, release-gate blockers, label drift, and DCM/HEX value match" loading="lazy" width="1440" height="900" class="w-full block" />
+                            </div>
+                            <figcaption class="mt-4"><span class="font-bold text-white text-sm">Cockpit</span><p class="text-slate-400 text-xs mt-1">Release readiness, blockers, and change evidence.</p></figcaption>
+                        </figure>
+                        <figure class="mq-card">
+                            <div class="mq-frame glass-cyber rounded-2xl border border-white/10 overflow-hidden shadow-2xl shadow-neon-purple/10">
+                                <div class="flex items-center gap-2 px-4 py-3 border-b border-white/10 bg-white/[0.03]"><span class="flex gap-1.5"><span class="w-3 h-3 rounded-full bg-red-500/70"></span><span class="w-3 h-3 rounded-full bg-yellow-500/70"></span><span class="w-3 h-3 rounded-full bg-green-500/70"></span></span><span class="ml-2 text-[11px] font-mono text-slate-500 truncate">helix · data management workbench</span></div>
+                                <img src="pics/helix/core.png" alt="HELIX calibration data management workbench listing variants, software versions, calibration files, and labels" loading="lazy" width="1440" height="900" class="w-full block" />
+                            </div>
+                            <figcaption class="mt-4"><span class="font-bold text-white text-sm">Data management workbench</span><p class="text-slate-400 text-xs mt-1">Variants, software versions, and calibration files.</p></figcaption>
+                        </figure>
+                        <figure class="mq-card">
+                            <div class="mq-frame glass-cyber rounded-2xl border border-white/10 overflow-hidden shadow-2xl shadow-neon-purple/10">
+                                <div class="flex items-center gap-2 px-4 py-3 border-b border-white/10 bg-white/[0.03]"><span class="flex gap-1.5"><span class="w-3 h-3 rounded-full bg-red-500/70"></span><span class="w-3 h-3 rounded-full bg-yellow-500/70"></span><span class="w-3 h-3 rounded-full bg-green-500/70"></span></span><span class="ml-2 text-[11px] font-mono text-slate-500 truncate">helix · compare &amp; edit</span></div>
+                                <img src="pics/helix/compare-edit.png" alt="HELIX Compare and Edit view diffing calibration values, limits, and changed maps against a base dataset" loading="lazy" width="1440" height="900" class="w-full block" />
+                            </div>
+                            <figcaption class="mt-4"><span class="font-bold text-white text-sm">Compare &amp; edit</span><p class="text-slate-400 text-xs mt-1">Shape-aware diff of maps, curves, and limits.</p></figcaption>
+                        </figure>
+                        <figure class="mq-card">
+                            <div class="mq-frame glass-cyber rounded-2xl border border-white/10 overflow-hidden shadow-2xl shadow-neon-purple/10">
+                                <div class="flex items-center gap-2 px-4 py-3 border-b border-white/10 bg-white/[0.03]"><span class="flex gap-1.5"><span class="w-3 h-3 rounded-full bg-red-500/70"></span><span class="w-3 h-3 rounded-full bg-yellow-500/70"></span><span class="w-3 h-3 rounded-full bg-green-500/70"></span></span><span class="ml-2 text-[11px] font-mono text-slate-500 truncate">helix · calibration merge</span></div>
+                                <img src="pics/helix/merge.png" alt="HELIX calibration merge view resolving overlapping DCM changes with conflicts and an audit trail" loading="lazy" width="1440" height="900" class="w-full block" />
+                            </div>
+                            <figcaption class="mt-4"><span class="font-bold text-white text-sm">Merge</span><p class="text-slate-400 text-xs mt-1">Reconcile overlapping DCM changes with audit trail.</p></figcaption>
+                        </figure>
+                        <figure class="mq-card">
+                            <div class="mq-frame glass-cyber rounded-2xl border border-white/10 overflow-hidden shadow-2xl shadow-neon-purple/10">
+                                <div class="flex items-center gap-2 px-4 py-3 border-b border-white/10 bg-white/[0.03]"><span class="flex gap-1.5"><span class="w-3 h-3 rounded-full bg-red-500/70"></span><span class="w-3 h-3 rounded-full bg-yellow-500/70"></span><span class="w-3 h-3 rounded-full bg-green-500/70"></span></span><span class="ml-2 text-[11px] font-mono text-slate-500 truncate">helix · work packages</span></div>
+                                <img src="pics/helix/work-packages.png" alt="HELIX work package review with draft, review, and approved states, release blockers, and an approval workflow" loading="lazy" width="1440" height="900" class="w-full block" />
+                            </div>
+                            <figcaption class="mt-4"><span class="font-bold text-white text-sm">Work packages</span><p class="text-slate-400 text-xs mt-1">Draft &rarr; review &rarr; approved with release blockers.</p></figcaption>
+                        </figure>
+                        <figure class="mq-card">
+                            <div class="mq-frame glass-cyber rounded-2xl border border-white/10 overflow-hidden shadow-2xl shadow-neon-purple/10">
+                                <div class="flex items-center gap-2 px-4 py-3 border-b border-white/10 bg-white/[0.03]"><span class="flex gap-1.5"><span class="w-3 h-3 rounded-full bg-red-500/70"></span><span class="w-3 h-3 rounded-full bg-yellow-500/70"></span><span class="w-3 h-3 rounded-full bg-green-500/70"></span></span><span class="ml-2 text-[11px] font-mono text-slate-500 truncate">helix · hex &amp; a2l</span></div>
+                                <img src="pics/helix/hex-editor.png" alt="HELIX hex editor and calibration view with Upload HEX, Upload A2L, and Extract Maps tooling" loading="lazy" width="1440" height="900" class="w-full block" />
+                            </div>
+                            <figcaption class="mt-4"><span class="font-bold text-white text-sm">Hex &amp; A2L</span><p class="text-slate-400 text-xs mt-1">Upload HEX/A2L and extract calibration maps.</p></figcaption>
+                        </figure>
+                        <!-- Set B (duplicate for seamless loop) -->
+                        <figure class="mq-card" aria-hidden="true">
+                            <div class="mq-frame glass-cyber rounded-2xl border border-white/10 overflow-hidden shadow-2xl shadow-neon-purple/10">
+                                <div class="flex items-center gap-2 px-4 py-3 border-b border-white/10 bg-white/[0.03]"><span class="flex gap-1.5"><span class="w-3 h-3 rounded-full bg-red-500/70"></span><span class="w-3 h-3 rounded-full bg-yellow-500/70"></span><span class="w-3 h-3 rounded-full bg-green-500/70"></span></span><span class="ml-2 text-[11px] font-mono text-slate-500 truncate">helix · cockpit</span></div>
+                                <img src="pics/helix/cockpit.png" alt="" loading="lazy" width="1440" height="900" class="w-full block" />
+                            </div>
+                            <figcaption class="mt-4"><span class="font-bold text-white text-sm">Cockpit</span><p class="text-slate-400 text-xs mt-1">Release readiness, blockers, and change evidence.</p></figcaption>
+                        </figure>
+                        <figure class="mq-card" aria-hidden="true">
+                            <div class="mq-frame glass-cyber rounded-2xl border border-white/10 overflow-hidden shadow-2xl shadow-neon-purple/10">
+                                <div class="flex items-center gap-2 px-4 py-3 border-b border-white/10 bg-white/[0.03]"><span class="flex gap-1.5"><span class="w-3 h-3 rounded-full bg-red-500/70"></span><span class="w-3 h-3 rounded-full bg-yellow-500/70"></span><span class="w-3 h-3 rounded-full bg-green-500/70"></span></span><span class="ml-2 text-[11px] font-mono text-slate-500 truncate">helix · data management workbench</span></div>
+                                <img src="pics/helix/core.png" alt="" loading="lazy" width="1440" height="900" class="w-full block" />
+                            </div>
+                            <figcaption class="mt-4"><span class="font-bold text-white text-sm">Data management workbench</span><p class="text-slate-400 text-xs mt-1">Variants, software versions, and calibration files.</p></figcaption>
+                        </figure>
+                        <figure class="mq-card" aria-hidden="true">
+                            <div class="mq-frame glass-cyber rounded-2xl border border-white/10 overflow-hidden shadow-2xl shadow-neon-purple/10">
+                                <div class="flex items-center gap-2 px-4 py-3 border-b border-white/10 bg-white/[0.03]"><span class="flex gap-1.5"><span class="w-3 h-3 rounded-full bg-red-500/70"></span><span class="w-3 h-3 rounded-full bg-yellow-500/70"></span><span class="w-3 h-3 rounded-full bg-green-500/70"></span></span><span class="ml-2 text-[11px] font-mono text-slate-500 truncate">helix · compare &amp; edit</span></div>
+                                <img src="pics/helix/compare-edit.png" alt="" loading="lazy" width="1440" height="900" class="w-full block" />
+                            </div>
+                            <figcaption class="mt-4"><span class="font-bold text-white text-sm">Compare &amp; edit</span><p class="text-slate-400 text-xs mt-1">Shape-aware diff of maps, curves, and limits.</p></figcaption>
+                        </figure>
+                        <figure class="mq-card" aria-hidden="true">
+                            <div class="mq-frame glass-cyber rounded-2xl border border-white/10 overflow-hidden shadow-2xl shadow-neon-purple/10">
+                                <div class="flex items-center gap-2 px-4 py-3 border-b border-white/10 bg-white/[0.03]"><span class="flex gap-1.5"><span class="w-3 h-3 rounded-full bg-red-500/70"></span><span class="w-3 h-3 rounded-full bg-yellow-500/70"></span><span class="w-3 h-3 rounded-full bg-green-500/70"></span></span><span class="ml-2 text-[11px] font-mono text-slate-500 truncate">helix · calibration merge</span></div>
+                                <img src="pics/helix/merge.png" alt="" loading="lazy" width="1440" height="900" class="w-full block" />
+                            </div>
+                            <figcaption class="mt-4"><span class="font-bold text-white text-sm">Merge</span><p class="text-slate-400 text-xs mt-1">Reconcile overlapping DCM changes with audit trail.</p></figcaption>
+                        </figure>
+                        <figure class="mq-card" aria-hidden="true">
+                            <div class="mq-frame glass-cyber rounded-2xl border border-white/10 overflow-hidden shadow-2xl shadow-neon-purple/10">
+                                <div class="flex items-center gap-2 px-4 py-3 border-b border-white/10 bg-white/[0.03]"><span class="flex gap-1.5"><span class="w-3 h-3 rounded-full bg-red-500/70"></span><span class="w-3 h-3 rounded-full bg-yellow-500/70"></span><span class="w-3 h-3 rounded-full bg-green-500/70"></span></span><span class="ml-2 text-[11px] font-mono text-slate-500 truncate">helix · work packages</span></div>
+                                <img src="pics/helix/work-packages.png" alt="" loading="lazy" width="1440" height="900" class="w-full block" />
+                            </div>
+                            <figcaption class="mt-4"><span class="font-bold text-white text-sm">Work packages</span><p class="text-slate-400 text-xs mt-1">Draft &rarr; review &rarr; approved with release blockers.</p></figcaption>
+                        </figure>
+                        <figure class="mq-card" aria-hidden="true">
+                            <div class="mq-frame glass-cyber rounded-2xl border border-white/10 overflow-hidden shadow-2xl shadow-neon-purple/10">
+                                <div class="flex items-center gap-2 px-4 py-3 border-b border-white/10 bg-white/[0.03]"><span class="flex gap-1.5"><span class="w-3 h-3 rounded-full bg-red-500/70"></span><span class="w-3 h-3 rounded-full bg-yellow-500/70"></span><span class="w-3 h-3 rounded-full bg-green-500/70"></span></span><span class="ml-2 text-[11px] font-mono text-slate-500 truncate">helix · hex &amp; a2l</span></div>
+                                <img src="pics/helix/hex-editor.png" alt="" loading="lazy" width="1440" height="900" class="w-full block" />
+                            </div>
+                            <figcaption class="mt-4"><span class="font-bold text-white text-sm">Hex &amp; A2L</span><p class="text-slate-400 text-xs mt-1">Upload HEX/A2L and extract calibration maps.</p></figcaption>
+                        </figure>
                     </div>
                 </div>
             </div>
@@ -731,18 +1054,18 @@
                     <h3 class="text-3xl md:text-5xl font-bold text-white mb-6">Your calibration data stays on your bench</h3>
                 </div>
                 <div class="grid md:grid-cols-3 gap-6">
-                    <div class="glass-card rounded-2xl p-8">
-                        <span class="material-symbols-outlined text-neon-blue text-3xl mb-4">dns</span>
+                    <div class="glass-card lift reveal rounded-2xl p-8" style="--d:0ms">
+                        <span class="material-symbols-outlined icon-pop text-neon-blue text-3xl mb-4">dns</span>
                         <h4 class="text-lg font-bold mb-2">Runs next to the data</h4>
                         <p class="text-slate-400 text-sm leading-relaxed">Calibration files can be managed close to the engineering data, with no need to expose release work to unrelated tooling.</p>
                     </div>
-                    <div class="glass-card rounded-2xl p-8">
-                        <span class="material-symbols-outlined text-neon-green text-3xl mb-4">sync_alt</span>
+                    <div class="glass-card lift reveal rounded-2xl p-8" style="--d:120ms">
+                        <span class="material-symbols-outlined icon-pop text-neon-green text-3xl mb-4">sync_alt</span>
                         <h4 class="text-lg font-bold mb-2">Interoperable, not lock-in</h4>
                         <p class="text-slate-400 text-sm leading-relaxed">HELIX works with the ECU description, base dataset, and patch formats teams already exchange. Keep your existing upstream and downstream tools.</p>
                     </div>
-                    <div class="glass-card rounded-2xl p-8">
-                        <span class="material-symbols-outlined text-neon-purple text-3xl mb-4">fingerprint</span>
+                    <div class="glass-card lift reveal rounded-2xl p-8" style="--d:240ms">
+                        <span class="material-symbols-outlined icon-pop text-neon-purple text-3xl mb-4">fingerprint</span>
                         <h4 class="text-lg font-bold mb-2">Reproducible records</h4>
                         <p class="text-slate-400 text-sm leading-relaxed">Each release candidate carries structured evidence: source files, patch sources, merge decisions, validation status, and generated artifact.</p>
                     </div>
@@ -754,13 +1077,13 @@
         <section class="py-28" data-aos="fade-up" data-aos-delay="0" id="compare">
             <div class="max-w-5xl mx-auto px-6">
                 <div class="grid md:grid-cols-2 gap-6">
-                    <div class="rounded-2xl border border-white/10 p-8 bg-white/[0.02]">
-                        <div class="flex items-center gap-2 mb-4 text-slate-500"><span class="material-symbols-outlined">block</span><span class="text-xs font-bold uppercase tracking-widest">The old way</span></div>
+                    <div class="rounded-2xl border border-white/10 p-8 bg-white/[0.02] reveal lift" style="--d:0ms">
+                        <div class="flex items-center gap-2 mb-4 text-slate-500"><span class="material-symbols-outlined icon-pop">block</span><span class="text-xs font-bold uppercase tracking-widest">The old way</span></div>
                         <p class="text-slate-400 leading-relaxed">A2L in one folder <span class="text-slate-600">+</span> base HEX in another <span class="text-slate-600">+</span> DCM patches over email <span class="text-slate-600">+</span> manual variant comparison <span class="text-slate-600">+</span> uncertain release status.</p>
                         <p class="mt-4 text-slate-500 font-mono text-sm">Many files. Weak traceability.</p>
                     </div>
-                    <div class="rounded-2xl border border-neon-purple/30 p-8 bg-neon-purple/[0.04] shadow-2xl shadow-neon-purple/10">
-                        <div class="flex items-center gap-2 mb-4 text-neon-purple"><span class="material-symbols-outlined">check_circle</span><span class="text-xs font-bold uppercase tracking-widest">The Helix way</span></div>
+                    <div class="rounded-2xl border border-neon-purple/30 p-8 bg-neon-purple/[0.04] shadow-2xl shadow-neon-purple/10 reveal lift" style="--d:140ms">
+                        <div class="flex items-center gap-2 mb-4 text-neon-purple"><span class="material-symbols-outlined icon-pop">check_circle</span><span class="text-xs font-bold uppercase tracking-widest">The Helix way</span></div>
                         <p class="text-slate-200 leading-relaxed">One governed calibration data-management path from A2L and base HEX/S19 to approved DCM/CDFX/PACO patches, release checks, and final ECU artifact.</p>
                         <p class="mt-4 text-neon-purple font-mono text-sm">One release truth. No silent overwrite.</p>
                     </div>
@@ -796,13 +1119,21 @@
                         <summary class="flex justify-between items-center cursor-pointer font-bold text-white list-none">Where does my calibration data go?<span class="material-symbols-outlined text-neon-purple group-open:rotate-180 transition-transform">expand_more</span></summary>
                         <p class="text-slate-400 text-sm mt-4 leading-relaxed">HELIX keeps calibration release evidence close to the source files: A2L, base dataset, patch package, reviewer decision, validation status, and generated artifact.</p>
                     </details>
+                    <details class="glass-card rounded-xl p-6 group">
+                        <summary class="flex justify-between items-center cursor-pointer font-bold text-white list-none">Will I have to convert my files?<span class="material-symbols-outlined text-neon-purple group-open:rotate-180 transition-transform">expand_more</span></summary>
+                        <p class="text-slate-400 text-sm mt-4 leading-relaxed">No. HELIX works with the calibration formats teams already exchange &mdash; A2L / ASAP2, base HEX/S19/SREC, and DCM, CDFX, and PACO change packages. Adoption is additive, not a migration.</p>
+                    </details>
+                    <details class="glass-card rounded-xl p-6 group">
+                        <summary class="flex justify-between items-center cursor-pointer font-bold text-white list-none">What is the main value of HELIX?<span class="material-symbols-outlined text-neon-purple group-open:rotate-180 transition-transform">expand_more</span></summary>
+                        <p class="text-slate-400 text-sm mt-4 leading-relaxed">HELIX prevents silent overwrite and weak traceability across calibration patch batches. It makes release readiness explicit &mdash; linking source A2L, base dataset, approved changes, and validation &mdash; before the final ECU artifact is generated.</p>
+                    </details>
                 </div>
             </div>
         </section>
 
         <!-- ============================ CTA ============================ -->
         <section class="py-32 px-6" data-aos="fade-up" data-aos-delay="0">
-            <div class="max-w-5xl mx-auto rounded-3xl relative overflow-hidden p-16 text-center shadow-2xl" data-aos="fade-up" data-aos-delay="100" style="background: linear-gradient(135deg, #8b5cf622, #050508, #0070f322);">
+            <div class="max-w-5xl mx-auto rounded-3xl relative overflow-hidden p-16 text-center shadow-2xl gradient-pan" data-aos="fade-up" data-aos-delay="100" style="background: linear-gradient(135deg, #8b5cf622, #050508, #0070f322);">
                 <div class="absolute inset-0 border border-white/5 rounded-3xl"></div>
                 <div class="absolute inset-0 bg-gradient-to-br from-neon-purple/10 via-transparent to-primary/10"></div>
                 <div class="relative z-10">
@@ -833,15 +1164,15 @@
                 </p>
                 <div class="flex gap-4">
                     <a class="w-10 h-10 rounded-lg bg-white/5 flex items-center justify-center text-slate-400 hover:text-primary hover:bg-white/10 transition-all"
-                        href="https://www.linkedin.com/company/vehicle-lab" target="_blank" rel="noopener noreferrer" aria-label="Vehicle Lab on LinkedIn">
+                        href="https://linkedin.com/company/vehiclelab" target="_blank" rel="noopener noreferrer" aria-label="Vehicle Lab on LinkedIn">
                         <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 24 24"><path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433a2.062 2.062 0 01-2.063-2.065 2.064 2.064 0 112.063 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"/></svg>
                     </a>
                     <a class="w-10 h-10 rounded-lg bg-white/5 flex items-center justify-center text-slate-400 hover:text-primary hover:bg-white/10 transition-all"
-                        href="https://github.com/vehicle-lab" target="_blank" rel="noopener noreferrer" aria-label="Vehicle Lab on GitHub">
+                        href="https://github.com/vehiclelab" target="_blank" rel="noopener noreferrer" aria-label="Vehicle Lab on GitHub">
                         <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 24 24"><path d="M12 0C5.374 0 0 5.373 0 12c0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23A11.509 11.509 0 0112 5.803c1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576C20.566 21.797 24 17.3 24 12c0-6.627-5.373-12-12-12z"/></svg>
                     </a>
                     <a class="w-10 h-10 rounded-lg bg-white/5 flex items-center justify-center text-slate-400 hover:text-primary hover:bg-white/10 transition-all"
-                        href="https://www.producthunt.com/@vehicle_lab" target="_blank" rel="noopener noreferrer" aria-label="Vehicle Lab on Product Hunt">
+                        href="https://producthunt.com/products/vehicle-lab" target="_blank" rel="noopener noreferrer" aria-label="Vehicle Lab on Product Hunt">
                         <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 24 24"><path d="M13.604 8.4h-3.405V12h3.405a1.8 1.8 0 100-3.6zM12 0C5.372 0 0 5.372 0 12s5.372 12 12 12 12-5.372 12-12S18.628 0 12 0zm1.604 14.4h-3.405V18H7.801V6h5.804a4.2 4.2 0 010 8.4z"/></svg>
                     </a>
                     <a class="w-10 h-10 rounded-lg bg-white/5 flex items-center justify-center text-slate-400 hover:text-primary hover:bg-white/10 transition-all"
@@ -856,6 +1187,7 @@
                     <li><a class="hover:text-primary" href="/diagai">DiagAI</a></li>
                     <li><a class="hover:text-primary" href="/cie_pro">CIE Pro</a></li>
                     <li><a class="hover:text-primary" href="/helix">HELIX Suite</a></li>
+                    <li><a class="hover:text-primary" href="/hexx">Hexx</a></li>
                     <li><a class="hover:text-primary" href="/mdx">MDX</a></li>
                     <li><a class="hover:text-primary" href="/xhandbook">XHandbook</a></li>
                 </ul>
@@ -864,9 +1196,9 @@
                 <h5 class="font-bold text-white font-medium tracking-tight mb-6 text-sm">Company</h5>
                 <ul class="space-y-4 text-slate-400 font-semibold text-sm">
                     <li><a class="hover:text-primary" href="/about">About Us</a></li>
-                    <li><a class="hover:text-primary" href="https://linkedin.com/company/vehiclelab" target="_blank">LinkedIn</a></li>
-                    <li><a class="hover:text-primary" href="https://github.com/vehiclelab" target="_blank">GitHub</a></li>
-                    <li><a class="hover:text-primary" href="https://producthunt.com/products/vehicle-lab" target="_blank">Product Hunt</a></li>
+                    <li><a class="hover:text-primary" href="https://linkedin.com/company/vehiclelab" target="_blank" rel="noopener noreferrer">LinkedIn</a></li>
+                    <li><a class="hover:text-primary" href="https://github.com/vehiclelab" target="_blank" rel="noopener noreferrer">GitHub</a></li>
+                    <li><a class="hover:text-primary" href="https://producthunt.com/products/vehicle-lab" target="_blank" rel="noopener noreferrer">Product Hunt</a></li>
                 </ul>
             </div>
             <div>
@@ -902,6 +1234,90 @@
         });
     </script>
     <script>setTimeout(function(){if(typeof AOS==="undefined"){document.querySelectorAll("[data-aos]").forEach(function(e){e.style.opacity=1;e.style.transform="none";});}},1200);</script>
+    <!-- Custom scroll-reveal layer (reveal / seq / flow-track / shimmer) -->
+    <script>
+        (function () {
+            var targets = document.querySelectorAll('.reveal, .seq, .flow-track, .shimmer');
+            var reduce = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+            if (reduce || !('IntersectionObserver' in window)) {
+                targets.forEach(function (el) { el.classList.add('in'); });
+                return;
+            }
+            var io = new IntersectionObserver(function (entries) {
+                entries.forEach(function (entry) {
+                    if (entry.isIntersecting) {
+                        entry.target.classList.add('in');
+                        io.unobserve(entry.target);
+                    }
+                });
+            }, { threshold: 0.15, rootMargin: '0px 0px -8% 0px' });
+            targets.forEach(function (el) { io.observe(el); });
+            // Safety: if anything is still hidden after 2s (observer never fired), reveal it.
+            setTimeout(function () { targets.forEach(function (el) { el.classList.add('in'); }); }, 2000);
+        })();
+    </script>
+    <!-- Showcase carousel: JS auto-scroll, pause on hover, manual wheel / drag / swipe -->
+    <script>
+        (function () {
+            var mq = document.getElementById('hx-marquee');
+            if (!mq) return;
+            var track = mq.querySelector('.marquee-track');
+            var reduce = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+            var SPEED = 0.085;          // px per ms (~85px/s, a touch faster than before)
+            var RESUME_DELAY = 1800;    // ms idle after manual input before auto-scroll resumes
+            var now = function () { return window.performance && performance.now ? performance.now() : Date.now(); };
+            var hovering = false, manualUntil = 0, last = null, down = false, wrapping = false;
+            function half() { return track.scrollWidth / 2; }
+            function bump() { manualUntil = now() + RESUME_DELAY; }
+
+            mq.addEventListener('mouseenter', function () { hovering = true; });
+            mq.addEventListener('mouseleave', function () { hovering = false; });
+            mq.addEventListener('focusin', function () { hovering = true; });
+            mq.addEventListener('focusout', function () { hovering = false; });
+
+            // seamless wrap for both auto and manual scrolling
+            mq.addEventListener('scroll', function () {
+                if (wrapping) return;
+                var h = half();
+                if (mq.scrollLeft >= h) { wrapping = true; mq.scrollLeft -= h; wrapping = false; }
+            }, { passive: true });
+
+            // mouse wheel -> horizontal scroll
+            mq.addEventListener('wheel', function (e) {
+                if (Math.abs(e.deltaY) > Math.abs(e.deltaX)) { mq.scrollLeft += e.deltaY; e.preventDefault(); }
+                bump();
+            }, { passive: false });
+
+            // click-drag to scroll (mouse / pen); native touch scroll handles fingers
+            var startX = 0, startScroll = 0;
+            mq.addEventListener('pointerdown', function (e) {
+                if (e.pointerType === 'touch') return;
+                down = true; startX = e.clientX; startScroll = mq.scrollLeft;
+                mq.classList.add('dragging'); bump();
+            });
+            window.addEventListener('pointermove', function (e) {
+                if (!down) return;
+                mq.scrollLeft = startScroll - (e.clientX - startX); bump();
+            });
+            window.addEventListener('pointerup', function () { down = false; mq.classList.remove('dragging'); });
+            mq.addEventListener('touchstart', bump, { passive: true });
+            mq.addEventListener('touchmove', bump, { passive: true });
+
+            function frame(t) {
+                if (last == null) last = t;
+                var dt = t - last; last = t;
+                if (dt > 50) dt = 50;   // clamp (throttled / backgrounded tabs) so we never make a giant jump
+                if (!reduce && !hovering && !down && now() > manualUntil) {
+                    mq.scrollLeft += SPEED * dt;
+                    var h = half();
+                    if (mq.scrollLeft >= h) { wrapping = true; mq.scrollLeft -= h; wrapping = false; }
+                }
+                requestAnimationFrame(frame);
+            }
+            requestAnimationFrame(frame);
+        })();
+    </script>
+    <script src="/assets/cursor.js" defer></script>
 </body>
 
 </html>

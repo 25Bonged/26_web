@@ -5,8 +5,8 @@
 <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <meta property="og:title" content="MDF4 Analyzer &amp; Vehicle Data Lab | MDX - Vehicle Lab" />
-    <meta property="og:description" content="Sub-second MDF4 loading, oscilloscope, GPS route mapping, AI diagnostics. Offline-first. Faster than legacy desktop tools." />
+    <meta property="og:title" content="MDX — Agent-Native Vehicle Measurement Lab | MCP for Claude Code, Codex, Gemini" />
+    <meta property="og:description" content="MDX is the MDF4/vehicle data lab your AI agent can run. Built-in MCP server — load logs, query channels, plot signals, find events by chat from Claude Code, Codex or Gemini. Plus a full oscilloscope-grade lab. Offline-first." />
     <meta property="og:image" content="https://vehiclelab.in/pics/og-image.png" />
     <meta property="og:image:width" content="1200" />
     <meta property="og:image:height" content="630" />
@@ -14,10 +14,10 @@
     <meta property="og:type" content="website" />
     <meta name="twitter:card" content="summary_large_image" />
     <meta name="twitter:image" content="https://vehiclelab.in/pics/og-image.png" />
-    <meta name="twitter:title" content="MDF4 Analyzer &amp; Vehicle Data Lab | MDX - Vehicle Lab" />
-    <meta name="twitter:description" content="Sub-second MDF4 loading, oscilloscope, GPS mapping, AI diagnostics. Offline-first MDF4 analyzer for OEMs." />
-    <title>MDF4 Analyzer & Vehicle Data Lab | MDX - Vehicle Lab</title>
-    <meta name="description" content="Professional MDF4 analyzer for automotive OEMs. Sub-second GB file loading, oscilloscope, GPS mapping, AI diagnostics, offline-first.">
+    <meta name="twitter:title" content="MDX — Agent-Native Vehicle Measurement Lab (MCP)" />
+    <meta name="twitter:description" content="Operate MDF4/vehicle data from Claude Code, Codex or Gemini over MCP — load logs, plot signals, find events by chat. Plus a full oscilloscope-grade lab. Offline-first." />
+    <title>MDX — Agent-Native MDF4 Measurement Lab (MCP for Claude Code, Codex, Gemini) | Vehicle Lab</title>
+    <meta name="description" content="MDX is an agent-native MDF4/vehicle data lab with a built-in MCP server — operate it from Claude Code, Codex or Gemini, or use it as a full oscilloscope-grade workbench. Offline-first, zero data egress.">
     <link rel="canonical" href="https://vehiclelab.in/mdx" />
     <!-- Structured Data: SoftwareApplication -->
     <script type="application/ld+json">
@@ -26,7 +26,7 @@
       "@type": "SoftwareApplication",
       "name": "MDX",
       "alternateName": "MDX Professional MDF Data Lab",
-      "description": "MDX is a professional MDF/MF4 vehicle data analysis platform. Full-stack analytics with high-resolution oscilloscope, dual cursors, resizable panels, and AI diagnostics. Supports ASAM MDF v3 and v4 standards. Memory-mapped file reading for sub-second loading of GB-sized files. Offline-first architecture with zero data egress.",
+      "description": "MDX is an agent-native MDF/MF4 vehicle data analysis platform. It ships a built-in MCP (Model Context Protocol) server so AI agents such as Claude Code, Codex and Gemini can load logs, query thousands of channels, plot signals and detect events by chat. It is also a full-stack human workbench with a high-resolution oscilloscope, dual cursors, calculated-signal engine, serial/parallel multi-file comparison with sync-signal auto-align, and AI diagnostics. Supports ASAM MDF v3 and v4. Memory-mapped reading for sub-second loading of GB-sized files. Offline-first architecture with zero data egress.",
       "url": "https://vehiclelab.in/mdx",
       "applicationCategory": "Engineering Software",
       "operatingSystem": "Web, Windows, macOS, Linux",
@@ -37,6 +37,9 @@
         "description": "Enterprise licensing on request. Contact sales to book a technical demo."
       },
       "featureList": [
+        "Built-in MCP Server — Operate MDX from Claude Code, Codex, Gemini, Claude Desktop and VS Code",
+        "Agent-Driven Workflow — Log Upload, Signal Query, Plotting, Event and Similar-Event Detection by Chat",
+        "Serial and Parallel Multi-File Comparison with Sync-Signal Auto-Align",
         "ASAM MDF v3 and v4, CSV and Excel Support",
         "Memory-Mapped Loading for Multi-Gigabyte Files",
         "Automatic Signal Extraction and Indexing on Import",
@@ -98,6 +101,14 @@
       "@context": "https://schema.org",
       "@type": "FAQPage",
       "mainEntity": [
+        {
+          "@type": "Question",
+          "name": "Can MDX be operated by an AI agent or LLM like Claude Code, Codex or Gemini?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "Yes. MDX ships a built-in MCP (Model Context Protocol) server exposing 12 tools — health checks, log management, signal statistics, plotting, event and similar-event detection, and legacy config import. Any MCP client (Claude Code, Claude Desktop, Codex, VS Code, Gemini) connects to the local SSE endpoint with a single config block, then loads logs, queries channels, plots signals and finds events from a chat prompt. No API keys and no cloud round-trip; measurement data stays on the local machine."
+          }
+        },
         {
           "@type": "Question",
           "name": "What measurement file formats does MDX support?",
@@ -187,6 +198,7 @@
         .nav-mobile-menu .nav-mobile-sub a { font-size: 1rem; }
         @media (min-width: 768px) { .nav-mobile-menu { display: none !important; } }
     </style>
+    <link rel="stylesheet" href="/assets/cursor.css" />
 </head>
 
 <body
@@ -222,6 +234,8 @@
                             <a class="block px-4 py-2 hover:bg-white/5 hover:text-white transition-colors"
                                 href="/helix">HELIX</a>
                             <a class="block px-4 py-2 hover:bg-white/5 hover:text-white transition-colors"
+                                href="/hexx">Hexx</a>
+                            <a class="block px-4 py-2 hover:bg-white/5 hover:text-white transition-colors"
                                 href="/mdx">MDX</a>
                             <a class="block px-4 py-2 hover:bg-white/5 hover:text-white transition-colors"
                                 href="/xhandbook">XHandbook</a>
@@ -248,6 +262,7 @@
             <a href="/diagai">DiagAI</a>
             <a href="/cie_pro">CIE Pro</a>
             <a href="/helix">HELIX</a>
+            <a href="/hexx">Hexx</a>
             <a href="/mdx">MDX</a>
             <a href="/xhandbook">XHandbook</a>
         </div>
@@ -267,63 +282,82 @@
                                 class="animate-ping absolute inline-flex h-full w-full rounded-full bg-primary opacity-75"></span>
                             <span class="relative inline-flex rounded-full h-2 w-2 bg-primary"></span>
                         </span>
-                        Next-Gen Vehicle Data Lab
+                        Agent-native measurement lab
                     </div>
                     <h1 class="text-5xl md:text-7xl font-black leading-[1.1] text-white tracking-tight">
-                        MDX — Professional <span
-                            class="text-transparent bg-clip-text bg-gradient-to-r from-primary to-cyan-400">MDF4 Analyzer</span> &amp; Vehicle Data Lab
+                        The vehicle data lab your <span
+                            class="text-transparent bg-clip-text bg-gradient-to-r from-primary to-cyan-400">AI
+                            agent</span> can run
                     </h1>
                     <p class="text-lg text-slate-400 max-w-xl leading-relaxed">
-                        Full-stack MDF/MF4 analytics with oscilloscope, instruments, and AI diagnostics. Faster than
-                        legacy desktop tools. Offline-first. Same workflow you know, evolved.
+                        MDX isn't just another oscilloscope. It exposes your MDF4 and vehicle/ECU data through a built-in
+                        MCP server — so Claude Code, Codex, and Gemini load logs, query thousands of channels, plot
+                        signals, and find events by chat. And when you want to drive it yourself, it's a full
+                        oscilloscope-grade lab. Offline-first.
                     </p>
                     <div class="flex flex-wrap gap-4">
-                        <a href="/contact_us"
+                        <a href="#mcp"
                             class="h-14 px-8 bg-primary text-background-dark font-bold rounded-xl hover:scale-105 transition-transform flex items-center gap-2">
+                            <span class="material-symbols-outlined">hub</span>
+                            Connect your AI agent
+                        </a>
+                        <a href="/contact_us"
+                            class="h-14 px-8 bg-white/5 border border-white/10 text-white font-bold rounded-xl hover:bg-white/10 transition-colors flex items-center gap-2">
                             <span class="material-symbols-outlined">download</span>
                             Download for Windows
                         </a>
-                        <a href="https://github.com/vehicle-lab" target="_blank" rel="noopener noreferrer"
-                            class="h-14 px-8 bg-white/5 border border-white/10 text-white font-bold rounded-xl hover:bg-white/10 transition-colors flex items-center gap-2">
-                            <span class="material-symbols-outlined">code</span>
-                            View on GitHub
-                        </a>
+                    </div>
+                    <div class="flex flex-col gap-3 pt-2">
+                        <span class="text-[11px] font-bold uppercase tracking-widest text-slate-600">Speaks MCP — works
+                            with</span>
+                        <div class="flex flex-wrap items-center gap-2">
+                            <span
+                                class="text-xs font-mono text-slate-300 bg-white/5 border border-white/10 rounded-full px-3 py-1.5">Claude
+                                Code</span>
+                            <span
+                                class="text-xs font-mono text-slate-300 bg-white/5 border border-white/10 rounded-full px-3 py-1.5">Codex</span>
+                            <span
+                                class="text-xs font-mono text-slate-300 bg-white/5 border border-white/10 rounded-full px-3 py-1.5">Gemini</span>
+                            <span
+                                class="text-xs font-mono text-slate-300 bg-white/5 border border-white/10 rounded-full px-3 py-1.5">Claude
+                                Desktop</span>
+                            <span
+                                class="text-xs font-mono text-slate-300 bg-white/5 border border-white/10 rounded-full px-3 py-1.5">VS
+                                Code</span>
+                        </div>
                     </div>
                 </div>
                 <div class="relative">
                     <div
-                        class="aspect-square rounded-3xl overflow-hidden border border-primary/20 bg-primary/5 relative group">
-                        <div
-                            class="absolute inset-0 bg-gradient-to-br from-primary/20 via-transparent to-transparent opacity-50">
+                        class="aspect-square rounded-3xl overflow-hidden border border-primary/20 bg-gradient-to-br from-primary/10 via-background-dark/60 to-background-dark relative p-5 flex flex-col">
+                        <div class="flex items-center gap-2 pb-3 mb-3 border-b border-primary/15">
+                            <span class="material-symbols-outlined text-primary text-lg">hub</span>
+                            <span class="text-sm font-bold text-white">AI agent</span>
+                            <span class="text-[10px] font-mono text-slate-500">&harr; mdx · mcp</span>
+                            <span class="ml-auto text-[10px] text-green-400 font-mono flex items-center gap-1"><span
+                                    class="w-1.5 h-1.5 bg-green-400 rounded-full"></span>localhost:8000/sse</span>
                         </div>
-                        <img alt="MDX Interface" class="w-full h-full object-cover mix-blend-overlay opacity-80"
-                            data-alt="Technical dashboard showing neon blue vehicle data charts and graphs"
-                            src="https://lh3.googleusercontent.com/aida-public/AB6AXuBnUxPk3tvoVVZprI02RELA1RyPG3oeSZ2hpDi2_o-ARieEGG19_3I6FNFeQ20NYU1RTABMvWsJd4XTILXI2Mq8JdBO4vzu9isDR2AcvYYLeoWp-D1o6tvQmP5nPy9cXY85Xg8dB4XZ9l2LFrzv1IQMDC3JId_J-PcfPzYE3Hbui8eJnZn34I7IthoqW4mv0zRtgsVszgzhQQ6GyvEpZG8RX-EbNwmEboAGzXw1c0Yvv8BzvcD2VIGwFEFPokdSqH5D8DElby9gk0I" />
-                        <div class="absolute inset-0 flex items-center justify-center p-12">
-                            <!-- Simulated UI Overlays -->
-                            <div
-                                class="w-full h-full border border-primary/30 rounded-xl relative overflow-hidden backdrop-blur-sm bg-background-dark/40 flex flex-col">
-                                <div class="h-8 border-b border-primary/20 bg-primary/10 flex items-center px-4 gap-2">
-                                    <div class="size-2 rounded-full bg-red-500/50"></div>
-                                    <div class="size-2 rounded-full bg-yellow-500/50"></div>
-                                    <div class="size-2 rounded-full bg-green-500/50"></div>
-                                </div>
-                                <div class="flex-1 p-4 grid grid-rows-3 gap-4">
-                                    <div class="border-b border-primary/10 flex items-end pb-2">
-                                        <div
-                                            class="w-full h-1/2 bg-gradient-to-t from-primary/40 to-transparent rounded-t">
-                                        </div>
-                                    </div>
-                                    <div class="border-b border-primary/10 flex items-center justify-between">
-                                        <div class="h-4 w-1/3 bg-primary/10 rounded"></div>
-                                        <div class="h-4 w-1/4 bg-primary/20 rounded"></div>
-                                    </div>
-                                    <div class="flex gap-4">
-                                        <div class="flex-1 bg-primary/5 rounded border border-primary/10"></div>
-                                        <div class="flex-1 bg-primary/5 rounded border border-primary/10"></div>
-                                    </div>
-                                </div>
+                        <div class="flex-1 flex flex-col gap-3 text-sm overflow-hidden">
+                            <div class="flex justify-end">
+                                <div
+                                    class="bg-primary/15 border border-primary/20 rounded-2xl rounded-tr-sm px-4 py-2 text-white max-w-[88%]">
+                                    Load run_42.mf4 and chart coolant temp vs. load</div>
                             </div>
+                            <div class="font-mono text-[11px] text-primary/90 flex items-center gap-1.5"><span
+                                    class="material-symbols-outlined text-sm">bolt</span>upload_log → list_signals →
+                                plot_signals</div>
+                            <div class="bg-white/5 border border-white/10 rounded-xl p-3 flex flex-col gap-2">
+                                <div class="flex items-center justify-between text-[10px] font-mono text-slate-500"><span>coolant_T
+                                        vs load</span><span>2,531 ch</span></div>
+                                <svg class="w-full h-20" viewBox="0 0 200 70" preserveAspectRatio="none" fill="none">
+                                    <path d="M0 60 Q 50 58 90 30 T 200 18" stroke="#00E5FF" stroke-width="1.5" />
+                                    <path d="M0 65 L 200 65" stroke="rgba(255,255,255,0.1)" stroke-width="1" />
+                                </svg>
+                            </div>
+                            <div
+                                class="bg-white/5 border border-white/10 rounded-2xl rounded-tl-sm px-4 py-2.5 text-slate-300 text-[13px] max-w-[92%]">
+                                Charted over 1,204 s. Coolant peaks at <span class="text-primary font-mono">96°C</span>
+                                under load — no overshoot. Run a misfire scan next?</div>
                         </div>
                     </div>
                     <!-- Floating Accents -->
@@ -458,6 +492,114 @@
                     </div>
                 </div>
             </section>
+            <!-- Series & Parallel Comparison -->
+            <section class="py-32 max-w-7xl mx-auto px-6 relative overflow-hidden">
+                <div
+                    class="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[720px] h-[420px] bg-primary/5 blur-[150px] pointer-events-none">
+                </div>
+                <div class="text-center mb-20 relative z-10">
+                    <div
+                        class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-primary/10 border border-primary/20 text-primary text-xs font-bold uppercase tracking-widest mb-6">
+                        <span class="material-symbols-outlined text-sm">compare_arrows</span>
+                        Multi-file analysis
+                    </div>
+                    <h2 class="text-4xl font-black text-white mb-4">Two files? Two thousand? Compare them properly.</h2>
+                    <p class="text-slate-400 max-w-2xl mx-auto">A bench oscilloscope shows one capture at a time. MDX
+                        lines up entire test campaigns — end-to-end or side-by-side — and aligns them for you.</p>
+                </div>
+                <div class="grid md:grid-cols-2 gap-8 relative z-10">
+                    <!-- Serial -->
+                    <div
+                        class="glass-card p-8 rounded-2xl flex flex-col gap-6 neon-border-glow transition-all duration-300">
+                        <div
+                            class="aspect-video bg-background-dark/50 rounded-xl border border-white/5 overflow-hidden relative p-5 flex flex-col justify-center gap-3">
+                            <span
+                                class="absolute top-3 right-4 text-[10px] font-mono text-slate-500 uppercase tracking-widest">serial
+                                · one timeline</span>
+                            <div class="flex items-center gap-1.5">
+                                <div
+                                    class="h-9 flex-1 rounded bg-primary/25 border border-primary/30 flex items-center justify-center text-[9px] font-mono text-primary">
+                                    log_01</div>
+                                <div
+                                    class="h-9 flex-1 rounded bg-primary/20 border border-primary/25 flex items-center justify-center text-[9px] font-mono text-primary/80">
+                                    log_02</div>
+                                <div
+                                    class="h-9 flex-1 rounded bg-primary/15 border border-primary/20 flex items-center justify-center text-[9px] font-mono text-primary/70">
+                                    log_03</div>
+                            </div>
+                            <div class="h-px bg-gradient-to-r from-transparent via-primary/50 to-transparent"></div>
+                            <div class="flex justify-between text-[9px] font-mono text-slate-600">
+                                <span>0&nbsp;s</span><span>t&nbsp;&rarr;</span>
+                            </div>
+                        </div>
+                        <div class="flex flex-col gap-4">
+                            <div class="flex items-center gap-3">
+                                <div
+                                    class="size-10 rounded-xl bg-primary/10 flex items-center justify-center border border-primary/20 shrink-0">
+                                    <span class="material-symbols-outlined text-primary">merge</span>
+                                </div>
+                                <h3 class="text-2xl font-bold text-white">Serial</h3>
+                            </div>
+                            <p class="text-slate-400 leading-relaxed"><span class="text-white font-semibold">Concatenate
+                                    time.</span> Stitch logs from a long trial — or a fleet logged back-to-back — into one
+                                continuous timeline. Scrub, cursor, and measure straight across file boundaries as if it
+                                were a single recording.</p>
+                            <span
+                                class="text-xs font-mono text-primary/80 bg-primary/5 border border-primary/15 rounded-full px-3 py-1 w-fit">Long
+                                trials · sequential fleet runs</span>
+                        </div>
+                    </div>
+                    <!-- Parallel -->
+                    <div
+                        class="glass-card p-8 rounded-2xl flex flex-col gap-6 neon-border-glow transition-all duration-300">
+                        <div
+                            class="aspect-video bg-background-dark/50 rounded-xl border border-white/5 overflow-hidden relative p-5 flex flex-col justify-center gap-2">
+                            <span
+                                class="absolute top-3 right-4 text-[10px] font-mono text-slate-500 uppercase tracking-widest">parallel
+                                · overlaid</span>
+                            <div class="relative h-20">
+                                <div
+                                    class="absolute left-1/3 top-0 bottom-0 w-px bg-primary/60 [box-shadow:0_0_8px_rgba(0,229,255,0.5)]">
+                                </div>
+                                <span
+                                    class="absolute left-1/3 -translate-x-1/2 -top-1 text-[8px] font-mono text-primary bg-background-dark px-1">sync</span>
+                                <svg class="w-full h-full" viewBox="0 0 200 80" preserveAspectRatio="none" fill="none">
+                                    <path d="M0 55 Q 40 55 67 22 T 134 40 T 200 30" stroke="#00E5FF" stroke-width="1.5"
+                                        opacity="0.9" />
+                                    <path d="M0 60 Q 40 60 67 30 T 134 48 T 200 40" stroke="#00E5FF" stroke-width="1.5"
+                                        opacity="0.55" />
+                                    <path d="M0 50 Q 40 50 67 16 T 134 34 T 200 24" stroke="#00E5FF" stroke-width="1.5"
+                                        opacity="0.3" />
+                                </svg>
+                            </div>
+                            <div class="flex gap-3 text-[9px] font-mono text-slate-500">
+                                <span class="flex items-center gap-1"><span
+                                        class="w-2 h-px bg-primary"></span>&minus;20&deg;C</span>
+                                <span class="flex items-center gap-1"><span
+                                        class="w-2 h-px bg-primary/60"></span>25&deg;C</span>
+                                <span class="flex items-center gap-1"><span
+                                        class="w-2 h-px bg-primary/30"></span>40&deg;C</span>
+                            </div>
+                        </div>
+                        <div class="flex flex-col gap-4">
+                            <div class="flex items-center gap-3">
+                                <div
+                                    class="size-10 rounded-xl bg-primary/10 flex items-center justify-center border border-primary/20 shrink-0">
+                                    <span class="material-symbols-outlined text-primary">layers</span>
+                                </div>
+                                <h3 class="text-2xl font-bold text-white">Parallel</h3>
+                            </div>
+                            <p class="text-slate-400 leading-relaxed"><span class="text-white font-semibold">Overlay
+                                    &amp; auto-align.</span> Put the same signal from many files on one axis — different
+                                temperatures, vehicles, or idle points — then pick a sync signal and MDX time-aligns every
+                                run automatically. The comparison a bench oscilloscope simply can't do.</p>
+                            <span
+                                class="text-xs font-mono text-primary/80 bg-primary/5 border border-primary/15 rounded-full px-3 py-1 w-fit">A/B/N
+                                comparison · sync-signal auto-align</span>
+                        </div>
+                    </div>
+                </div>
+            </section>
             <!-- DiagAI Section -->
             <section class="py-32 bg-white/5 border-y border-white/5 relative overflow-hidden">
                 <div class="max-w-7xl mx-auto px-6 grid lg:grid-cols-2 gap-16 items-center">
@@ -569,12 +711,99 @@
                     </div>
                 </div>
             </section>
+            <!-- MCP / AI Agent Integration -->
+            <section id="mcp" class="py-32 bg-white/5 border-y border-white/5 relative overflow-hidden scroll-mt-16">
+                <div
+                    class="absolute -top-20 right-0 w-[500px] h-[500px] bg-primary/5 blur-[150px] pointer-events-none">
+                </div>
+                <div class="max-w-7xl mx-auto px-6 grid lg:grid-cols-2 gap-16 items-center relative z-10">
+                    <div class="flex flex-col gap-6">
+                        <div
+                            class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-primary/10 border border-primary/20 text-primary text-xs font-bold uppercase tracking-widest w-fit">
+                            <span class="material-symbols-outlined text-sm">hub</span>
+                            Model Context Protocol
+                        </div>
+                        <h2 class="text-4xl font-black text-white leading-tight">Drive MDX from <span
+                                class="text-transparent bg-clip-text bg-gradient-to-r from-primary to-cyan-400">Claude
+                                Code, Codex or Gemini</span></h2>
+                        <p class="text-slate-400 leading-relaxed">MDX ships a built-in MCP server, so your AI coding agent
+                            can operate the lab directly. Connect once to a local endpoint and ask in plain language — the
+                            agent uploads logs, queries thousands of channels, plots signals, and detects events, all
+                            against data that never leaves your machine.</p>
+                        <ul class="space-y-4">
+                            <li class="flex items-start gap-3">
+                                <span class="material-symbols-outlined text-primary mt-0.5">build_circle</span>
+                                <span class="text-slate-300"><span class="font-bold text-white">12 native tools</span>
+                                    — health checks, log management, signal stats, plotting, event &amp; similar-event
+                                    detection, and legacy config import.</span>
+                            </li>
+                            <li class="flex items-start gap-3">
+                                <span class="material-symbols-outlined text-primary mt-0.5">cable</span>
+                                <span class="text-slate-300"><span class="font-bold text-white">One-line
+                                        connection</span> — point any MCP client at the local SSE endpoint. No API keys,
+                                    no cloud round-trip.</span>
+                            </li>
+                            <li class="flex items-start gap-3">
+                                <span class="material-symbols-outlined text-primary mt-0.5">diversity_2</span>
+                                <span class="text-slate-300"><span class="font-bold text-white">Works with your
+                                        agent</span> — Claude Desktop, Claude Code, VS Code, Codex, and Gemini all speak
+                                    the same protocol.</span>
+                            </li>
+                            <li class="flex items-start gap-3">
+                                <span class="material-symbols-outlined text-primary mt-0.5">lock</span>
+                                <span class="text-slate-300"><span class="font-bold text-white">Offline &amp;
+                                        private</span> — the server wraps your local analysis backend; measurement data
+                                    stays on-prem.</span>
+                            </li>
+                        </ul>
+                    </div>
+                    <div class="glass-card rounded-2xl overflow-hidden flex flex-col">
+                        <div class="flex items-center gap-2 px-4 py-3 border-b border-white/5 bg-background-dark/40">
+                            <div class="size-2.5 rounded-full bg-red-500/50"></div>
+                            <div class="size-2.5 rounded-full bg-yellow-500/50"></div>
+                            <div class="size-2.5 rounded-full bg-green-500/50"></div>
+                            <span class="ml-2 text-[11px] font-mono text-slate-500">claude_desktop_config.json</span>
+                        </div>
+                        <pre class="px-5 py-4 text-[12px] leading-relaxed font-mono text-slate-300 overflow-x-auto"><span class="text-slate-600">// connect any MCP client — one block</span>
+{
+  <span class="text-primary">"mcpServers"</span>: {
+    <span class="text-primary">"mdx"</span>: { <span class="text-primary">"url"</span>: <span class="text-cyan-300">"http://localhost:8000/sse"</span> }
+  }
+}
+<span class="text-slate-600">// VS Code / Codex: { "servers": { "mdx":</span>
+<span class="text-slate-600">//   { "type": "sse", "url": ".../sse" } } }</span></pre>
+                        <div class="border-t border-white/5 bg-background-dark/40 p-5 flex flex-col gap-3">
+                            <div class="flex justify-end">
+                                <div
+                                    class="bg-primary/15 border border-primary/20 rounded-2xl rounded-tr-sm px-4 py-2 text-sm text-white max-w-[85%]">
+                                    Plot vehicle speed and find hard-braking events in log 3</div>
+                            </div>
+                            <div class="flex justify-start">
+                                <div
+                                    class="bg-white/5 border border-white/10 rounded-2xl rounded-tl-sm px-4 py-3 text-sm text-slate-300 max-w-[90%] space-y-2">
+                                    <p class="flex items-center gap-1.5 text-[11px] text-primary font-mono"><span
+                                            class="material-symbols-outlined text-sm">bolt</span>mdx · plot_signals,
+                                        find_events</p>
+                                    <p>Plotted <span class="text-primary font-mono">Veh_v</span> over 1,204 s. Found
+                                        <span class="text-primary font-mono">7</span> hard-braking events (decel &gt; 4
+                                        m/s²) — largest at <span class="text-primary font-mono">t=512 s</span>. Chart +
+                                        event table attached.</p>
+                                    <div
+                                        class="h-14 rounded-lg bg-gradient-to-t from-primary/30 to-transparent border border-primary/10">
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
             <!-- Comparison Table -->
             <section class="py-32 bg-primary/5">
                 <div class="max-w-5xl mx-auto px-6">
                     <div class="text-center mb-16">
                         <h2 class="text-4xl font-black text-white mb-4">MDX vs Legacy Desktop Tools</h2>
-                        <p class="text-slate-400">The familiar workflow of ETAS MDA, optimized for modern computing.</p>
+                        <p class="text-slate-400">The familiar workflow of a legacy desktop analyzer — plus the
+                            comparison, mapping, and AI control a bench oscilloscope can't touch.</p>
                     </div>
                     <div class="overflow-x-auto">
                         <table class="w-full text-left border-collapse glass-card rounded-2xl overflow-hidden">
@@ -616,6 +845,36 @@
                                     <td class="px-8 py-5 border-l border-white/5">Manual analysis only</td>
                                     <td class="px-8 py-5 border-l border-white/5 bg-primary/5">Built-in DiagAI assistant,
                                         private-deployable</td>
+                                </tr>
+                                <tr class="border-t border-white/5">
+                                    <td class="px-8 py-5 font-medium text-white">Multi-file Comparison</td>
+                                    <td class="px-8 py-5 border-l border-white/5">Manual overlay, no alignment</td>
+                                    <td class="px-8 py-5 border-l border-white/5 bg-primary/5">Serial concat + parallel
+                                        overlay with sync-signal auto-align</td>
+                                </tr>
+                                <tr class="border-t border-white/5">
+                                    <td class="px-8 py-5 font-medium text-white">Calculated Signals</td>
+                                    <td class="px-8 py-5 border-l border-white/5">Basic formula editor</td>
+                                    <td class="px-8 py-5 border-l border-white/5 bg-primary/5">Server-side engine —
+                                        accumulators, windowed stats, filters, latches</td>
+                                </tr>
+                                <tr class="border-t border-white/5">
+                                    <td class="px-8 py-5 font-medium text-white">GPS &amp; Location</td>
+                                    <td class="px-8 py-5 border-l border-white/5">Not built-in</td>
+                                    <td class="px-8 py-5 border-l border-white/5 bg-primary/5">Offline route mapping on the
+                                        timeline</td>
+                                </tr>
+                                <tr class="border-t border-white/5">
+                                    <td class="px-8 py-5 font-medium text-white">AI-Agent Control</td>
+                                    <td class="px-8 py-5 border-l border-white/5">None</td>
+                                    <td class="px-8 py-5 border-l border-white/5 bg-primary/5">MCP — drive from Claude
+                                        Code, Codex, Gemini</td>
+                                </tr>
+                                <tr class="border-t border-white/5">
+                                    <td class="px-8 py-5 font-medium text-white">Config Compatibility</td>
+                                    <td class="px-8 py-5 border-l border-white/5">Native configs only</td>
+                                    <td class="px-8 py-5 border-l border-white/5 bg-primary/5">Imports your existing
+                                        .xdx/.xdt configs</td>
                                 </tr>
                             </tbody>
                         </table>
@@ -682,15 +941,15 @@
                     </p>
                 <div class="flex gap-4">
                     <a class="w-10 h-10 rounded-lg bg-white/5 flex items-center justify-center text-slate-400 hover:text-primary hover:bg-white/10 transition-all"
-                        href="https://www.linkedin.com/company/vehicle-lab" target="_blank" rel="noopener noreferrer" aria-label="Vehicle Lab on LinkedIn">
+                        href="https://linkedin.com/company/vehiclelab" target="_blank" rel="noopener noreferrer" aria-label="Vehicle Lab on LinkedIn">
                         <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 24 24"><path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433a2.062 2.062 0 01-2.063-2.065 2.064 2.064 0 112.063 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"/></svg>
                     </a>
                     <a class="w-10 h-10 rounded-lg bg-white/5 flex items-center justify-center text-slate-400 hover:text-primary hover:bg-white/10 transition-all"
-                        href="https://github.com/vehicle-lab" target="_blank" rel="noopener noreferrer" aria-label="Vehicle Lab on GitHub">
+                        href="https://github.com/vehiclelab" target="_blank" rel="noopener noreferrer" aria-label="Vehicle Lab on GitHub">
                         <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 24 24"><path d="M12 0C5.374 0 0 5.373 0 12c0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23A11.509 11.509 0 0112 5.803c1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576C20.566 21.797 24 17.3 24 12c0-6.627-5.373-12-12-12z"/></svg>
                     </a>
                     <a class="w-10 h-10 rounded-lg bg-white/5 flex items-center justify-center text-slate-400 hover:text-primary hover:bg-white/10 transition-all"
-                        href="https://www.producthunt.com/@vehicle_lab" target="_blank" rel="noopener noreferrer" aria-label="Vehicle Lab on Product Hunt">
+                        href="https://producthunt.com/products/vehicle-lab" target="_blank" rel="noopener noreferrer" aria-label="Vehicle Lab on Product Hunt">
                         <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 24 24"><path d="M13.604 8.4h-3.405V12h3.405a1.8 1.8 0 100-3.6zM12 0C5.372 0 0 5.372 0 12s5.372 12 12 12 12-5.372 12-12S18.628 0 12 0zm1.604 14.4h-3.405V18H7.801V6h5.804a4.2 4.2 0 010 8.4z"/></svg>
                     </a>
                     <a class="w-10 h-10 rounded-lg bg-white/5 flex items-center justify-center text-slate-400 hover:text-primary hover:bg-white/10 transition-all"
@@ -705,6 +964,7 @@
                     <li><a class="hover:text-primary" href="/diagai">DiagAI</a></li>
                     <li><a class="hover:text-primary" href="/cie_pro">CIE Pro</a></li>
                     <li><a class="hover:text-primary" href="/helix">HELIX Suite</a></li>
+                    <li><a class="hover:text-primary" href="/hexx">Hexx</a></li>
                     <li><a class="hover:text-primary" href="/mdx">MDX</a></li>
                     <li><a class="hover:text-primary" href="/xhandbook">XHandbook</a></li>
                 </ul>
@@ -716,9 +976,9 @@
                         <li><a class="hover:text-primary" href="/about">About Us</a></li>
                         <li><a class="hover:text-primary" href="/solutions">Solutions</a></li>
                         <li><a class="hover:text-primary" href="/case_studies">Case Studies</a></li>
-                        <li><a class="hover:text-primary" href="https://linkedin.com/company/vehiclelab" target="_blank">LinkedIn</a></li>
-                        <li><a class="hover:text-primary" href="https://github.com/vehiclelab" target="_blank">GitHub</a></li>
-                        <li><a class="hover:text-primary" href="https://producthunt.com/products/vehicle-lab" target="_blank">Product Hunt</a></li>
+                        <li><a class="hover:text-primary" href="https://linkedin.com/company/vehiclelab" target="_blank" rel="noopener noreferrer">LinkedIn</a></li>
+                        <li><a class="hover:text-primary" href="https://github.com/vehiclelab" target="_blank" rel="noopener noreferrer">GitHub</a></li>
+                        <li><a class="hover:text-primary" href="https://producthunt.com/products/vehicle-lab" target="_blank" rel="noopener noreferrer">Product Hunt</a></li>
                     </ul>
                 </div>
             </div>
@@ -744,6 +1004,7 @@
         </div>
     </footer>
     </div>
+    <script src="/assets/cursor.js" defer></script>
 </body>
 
 </html>

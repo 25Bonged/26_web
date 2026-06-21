@@ -183,6 +183,7 @@
         .nav-mobile-menu .nav-mobile-sub a { font-size: 1rem; }
         @media (min-width: 768px) { .nav-mobile-menu { display: none !important; } }
     </style>
+    <link rel="stylesheet" href="/assets/cursor.css" />
 </head>
 
 <body class="antialiased bg-background-dark text-white cyber-grid selection:bg-white/20">
@@ -207,6 +208,8 @@
                         <a class="block px-4 py-2 hover:bg-white/5 hover:text-white transition-colors"
                             href="/helix">HELIX</a>
                         <a class="block px-4 py-2 hover:bg-white/5 hover:text-white transition-colors"
+                            href="/hexx">Hexx</a>
+                        <a class="block px-4 py-2 hover:bg-white/5 hover:text-white transition-colors"
                             href="/mdx">MDX</a>
                         <a class="block px-4 py-2 hover:bg-white/5 hover:text-white transition-colors"
                             href="/xhandbook">XHandbook</a>
@@ -230,6 +233,7 @@
                 <a href="/diagai">DiagAI</a>
                 <a href="/cie_pro">CIE Pro</a>
                 <a href="/helix">HELIX</a>
+                <a href="/hexx">Hexx</a>
                 <a href="/mdx">MDX</a>
                 <a href="/xhandbook">XHandbook</a>
             </div>
@@ -281,37 +285,37 @@
                             <p class="text-slate-400 text-sm mb-4">Submissions are sent to <a href="mailto:business@vehiclelab.in" class="text-blue-400 hover:text-blue-300 font-medium">business@vehiclelab.in</a>. You can also email or call us directly: <a href="tel:+917908054878" class="text-blue-400 hover:text-blue-300 font-medium">+91 7908054878</a>.</p>
                             <form class="space-y-6" name="contact-inquiry" method="POST" data-netlify="true" action="/success">
                                 <input type="hidden" name="form-name" value="contact-inquiry" />
-                                <div class="grid grid-cols-2 gap-4">
+                                <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
                                     <div>
-                                        <label
+                                        <label for="contact-full-name"
                                             class="block text-[10px] font-bold text-slate-500 uppercase tracking-widest mb-2">Full
                                             Name</label>
-                                        <input name="full_name"
+                                        <input id="contact-full-name" name="full_name" required autocomplete="name"
                                             class="w-full bg-[#020617] border border-slate-800 rounded-lg px-4 py-3 text-sm focus:border-blue-500 focus:ring-1 focus:ring-blue-500 outline-none transition-all placeholder-slate-600"
                                             placeholder="Alex Rivera" type="text" />
                                     </div>
                                     <div>
-                                        <label
+                                        <label for="contact-work-email"
                                             class="block text-[10px] font-bold text-slate-500 uppercase tracking-widest mb-2">Work
                                             Email</label>
-                                        <input name="work_email"
+                                        <input id="contact-work-email" name="work_email" required autocomplete="email"
                                             class="w-full bg-[#020617] border border-slate-800 rounded-lg px-4 py-3 text-sm focus:border-blue-500 focus:ring-1 focus:ring-blue-500 outline-none transition-all placeholder-slate-600"
                                             placeholder="a.rivera@oem-auto.com" type="email" />
                                     </div>
                                 </div>
-                                <div class="grid grid-cols-2 gap-4">
+                                <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
                                     <div>
-                                        <label
+                                        <label for="contact-company"
                                             class="block text-[10px] font-bold text-slate-500 uppercase tracking-widest mb-2">Company</label>
-                                        <input name="company"
+                                        <input id="contact-company" name="company" required autocomplete="organization"
                                             class="w-full bg-[#020617] border border-slate-800 rounded-lg px-4 py-3 text-sm focus:border-blue-500 focus:ring-1 focus:ring-blue-500 outline-none transition-all placeholder-slate-600"
                                             placeholder="Enterprise / Tier 1 Name" type="text" />
                                     </div>
                                     <div>
-                                        <label
+                                        <label for="contact-domain"
                                             class="block text-[10px] font-bold text-slate-500 uppercase tracking-widest mb-2">Engineering
                                             Domain</label>
-                                        <select name="engineering_domain"
+                                        <select id="contact-domain" name="engineering_domain" required
                                             class="w-full bg-[#020617] border border-slate-800 rounded-lg px-4 py-3 text-sm focus:border-blue-500 focus:ring-1 focus:ring-blue-500 outline-none transition-all text-slate-400">
                                             <option value="">Select Domain</option>
                                             <option value="Calibration">Calibration</option>
@@ -324,35 +328,44 @@
                                     <label
                                         class="block text-[10px] font-bold text-slate-500 uppercase tracking-widest mb-2">Specific
                                         Application</label>
-                                    <div class="grid grid-cols-3 gap-3">
-                                        <div
-                                            class="border border-blue-500/50 bg-blue-500/10 rounded-lg p-3 cursor-pointer">
-                                            <div class="text-xs font-bold text-blue-400">CIE Pro</div>
-                                            <div class="text-[8px] text-slate-500 uppercase tracking-widest mt-1">
-                                                Calibration
-                                                Intel</div>
-                                        </div>
-                                        <div
-                                            class="border border-slate-800 hover:border-slate-700 bg-[#020617] rounded-lg p-3 cursor-pointer transition-colors">
-                                            <div class="text-xs font-bold text-[#39ff14]">DiagAI</div>
-                                            <div class="text-[8px] text-slate-500 uppercase tracking-widest mt-1">ML
-                                                Diagnostics
-                                            </div>
-                                        </div>
-                                        <div
-                                            class="border border-slate-800 hover:border-slate-700 bg-[#020617] rounded-lg p-3 cursor-pointer transition-colors">
-                                            <div class="text-xs font-bold text-[#bc13fe]">HELIX</div>
-                                            <div class="text-[8px] text-slate-500 uppercase tracking-widest mt-1">
-                                                Workflow OS
-                                            </div>
-                                        </div>
+                                    <div class="grid grid-cols-2 sm:grid-cols-3 gap-3">
+                                        <label class="relative border border-slate-800 has-[:checked]:border-blue-500/70 has-[:checked]:bg-blue-500/10 bg-[#020617] rounded-lg p-3 cursor-pointer transition-colors">
+                                            <input class="sr-only" type="radio" name="application" value="CIE Pro" checked />
+                                            <span class="block text-xs font-bold text-blue-400">CIE Pro</span>
+                                            <span class="block text-[8px] text-slate-500 uppercase tracking-widest mt-1">Calibration intelligence</span>
+                                        </label>
+                                        <label class="relative border border-slate-800 has-[:checked]:border-green-500/70 has-[:checked]:bg-green-500/10 bg-[#020617] rounded-lg p-3 cursor-pointer transition-colors">
+                                            <input class="sr-only" type="radio" name="application" value="DiagAI" />
+                                            <span class="block text-xs font-bold text-[#39ff14]">DiagAI</span>
+                                            <span class="block text-[8px] text-slate-500 uppercase tracking-widest mt-1">AI diagnostics</span>
+                                        </label>
+                                        <label class="relative border border-slate-800 has-[:checked]:border-purple-500/70 has-[:checked]:bg-purple-500/10 bg-[#020617] rounded-lg p-3 cursor-pointer transition-colors">
+                                            <input class="sr-only" type="radio" name="application" value="HELIX" />
+                                            <span class="block text-xs font-bold text-[#bc13fe]">HELIX</span>
+                                            <span class="block text-[8px] text-slate-500 uppercase tracking-widest mt-1">Calibration workflow</span>
+                                        </label>
+                                        <label class="relative border border-slate-800 has-[:checked]:border-cyan-500/70 has-[:checked]:bg-cyan-500/10 bg-[#020617] rounded-lg p-3 cursor-pointer transition-colors">
+                                            <input class="sr-only" type="radio" name="application" value="MDX" />
+                                            <span class="block text-xs font-bold text-cyan-400">MDX</span>
+                                            <span class="block text-[8px] text-slate-500 uppercase tracking-widest mt-1">Measurement data lab</span>
+                                        </label>
+                                        <label class="relative border border-slate-800 has-[:checked]:border-fuchsia-500/70 has-[:checked]:bg-fuchsia-500/10 bg-[#020617] rounded-lg p-3 cursor-pointer transition-colors">
+                                            <input class="sr-only" type="radio" name="application" value="Hexx" />
+                                            <span class="block text-xs font-bold text-fuchsia-400">Hexx</span>
+                                            <span class="block text-[8px] text-slate-500 uppercase tracking-widest mt-1">ECU binary editing</span>
+                                        </label>
+                                        <label class="relative border border-slate-800 has-[:checked]:border-amber-500/70 has-[:checked]:bg-amber-500/10 bg-[#020617] rounded-lg p-3 cursor-pointer transition-colors">
+                                            <input class="sr-only" type="radio" name="application" value="XHandbook" />
+                                            <span class="block text-xs font-bold text-amber-400">XHandbook</span>
+                                            <span class="block text-[8px] text-slate-500 uppercase tracking-widest mt-1">ECU documentation</span>
+                                        </label>
                                     </div>
                                 </div>
                                 <div>
-                                    <label
+                                    <label for="contact-requirements"
                                         class="block text-[10px] font-bold text-slate-500 uppercase tracking-widest mb-2">Technical
                                         Requirements</label>
-                                    <textarea name="technical_requirements"
+                                    <textarea id="contact-requirements" name="technical_requirements" required
                                         class="w-full bg-[#020617] border border-slate-800 rounded-lg px-4 py-3 text-sm focus:border-blue-500 focus:ring-1 focus:ring-blue-500 outline-none transition-all placeholder-slate-600 resize-none"
                                         placeholder="Briefly describe your integration requirements..."
                                         rows="4"></textarea>
@@ -595,6 +608,7 @@
         });
     </script>
     <script>setTimeout(function(){if(typeof AOS==="undefined"){document.querySelectorAll("[data-aos]").forEach(function(e){e.style.opacity=1;e.style.transform="none";});}},1200);</script>
+    <script src="/assets/cursor.js" defer></script>
 </body>
 
 <!-- Site Updated: 2026-03-15 -->

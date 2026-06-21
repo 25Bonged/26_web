@@ -9,6 +9,7 @@ Vehicle Lab builds a suite of desktop tools for automotive engineers working wit
 - [DiagAI](https://vehiclelab.in/diagai): AI-assisted vehicle diagnostics assistant for interpreting fault codes and sensor data.
 - [CIE Pro](https://vehiclelab.in/cie_pro): ECU calibration and instrumentation environment for tuning and validation work.
 - [HELIX](https://vehiclelab.in/helix): ECU calibration data management for A2L/base dataset upload, DCM/CDFX/PACO patch governance, validation, release control, and final ECU file generation.
+- [Hexx](https://vehiclelab.in/hexx): A2L-aware hex and binary editor for ECU calibration — opens Intel HEX, Motorola S-record and raw BIN images, decodes them into named calibration maps, edits in engineering units, and recomputes checksums on write.
 - [MDX](https://vehiclelab.in/mdx): Professional MDF4/MF4 data analysis lab for inspecting and processing measurement files.
 - [XHandbook](https://vehiclelab.in/xhandbook): ECU documentation explorer for navigating and searching ECU reference handbooks.
 
