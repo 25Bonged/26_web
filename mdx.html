@@ -16,8 +16,8 @@
     <meta name="twitter:image" content="https://vehiclelab.in/pics/og-image.png" />
     <meta name="twitter:title" content="MDX — Agent-Native Vehicle Measurement Lab (MCP)" />
     <meta name="twitter:description" content="Operate MDF4/vehicle data from Claude Code, Codex or Gemini over MCP — load logs, plot signals, find events by chat. Plus a full oscilloscope-grade lab. Offline-first." />
-    <title>MDX — Agent-Native MDF4 Measurement Lab (MCP for Claude Code, Codex, Gemini) | Vehicle Lab</title>
-    <meta name="description" content="MDX is an agent-native MDF4/vehicle data lab with a built-in MCP server — operate it from Claude Code, Codex or Gemini, or use it as a full oscilloscope-grade workbench. Offline-first, zero data egress.">
+    <title>MDX — Agent-Native MDF4 Measurement Lab (MCP) | Vehicle Lab</title>
+    <meta name="description" content="Agent-native MDF4 / vehicle-data lab with a built-in MCP server: drive it from Claude Code, Codex or Gemini, or use it as an oscilloscope-grade workbench.">
     <link rel="canonical" href="https://vehiclelab.in/mdx" />
     <!-- Structured Data: SoftwareApplication -->
     <script type="application/ld+json">
@@ -928,7 +928,37 @@
                     </div>
                 </div>
             </section>
-        </main>
+                <section class="py-24 bg-[#050508] border-t border-white/5" id="faq">
+            <div class="max-w-4xl mx-auto px-6">
+                <div class="text-center mb-14">
+                    <h2 class="text-primary font-bold tracking-widest uppercase text-sm mb-4">FAQ</h2>
+                    <h3 class="text-3xl md:text-4xl font-bold text-white">Frequently asked questions</h3>
+                </div>
+                <div class="space-y-4">
+                    <details class="glass-card rounded-xl p-6 group" open>
+                        <summary class="flex justify-between items-center cursor-pointer font-bold text-white list-none">Can MDX be operated by an AI agent or LLM like Claude Code, Codex or Gemini?<span class="material-symbols-outlined text-primary group-open:rotate-180 transition-transform">expand_more</span></summary>
+                        <p class="text-slate-400 text-sm mt-4 leading-relaxed">Yes. MDX ships a built-in MCP (Model Context Protocol) server exposing 12 tools — health checks, log management, signal statistics, plotting, event and similar-event detection, and legacy config import. Any MCP client (Claude Code, Claude Desktop, Codex, VS Code, Gemini) connects to the local SSE endpoint with a single config block, then loads logs, queries channels, plots signals and finds events from a chat prompt. No API keys and no cloud round-trip; measurement data stays on the local machine.</p>
+                    </details>
+                    <details class="glass-card rounded-xl p-6 group">
+                        <summary class="flex justify-between items-center cursor-pointer font-bold text-white list-none">What measurement file formats does MDX support?<span class="material-symbols-outlined text-primary group-open:rotate-180 transition-transform">expand_more</span></summary>
+                        <p class="text-slate-400 text-sm mt-4 leading-relaxed">MDX natively supports ASAM MDF v3 and v4 (.mdf, .mf4), CSV, and Excel. MDF files are read via memory-mapped I/O so multi-gigabyte files open without loading the full dataset into memory. Signal extraction and indexing happen automatically on import.</p>
+                    </details>
+                    <details class="glass-card rounded-xl p-6 group">
+                        <summary class="flex justify-between items-center cursor-pointer font-bold text-white list-none">Can MDX work fully offline without an internet connection?<span class="material-symbols-outlined text-primary group-open:rotate-180 transition-transform">expand_more</span></summary>
+                        <p class="text-slate-400 text-sm mt-4 leading-relaxed">Yes. MDX is offline-first. The desktop application (packaged via Tauri) bundles its own backend and ships with offline map tiles for GPS route visualization. No data leaves the local machine unless you explicitly configure an external AI endpoint.</p>
+                    </details>
+                    <details class="glass-card rounded-xl p-6 group">
+                        <summary class="flex justify-between items-center cursor-pointer font-bold text-white list-none">Does MDX provide an API for automation and batch processing?<span class="material-symbols-outlined text-primary group-open:rotate-180 transition-transform">expand_more</span></summary>
+                        <p class="text-slate-400 text-sm mt-4 leading-relaxed">Yes. MDX exposes a documented REST API (running locally at 127.0.0.1:5001) and ships a Python SDK (mdx_client) for scripting signal queries, batch analysis jobs, anomaly detection, and map tile operations. The SDK mirrors the REST API one-to-one.</p>
+                    </details>
+                    <details class="glass-card rounded-xl p-6 group">
+                        <summary class="flex justify-between items-center cursor-pointer font-bold text-white list-none">What analytics does MDX provide beyond basic signal viewing?<span class="material-symbols-outlined text-primary group-open:rotate-180 transition-transform">expand_more</span></summary>
+                        <p class="text-slate-400 text-sm mt-4 leading-relaxed">MDX includes engine misfire detection, gear-hunting analysis, fuel and BSFC calculations, WLTP cycle analysis, and empirical calibration map generation using Kriging, RBF, and spline interpolation. Maps render as interactive 2D heatmaps or 3D surfaces. LTTB downsampling keeps rendering fast even for high-frequency signals.</p>
+                    </details>
+                </div>
+            </div>
+        </section>
+    </main>
         <footer class="bg-background-dark border-t border-white/5 py-16 px-6">
             <div class="max-w-7xl mx-auto grid grid-cols-2 md:grid-cols-4 lg:grid-cols-5 gap-12">
                 <div class="col-span-2">

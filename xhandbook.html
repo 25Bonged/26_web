@@ -682,7 +682,33 @@
                     </div>
                 </div>
             </section>
-        </main>
+                <section class="py-24 bg-[#050508] border-t border-white/5" id="faq">
+            <div class="max-w-4xl mx-auto px-6">
+                <div class="text-center mb-14">
+                    <h2 class="text-primary font-bold tracking-widest uppercase text-sm mb-4">FAQ</h2>
+                    <h3 class="text-3xl md:text-4xl font-bold text-white">Frequently asked questions</h3>
+                </div>
+                <div class="space-y-4">
+                    <details class="glass-card rounded-xl p-6 group" open>
+                        <summary class="flex justify-between items-center cursor-pointer font-bold text-white list-none">Is XHandbook Navigator a replacement for ETAS EHANDBOOK-NAVIGATOR?<span class="material-symbols-outlined text-primary group-open:rotate-180 transition-transform">expand_more</span></summary>
+                        <p class="text-slate-400 text-sm mt-4 leading-relaxed">XHandbook Navigator reads the same EHANDBOOK container formats (.ehb, .ehbcrypt, .ehbp) and provides equivalent Document Explorer, Model Explorer, global search, and label popup capabilities. The key differences are that XHandbook runs entirely local-first with no license server required, and adds deep A2L integration — resolving documentation labels directly to ECU calibration objects (address, record layout, conversion method, units, live HEX) — which is not available in ETAS EHANDBOOK-NAVIGATOR.</p>
+                    </details>
+                    <details class="glass-card rounded-xl p-6 group">
+                        <summary class="flex justify-between items-center cursor-pointer font-bold text-white list-none">What EHANDBOOK container formats does XHandbook support?<span class="material-symbols-outlined text-primary group-open:rotate-180 transition-transform">expand_more</span></summary>
+                        <p class="text-slate-400 text-sm mt-4 leading-relaxed">XHandbook Navigator supports .ehb (standard containers), .ehbcrypt (encrypted containers), and .ehbp (partial containers). These are ZIP-based archives containing DITA documentation, KAOM function models, a metadata.db SQLite database, and a Lucene search index. XHandbook has been validated against real Bosch and ETAS golden containers including HVR100 and FlexECU demo sets.</p>
+                    </details>
+                    <details class="glass-card rounded-xl p-6 group">
+                        <summary class="flex justify-between items-center cursor-pointer font-bold text-white list-none">Does XHandbook Navigator require a license server?<span class="material-symbols-outlined text-primary group-open:rotate-180 transition-transform">expand_more</span></summary>
+                        <p class="text-slate-400 text-sm mt-4 leading-relaxed">No. XHandbook is fully license-server-free. It runs as a local Tauri desktop application on Windows, macOS, and Linux with no network dependency for core operation. This eliminates the floating license overhead that ETAS EHANDBOOK-NAVIGATOR requires.</p>
+                    </details>
+                    <details class="glass-card rounded-xl p-6 group">
+                        <summary class="flex justify-between items-center cursor-pointer font-bold text-white list-none">What is A2L integration in XHandbook and how does it work?<span class="material-symbols-outlined text-primary group-open:rotate-180 transition-transform">expand_more</span></summary>
+                        <p class="text-slate-400 text-sm mt-4 leading-relaxed">XHandbook's A2L integration resolves any documentation label (CHARACTERISTIC, MEASUREMENT, AXIS_PTS) to its full ECU definition — memory address, record layout, conversion method, units, and live HEX value — directly from within the document or model view. You can also import an A2L file and convert it into a standalone EHANDBOOK container using the bundled build-ehb tool.</p>
+                    </details>
+                </div>
+            </div>
+        </section>
+    </main>
         <footer class="bg-background-dark border-t border-white/5 py-16 px-6">
             <div class="max-w-7xl mx-auto grid grid-cols-2 md:grid-cols-4 lg:grid-cols-5 gap-12">
                 <div class="col-span-2">

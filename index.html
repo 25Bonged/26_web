@@ -27,11 +27,25 @@
     {
       "@context": "https://schema.org",
       "@type": "Organization",
+      "@id": "https://vehiclelab.in/#organization",
       "name": "Vehicle Lab",
+      "alternateName": "VehicleLab",
       "url": "https://vehiclelab.in",
       "logo": "https://vehiclelab.in/pics/logo-light.png",
       "description": "Vehicle Lab is an automotive engineering software company providing AI-powered calibration, diagnostics, and data management tools for OEMs and Tier-1 suppliers.",
       "foundingDate": "2024",
+      "areaServed": "Worldwide",
+      "founder": {
+        "@type": "Person",
+        "@id": "https://vehiclelab.in/about#chayan-das",
+        "name": "Chayan Das",
+        "jobTitle": "Founder & Lead Engineer",
+        "url": "https://vehiclelab.in/about",
+        "sameAs": [
+          "https://www.linkedin.com/in/xp100chayan/",
+          "https://github.com/25Bonged"
+        ]
+      },
       "contactPoint": {
         "@type": "ContactPoint",
         "email": "business@vehiclelab.in",
@@ -1049,6 +1063,36 @@
                     </div>
                     <p class="mt-8 text-white/80 text-sm font-bold font-medium tracking-tight">Direct access to the
                         engineering team — no call-center tier.</p>
+                </div>
+            </div>
+        </section>
+            <section class="py-24 bg-[#050508] border-t border-white/5" id="faq">
+            <div class="max-w-4xl mx-auto px-6">
+                <div class="text-center mb-14">
+                    <h2 class="text-primary font-bold tracking-widest uppercase text-sm mb-4">FAQ</h2>
+                    <h3 class="text-3xl md:text-4xl font-bold text-white">Frequently asked questions</h3>
+                </div>
+                <div class="space-y-4">
+                    <details class="glass-card rounded-xl p-6 group" open>
+                        <summary class="flex justify-between items-center cursor-pointer font-bold text-white list-none">What is Vehicle Lab?<span class="material-symbols-outlined text-primary group-open:rotate-180 transition-transform">expand_more</span></summary>
+                        <p class="text-slate-400 text-sm mt-4 leading-relaxed">Vehicle Lab is an integrated automotive engineering suite providing tools for model-based calibration (CIE Pro), multi-agent diagnostics (DiagAI), enterprise calibration data management (HELIX), professional MDF/MF4 data analysis (MDX), A2L-aware hex and binary editing of ECU images (Hexx), and ECU documentation with deep A2L integration (XHandbook Navigator). Every tool runs local-first / on-premise, built for OEM and Tier-1 powertrain, calibration and diagnostics teams.</p>
+                    </details>
+                    <details class="glass-card rounded-xl p-6 group">
+                        <summary class="flex justify-between items-center cursor-pointer font-bold text-white list-none">How does CIE Pro reduce calibration test time?<span class="material-symbols-outlined text-primary group-open:rotate-180 transition-transform">expand_more</span></summary>
+                        <p class="text-slate-400 text-sm mt-4 leading-relaxed">CIE Pro uses Physics-Informed Neural Networks (PINNs) and Gaussian Process modeling to build accurate surrogate models from limited test data, so teams reach optimal calibrations with fewer physical dyno runs. Its Bayesian Optimization and NSGA-II multi-objective optimizer focus testing where it matters instead of brute-forcing the full design space.</p>
+                    </details>
+                    <details class="glass-card rounded-xl p-6 group">
+                        <summary class="flex justify-between items-center cursor-pointer font-bold text-white list-none">What diagnostic standards does DiagAI support?<span class="material-symbols-outlined text-primary group-open:rotate-180 transition-transform">expand_more</span></summary>
+                        <p class="text-slate-400 text-sm mt-4 leading-relaxed">DiagAI supports ISO 14229 (UDS), OBD-II, J1939, CAN, and LIN protocols. Its multi-agent system (Misfire, DFC, IUPR, Gear, Drivability, Fuel, WLTP and more) provides senior-engineer-level diagnostic insights over your MDF/MF4 measurement data, and runs on-premise for full data privacy.</p>
+                    </details>
+                    <details class="glass-card rounded-xl p-6 group">
+                        <summary class="flex justify-between items-center cursor-pointer font-bold text-white list-none">Is Vehicle Lab compliant with automotive safety standards?<span class="material-symbols-outlined text-primary group-open:rotate-180 transition-transform">expand_more</span></summary>
+                        <p class="text-slate-400 text-sm mt-4 leading-relaxed">Yes. Vehicle Lab is designed with ISO 26262 functional safety, ISO/SAE 21434 cybersecurity, ASIL D readiness, AUTOSAR compatibility, and ASPICE Level 3 process maturity in mind. All tools support ASAM XCP/CCP measurement protocols.</p>
+                    </details>
+                    <details class="glass-card rounded-xl p-6 group">
+                        <summary class="flex justify-between items-center cursor-pointer font-bold text-white list-none">Can Vehicle Lab be deployed on-premise for data privacy?<span class="material-symbols-outlined text-primary group-open:rotate-180 transition-transform">expand_more</span></summary>
+                        <p class="text-slate-400 text-sm mt-4 leading-relaxed">Yes. Vehicle Lab offers flexible deployment options including fully on-premise installations for maximum data sovereignty. DiagAI features a dual AI inference engine with both cloud intelligence and local privacy nodes. MDX operates entirely offline with zero data leaving your machine.</p>
+                    </details>
                 </div>
             </div>
         </section>

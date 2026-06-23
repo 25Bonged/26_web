@@ -747,6 +747,32 @@
             </script>
 
         </section>
+            <section class="py-24 bg-[#050508] border-t border-white/5" id="faq">
+            <div class="max-w-4xl mx-auto px-6">
+                <div class="text-center mb-14">
+                    <h2 class="text-primary font-bold tracking-widest uppercase text-sm mb-4">FAQ</h2>
+                    <h3 class="text-3xl md:text-4xl font-bold text-white">Frequently asked questions</h3>
+                </div>
+                <div class="space-y-4">
+                    <details class="glass-card rounded-xl p-6 group" open>
+                        <summary class="flex justify-between items-center cursor-pointer font-bold text-white list-none">What is model-based calibration and how does CIE Pro implement it?<span class="material-symbols-outlined text-primary group-open:rotate-180 transition-transform">expand_more</span></summary>
+                        <p class="text-slate-400 text-sm mt-4 leading-relaxed">Model-based calibration replaces physical test sweeps with mathematical surrogate models trained on a smaller set of measurements. CIE Pro uses Physics-Informed Neural Networks (PINNs) and Gaussian Process regression to build these models, encoding known engine physics as constraints so the model generalizes accurately even with sparse data.</p>
+                    </details>
+                    <details class="glass-card rounded-xl p-6 group">
+                        <summary class="flex justify-between items-center cursor-pointer font-bold text-white list-none">What optimization methods does CIE Pro support?<span class="material-symbols-outlined text-primary group-open:rotate-180 transition-transform">expand_more</span></summary>
+                        <p class="text-slate-400 text-sm mt-4 leading-relaxed">CIE Pro supports Constrained Bayesian Optimization (CBO), NSGA-II multi-objective Pareto optimization, and AutoML-driven hyperparameter search via Optuna with 5-fold cross-validation. Design of Experiments modes include D-Optimal, Latin Hypercube Sampling, Sobol sequences, and Box-Behnken designs.</p>
+                    </details>
+                    <details class="glass-card rounded-xl p-6 group">
+                        <summary class="flex justify-between items-center cursor-pointer font-bold text-white list-none">What calibration file formats can CIE Pro export?<span class="material-symbols-outlined text-primary group-open:rotate-180 transition-transform">expand_more</span></summary>
+                        <p class="text-slate-400 text-sm mt-4 leading-relaxed">CIE Pro exports calibration maps and data in A2L (ASAP2), CDF (Calibration Data Format), and HEX formats. These are directly compatible with ETAS INCA, AVL CAMEO, and other standard ECU calibration tools used in OEM and Tier-1 workflows.</p>
+                    </details>
+                    <details class="glass-card rounded-xl p-6 group">
+                        <summary class="flex justify-between items-center cursor-pointer font-bold text-white list-none">Does CIE Pro integrate with HELIX for team calibration workflows?<span class="material-symbols-outlined text-primary group-open:rotate-180 transition-transform">expand_more</span></summary>
+                        <p class="text-slate-400 text-sm mt-4 leading-relaxed">Yes. CIE Pro is designed to feed into HELIX, Vehicle Lab's enterprise calibration data management platform. Calibration maps generated in CIE Pro can be ingested into HELIX with full variant tracking, audit trails, and CRDT-based real-time collaboration for distributed engineering teams.</p>
+                    </details>
+                </div>
+            </div>
+        </section>
     </main>
 
     <footer class="bg-background-dark border-t border-white/5 py-16 px-6">
