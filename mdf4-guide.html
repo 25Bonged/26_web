@@ -19,6 +19,17 @@
     <title>What is MDF4? ASAM MDF4 Guide for Automotive Engineers | Vehicle Lab</title>
     <meta name="description" content="ASAM MDF4 explained for automotive engineers. Understand MDF4 file structure, how to analyze MDF files, and the best MDF4 analyzer tools for OEM test teams." />
     <link rel="canonical" href="https://vehiclelab.in/mdf4-guide" />
+    <!-- Structured Data: BreadcrumbList -->
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "BreadcrumbList",
+      "itemListElement": [
+        { "@type": "ListItem", "position": 1, "name": "Vehicle Lab", "item": "https://vehiclelab.in/" },
+        { "@type": "ListItem", "position": 2, "name": "MDF4 Guide", "item": "https://vehiclelab.in/mdf4-guide" }
+      ]
+    }
+    </script>
     <script type="application/ld+json">
     {
       "@context": "https://schema.org",
@@ -36,7 +47,7 @@
         "url": "https://vehiclelab.in"
       },
       "datePublished": "2026-06-13",
-      "dateModified": "2026-06-13",
+      "dateModified": "2026-06-29",
       "mainEntityOfPage": {
         "@type": "WebPage",
         "@id": "https://vehiclelab.in/mdf4-guide"
@@ -96,23 +107,11 @@
       ]
     }
     </script>
-    <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
-    <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:ital,wght@0,400;0,500;0,600;0,700;1,400&amp;display=swap" rel="stylesheet" />
-    <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&display=swap" rel="stylesheet" />
-    <script id="tailwind-config">
-        tailwind.config = {
-            darkMode: "class",
-            theme: {
-                extend: {
-                    colors: {
-                        "primary": "#00E5FF",
-                        "background-dark": "#0B0E14",
-                    },
-                    fontFamily: { "display": ["IBM Plex Sans", "sans-serif"] },
-                },
-            },
-        }
-    </script>
+    <link rel="stylesheet" href="/assets/css/mdf4-guide.css" />
+    <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:ital,wght@0,400;0,500;0,600;0,700;1,400&amp;display=swap" rel="stylesheet" media="print" onload="this.media='all'" />
+    <noscript><link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:ital,wght@0,400;0,500;0,600;0,700;1,400&amp;display=swap" rel="stylesheet" /></noscript>
+    <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&display=swap" rel="stylesheet" media="print" onload="this.media='all'" />
+    <noscript><link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&display=swap" rel="stylesheet" /></noscript>
     <style>
         code { background: rgba(255,255,255,0.07); border: 1px solid rgba(255,255,255,0.1); border-radius: 4px; padding: 1px 6px; font-family: 'JetBrains Mono', monospace; font-size: 0.85em; }
         pre { background: rgba(255,255,255,0.04); border: 1px solid rgba(255,255,255,0.1); border-radius: 10px; padding: 1.25rem 1.5rem; overflow-x: auto; }
@@ -129,7 +128,7 @@
         <nav class="fixed w-full z-50 bg-[#0a0a0a]/80 backdrop-blur-md border-b border-white/5">
             <div class="max-w-7xl mx-auto px-6 h-16 flex items-center justify-between">
                 <a class="flex items-center group" href="/">
-    <img src="pics/logo-dark.png" alt="Vehicle Lab" class="h-12 w-auto transition-opacity group-hover:opacity-75" />
+    <img width="600" height="200" src="pics/logo-dark.png" alt="Vehicle Lab" class="h-12 w-auto transition-opacity group-hover:opacity-75" />
 </a>
                 <div class="hidden md:flex items-center gap-6 text-sm font-medium text-slate-400">
                     <div class="relative group cursor-pointer inline-block py-6">
@@ -156,7 +155,20 @@
         <main class="flex-1 relative z-10 max-w-3xl mx-auto px-6 pt-32 pb-24 w-full">
             <p class="text-primary text-xs font-bold uppercase tracking-widest mb-3">Technical Guide</p>
             <h1 class="text-4xl md:text-5xl font-black text-white tracking-tight mb-4">What is MDF4? A guide to ASAM MDF4 for automotive engineers</h1>
-            <p class="text-slate-400 text-lg leading-relaxed mb-12">Everything you need to know about the ASAM MDF4 measurement data format — file structure, signals, tooling, and how to analyze MDF files in 2026.</p>
+            <p class="text-slate-400 text-lg leading-relaxed mb-6">Everything you need to know about the ASAM MDF4 measurement data format — file structure, signals, tooling, and how to analyze MDF files in 2026.</p>
+
+            <div class="flex flex-wrap items-center gap-x-3 gap-y-1 text-sm text-slate-500 mb-10 border-b border-white/5 pb-6">
+                <span>By the <strong class="text-slate-300 font-semibold">Vehicle Lab engineering team</strong></span>
+                <span aria-hidden="true" class="text-slate-700">·</span>
+                <span>Last updated <time datetime="2026-06-29">June 29, 2026</time></span>
+                <span aria-hidden="true" class="text-slate-700">·</span>
+                <span>8 min read</span>
+            </div>
+
+            <div class="rounded-2xl border border-primary/20 bg-primary/5 p-6 mb-12">
+                <p class="text-xs font-bold uppercase tracking-widest text-primary mb-3">Quick answer</p>
+                <p class="text-slate-200 leading-relaxed">MDF4 (ASAM MDF version 4) is the standard binary file format for storing automotive measurement data — the recordings produced during vehicle tests, dyno runs, and calibration sessions. Defined by <a href="https://www.asam.net/standards/detail/mdf/" class="text-primary hover:underline" target="_blank" rel="noopener">ASAM e.V.</a>, an MF4 file holds time-series signals together with rich metadata: signal names, physical units, conversion rules, channel groups, and embedded attachments such as CAN databases or A2L calibration files. Compared with the older MDF3, MDF4 removes the 4&nbsp;GB size limit, adds nanosecond time resolution, built-in compression, and native bus logging for CAN, CAN&nbsp;FD, LIN, FlexRay, and Ethernet. Because it is an open, vendor-neutral standard, MDF4 is the de facto exchange format between OEMs, Tier-1 suppliers, test-equipment vendors, and calibration toolchains across the industry.</p>
+            </div>
 
             <div class="space-y-12 text-slate-300 leading-relaxed">
 
@@ -341,7 +353,7 @@ print(result["events"])</code></pre>
             <div class="max-w-7xl mx-auto grid grid-cols-2 md:grid-cols-4 lg:grid-cols-5 gap-12">
                 <div class="col-span-2">
                     <a href="/" class="inline-flex items-center mb-8 group">
-                    <img src="pics/logo-dark.png" alt="Vehicle Lab" class="h-14 w-auto transition-opacity group-hover:opacity-75" />
+                    <img width="600" height="200" src="pics/logo-dark.png" alt="Vehicle Lab" class="h-14 w-auto transition-opacity group-hover:opacity-75" />
                 </a>
                     <p class="text-slate-400 max-w-sm mb-8 leading-relaxed font-medium">
                         Advanced automotive software solutions for next-generation vehicle architectures. Engineered for

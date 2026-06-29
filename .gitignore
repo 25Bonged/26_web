@@ -12,3 +12,5 @@ marketing/
 helix-marketing copy/
 resourses/marketing -helix/
 seo-audit-report/
+
+node_modules/

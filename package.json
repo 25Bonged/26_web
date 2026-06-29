@@ -1,0 +1,15 @@
+{
+  "name": "vehiclelab-site",
+  "version": "1.0.0",
+  "private": true,
+  "description": "Vehicle Lab marketing site — static HTML with compiled Tailwind CSS",
+  "scripts": {
+    "build:css": "node build-css.cjs"
+  },
+  "devDependencies": {
+    "@tailwindcss/container-queries": "^0.1.1",
+    "@tailwindcss/forms": "^0.5.7",
+    "postcss": "^8.4.38",
+    "tailwindcss": "^3.4.4"
+  }
+}

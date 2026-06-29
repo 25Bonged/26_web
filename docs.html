@@ -35,40 +35,15 @@
       }
     }
     </script>
-    <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
-    <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:ital,wght@0,400;0,500;0,600;0,700;1,400&amp;display=swap" rel="stylesheet">
-    <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="/assets/css/docs.css" />
+    <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:ital,wght@0,400;0,500;0,600;0,700;1,400&amp;display=swap" rel="stylesheet" media="print" onload="this.media='all'">
+    <noscript><link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:ital,wght@0,400;0,500;0,600;0,700;1,400&amp;display=swap" rel="stylesheet"></noscript>
+    <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;700&display=swap" rel="stylesheet" media="print" onload="this.media='all'">
+    <noscript><link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;700&display=swap" rel="stylesheet"></noscript>
     <link
         href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200"
-        rel="stylesheet">
-    <script id="tailwind-config">
-        tailwind.config = {
-            darkMode: "class",
-            theme: {
-                extend: {
-                    colors: {
-                        "primary": "#135bec",
-                        "background-light": "#f6f6f8",
-                        "background-dark": "#0B0E14",
-                        "cie-blue": "#00d4ff",
-                        "diag-green": "#00ff9d",
-                        "helix-purple": "#bc13fe",
-                    },
-                    fontFamily: {
-                        "display": ["IBM Plex Sans", "sans-serif"],
-                        "sans": ["IBM Plex Sans", "sans-serif"],
-                        "mono": ["JetBrains Mono", "monospace"]
-                    },
-                    borderRadius: {
-                        "DEFAULT": "0.25rem",
-                        "lg": "0.5rem",
-                        "xl": "0.75rem",
-                        "full": "9999px"
-                    },
-                },
-            },
-        }
-    </script>
+        rel="stylesheet" media="print" onload="this.media='all'">
+    <noscript><link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" rel="stylesheet"></noscript>
     <style>
         .grid-overlay {
             background-image: linear-gradient(to right, rgba(255, 255, 255, 0.03) 1px, transparent 1px),
@@ -137,7 +112,7 @@
         <nav class="fixed w-full z-50 bg-[#0a0a0a]/80 backdrop-blur-md border-b border-white/5 transition-all duration-300">
 <div class="max-w-7xl mx-auto px-6 h-16 flex items-center justify-between">
 <a class="flex items-center group" href="/">
-    <img src="pics/logo-dark.png" alt="Vehicle Lab" class="h-12 w-auto transition-opacity group-hover:opacity-75" />
+    <img width="600" height="200" src="pics/logo-dark.png" alt="Vehicle Lab" class="h-12 w-auto transition-opacity group-hover:opacity-75" />
 </a>
 <div class="hidden md:flex items-center gap-6 text-sm font-medium text-slate-400">
 <!-- Solutions Dropdown -->
@@ -180,7 +155,7 @@
                 <div class="glass-card rounded-xl p-6 relative overflow-hidden">
                                 <!-- Blurred Preview Background -->
                                 <div class="absolute inset-0 z-0 opacity-20 group-hover:opacity-30 transition-opacity">
-                                    <img src="/resourses/market/ciepro_1_1.png" class="w-full h-full object-cover filter blur-[6px] scale-110" alt="Preview">
+                                    <img width="1376" height="768" src="/resourses/market/ciepro_1_1.png" class="w-full h-full object-cover filter blur-[6px] scale-110" alt="Preview">
                                     <div class="absolute inset-0 bg-gradient-to-br from-background-dark via-transparent to-background-dark"></div>
                                 </div>
                                 <div class="relative z-10">
@@ -373,7 +348,7 @@
                                 class="glass-card rounded-xl p-6 glow-blue group transition-all hover:-translate-y-1 relative overflow-hidden">
                                 <!-- Blurred Preview Background -->
                                 <div class="absolute inset-0 z-0 opacity-20 group-hover:opacity-30 transition-opacity">
-                                    <img src="/resourses/market/ciepro_1_1.png"
+                                    <img width="1376" height="768" src="/resourses/market/ciepro_1_1.png"
                                         class="w-full h-full object-cover filter blur-[6px] scale-110" alt="Preview">
                                     <div
                                         class="absolute inset-0 bg-gradient-to-br from-background-dark via-transparent to-background-dark">
@@ -618,7 +593,7 @@
             <div class="max-w-7xl mx-auto grid grid-cols-2 md:grid-cols-4 lg:grid-cols-5 gap-12">
                 <div class="col-span-2">
                     <a href="/" class="inline-flex items-center mb-8 group">
-                    <img src="pics/logo-dark.png" alt="Vehicle Lab" class="h-14 w-auto transition-opacity group-hover:opacity-75" />
+                    <img width="600" height="200" src="pics/logo-dark.png" alt="Vehicle Lab" class="h-14 w-auto transition-opacity group-hover:opacity-75" />
                 </a>
                     <p class="text-slate-400 max-w-sm mb-8 leading-relaxed font-medium">
                         Advanced automotive software solutions for next-generation vehicle architectures. Engineered for
