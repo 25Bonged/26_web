@@ -1,5 +1,5 @@
 [build]
-  command = "npm ci && npm run build:css && mkdir -p dist && cp -r assets pics *.html _redirects robots.txt sitemap.xml llms.txt dist/ && (cp -r blog dist/ 2>/dev/null || true) && mkdir -p dist/resourses/market && cp resourses/market/*.pdf dist/resourses/market/ && cp resourses/market/automotive_1_1.png resourses/market/automotive_2_1.png resourses/market/ciepro_1_1.png resourses/market/diagai_1_1.png resourses/market/diagai_2_1.png resourses/market/helix_1_1.png resourses/market/helix_2_1.png resourses/market/helix_3_1.png dist/resourses/market/"
+  command = "npm ci && npm run build:css && mkdir -p dist && cp -r assets pics *.html _redirects robots.txt sitemap.xml llms.txt 772c7b694a814ffc3ac455fa782fc119.txt dist/ && (cp -r blog dist/ 2>/dev/null || true) && mkdir -p dist/resourses/market && cp resourses/market/*.pdf dist/resourses/market/ && cp resourses/market/automotive_1_1.png resourses/market/automotive_2_1.png resourses/market/ciepro_1_1.png resourses/market/diagai_1_1.png resourses/market/diagai_2_1.png resourses/market/helix_1_1.png resourses/market/helix_2_1.png resourses/market/helix_3_1.png dist/resourses/market/"
   publish = "dist"
 
 [[headers]]
